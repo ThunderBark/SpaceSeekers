@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/platform_cornerRound.obj-fa4b225a1772664f173bcde9bd4bfe61.mesh"
+
+[deps]
+
+files=[ "res://.import/platform_cornerRound.obj-fa4b225a1772664f173bcde9bd4bfe61.mesh" ]
+
+source_file="res://assets/models/OBJ format/platform_cornerRound.obj"
+dest_files=[ "res://.import/platform_cornerRound.obj-fa4b225a1772664f173bcde9bd4bfe61.mesh", "res://.import/platform_cornerRound.obj-fa4b225a1772664f173bcde9bd4bfe61.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

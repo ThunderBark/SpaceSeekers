@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/structure_diagonal.obj-deac2d2a645f62de5f275049e79e6aad.mesh"
+
+[deps]
+
+files=[ "res://.import/structure_diagonal.obj-deac2d2a645f62de5f275049e79e6aad.mesh" ]
+
+source_file="res://assets/models/OBJ format/structure_diagonal.obj"
+dest_files=[ "res://.import/structure_diagonal.obj-deac2d2a645f62de5f275049e79e6aad.mesh", "res://.import/structure_diagonal.obj-deac2d2a645f62de5f275049e79e6aad.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true
