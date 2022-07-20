@@ -34,23 +34,25 @@ func _physics_process(delta):
 	var dir: Vector3 = Vector3.ZERO
 	if Input.is_action_pressed("move_left"):
 		dir.x -= 1.0
+		dir.z -= 1.0
 	if Input.is_action_pressed("move_right"):
 		dir.x += 1.0
+		dir.z += 1.0
 	if Input.is_action_pressed("move_up"):
 		dir.z -= 1.0
+		dir.x += 1.0
 	if Input.is_action_pressed("move_down"):
 		dir.z += 1.0
+		dir.x -= 1.0
 	if Input.is_action_pressed("move_ascend"):
 		dir.y -= 1.0
 	if Input.is_action_pressed("move_descend"):
 		dir.y += 1.0
-	dir *= speed
-	velocity = velocity.linear_interpolate(dir, 0.15)
+	velocity = velocity.linear_interpolate(dir.normalized() * speed, 0.15)
 	move_and_slide(velocity, Vector3.UP)
 	
 	# rotate speeder towards mouse position
-	RigidBody
-	var dropPlane  = Plane(Vector3(0, 1, 0), translation.y)
+	var dropPlane = Plane(Vector3(0, 1, 0), translation.y)
 	var mouse_position = get_viewport().get_mouse_position()
 	var pos = dropPlane.intersects_ray(camera.project_ray_origin(mouse_position), camera.project_ray_normal(mouse_position))
 	pos -= translation

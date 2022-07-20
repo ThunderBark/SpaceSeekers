@@ -13,7 +13,7 @@ func _physics_process(delta):
 
 
 func die_deferred():
-	yield(get_tree().create_timer(1), "timeout")
+	yield(get_tree().create_timer(3), "timeout")
 	hide()
 	set_physics_process(false)
 	add_to_group("trash")
@@ -21,6 +21,6 @@ func die_deferred():
 
 func _on_Bullet_body_entered(body):
 	if body != shooter:
-		body.queue_free()
-		hide()
+		$MeshInstance.hide()
 		set_physics_process(false)
+		$Particles.emitting = true

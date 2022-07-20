@@ -1,7 +1,7 @@
 extends Area
 
 
-var speed = 10
+export (float) var speed = 10
 var shooter
 var target
 var target_detected = false
@@ -29,3 +29,9 @@ func _on_DetectionArea_body_entered(body):
 	if body != shooter && !target_detected:
 		target = body
 		target_detected = true
+
+
+func _on_Rocket_body_entered(body):
+	if body != shooter:
+		hide()
+		set_physics_process(false)
