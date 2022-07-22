@@ -1,4 +1,4 @@
-#tool
+tool
 extends Navigation
 
 export (PackedScene) var tile_plane
@@ -17,6 +17,7 @@ export (bool) var has_generate_ramps = false
 
 var tilemap := []
 var noise
+const RAMP_CHANCE = 10.0
 
 func _ready() -> void:
 	generate_terrain()
@@ -89,24 +90,39 @@ func change_tile(x, y, neighbors) -> void:
 		elif neighbors & (1 << 6):
 			tile = tile_sideCornerInner.instance()
 		else:
-			tile = tile_sideCliff.instance()
-			tile.rotation_degrees = Vector3(0, -90, 0)
+			if (randi() % 100 + 1) > RAMP_CHANCE:
+				tile = tile_sideCliff.instance()
+				tile.rotation_degrees = Vector3(0, -90, 0)
+			else:
+				tile = tile_ramp.instance()
+				tile.rotation_degrees = Vector3(0, -90, 0)
 	elif neighbors & (1 << 2):
 		if neighbors & (1 << 4):
 			tile = tile_sideCornerInner.instance()
 			tile.rotation_degrees = Vector3(0, 180, 0)
 		else:
-			tile = tile_sideCliff.instance()
-			tile.rotation_degrees = Vector3(0, 180, 0)
+			if (randi() % 100 + 1) > RAMP_CHANCE:
+				tile = tile_sideCliff.instance()
+				tile.rotation_degrees = Vector3(0, 180, 0)
+			else:
+				tile = tile_ramp.instance()
+				tile.rotation_degrees = Vector3(0, 180, 0)
 	elif neighbors & (1 << 4):
 		if neighbors & (1 << 6):
 			tile = tile_sideCornerInner.instance()
 			tile.rotation_degrees = Vector3(0, 90, 0)
 		else:
-			tile = tile_sideCliff.instance()
-			tile.rotation_degrees = Vector3(0, 90, 0)
+			if (randi() % 100 + 1) > RAMP_CHANCE:
+				tile = tile_sideCliff.instance()
+				tile.rotation_degrees = Vector3(0, 90, 0)
+			else:
+				tile = tile_ramp.instance()
+				tile.rotation_degrees = Vector3(0, 90, 0)
 	elif neighbors & (1 << 6):
-		tile = tile_sideCliff.instance()
+		if (randi() % 100 + 1) > RAMP_CHANCE:
+			tile = tile_sideCliff.instance()
+		else:
+			tile = tile_ramp.instance()
 	elif neighbors & (1 << 1):
 		tile = tile_sideCorner.instance()
 		tile.rotation_degrees = Vector3(0, -90, 0)
