@@ -26,6 +26,7 @@ tile_ramp = ExtResource( 4 )
 tile_sideCliff = ExtResource( 6 )
 tile_sideCorner = ExtResource( 5 )
 tile_sideCornerInner = ExtResource( 8 )
+terrain_size = Vector2( 128, 128 )
 noise_octaves = 1.0
 
 [node name="Pathfinding controller" type="KinematicBody" parent="."]

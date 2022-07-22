@@ -26,21 +26,45 @@ export (float) var noise_lacunarity = 2.0
 
 export (bool) var refresh = false
 export (bool) var next_sector = false
+export (bool) var clean_scene = false
 
 var tilemap := []
 var noise_generator
+var cur_sector = 0
 
 func _ready() -> void:
 	generate_terrain()
 
 
 func _process(_delta):
-	if refresh:
-		generate_terrain()
-		refresh = false
-	
-	if next_sector:
-		next_sector = false
+	if Engine.editor_hint:
+		if refresh:
+			generate_terrain()
+			cur_sector = 0
+			refresh = false
+		
+		if next_sector:
+			var sector_cnt = int((terrain_size.x * terrain_size.y)/(sector_size.x * sector_size.y))
+			if (cur_sector < sector_cnt) and cur_sector >= 0:
+				cur_sector += 1
+				generate_sector(
+					int(cur_sector / int(terrain_size.x / sector_size.x)), 
+					int(cur_sector % int(terrain_size.y / sector_size.y))
+				)
+			else:
+				print("All sectors generated!")
+			next_sector = false
+		
+		if clean_scene:
+			## Clear map
+			tilemap.clear()
+			if get_child_count() > 0:
+				for child in get_children():
+					remove_child(child)
+			cur_sector = -1
+			clean_scene = false
+	else:
+		pass
 
 
 func generate_terrain():
@@ -70,28 +94,33 @@ func generate_terrain():
 			var tile_info = define_tile(x, y)
 			tilemap[x][y].type = tile_info.type
 			tilemap[x][y].rotation = tile_info.rotation
-			print("x: " + String(x) + ", y: " + String(y) + ", " + String(tilemap[x][y]))
+#			print("x: " + String(x) + ", y: " + String(y) + ", " + String(tilemap[x][y]))
 	
 	## Fixing tilemap info
 	# Nothing yet
 	
 	## Placing tiles one sector at a time
-	var sector_cnt = int((terrain_size.x * terrain_size.y)/(sector_size.x * sector_size.y))
-	for i in int(terrain_size.x / sector_size.x):
-		for j in int(terrain_size.y / sector_size.y):
-			var sector_origin = Vector2(
-				sector_size.x * i - terrain_size.x / 2,
-				sector_size.y * j - terrain_size.y / 2
-			)
-			generate_sector(i, j)
+	generate_sector(0, 0)
+#	var sector_cnt = int((terrain_size.x * terrain_size.y)/(sector_size.x * sector_size.y))
+#	for i in int(terrain_size.x / sector_size.x):
+#		for j in int(terrain_size.y / sector_size.y):
+#			var sector_origin = Vector2(
+#				sector_size.x * i - terrain_size.x / 2,
+#				sector_size.y * j - terrain_size.y / 2
+#			)
+#			generate_sector(i, j)
 
 
 func generate_sector(i, j):
 	print("Generation sector: " + String(i) + ", " + String(j))
 	var tile : Spatial
+	var local_x := 0.0
+	var local_y := 0.0
 	for x in sector_size.x:
 		for y in sector_size.y:
-			match tilemap[sector_size.x * i + x][sector_size.y * j + y].type:
+			local_x = sector_size.x * i + x
+			local_y = sector_size.y * j + y
+			match tilemap[local_x][local_y].type:
 				TILE_PLANE:
 					tile = tile_plane.instance()
 				TILE_RAMP:
@@ -105,74 +134,11 @@ func generate_sector(i, j):
 			add_child(tile)
 			#tile.set_owner(get_tree().edited_scene_root)
 			tile.translation = Vector3(
-				sector_size.x * i + x - terrain_size.x / 2, 
-				tilemap[sector_size.x * i + x][sector_size.y * j + y].height, 
-				sector_size.y * j + y - terrain_size.y / 2
+				local_x - terrain_size.x / 2, 
+				tilemap[local_x][local_y].height, 
+				local_y - terrain_size.y / 2
 			)
-			tile.rotation_degrees = tilemap[sector_size.x * i + x][sector_size.y * j + y].rotation
-
-
-func change_tile(x, y, neighbors) -> void:
-	var tile: Spatial
-	if neighbors & (1 << 0):
-		if neighbors & (1 << 2):
-			tile = tile_sideCornerInner.instance()
-			tile.rotation_degrees = Vector3(0, -90, 0)
-		elif neighbors & (1 << 6):
-			tile = tile_sideCornerInner.instance()
-		else:
-			if randf() > RAMP_CHANCE:
-				tile = tile_sideCliff.instance()
-				tile.rotation_degrees = Vector3(0, -90, 0)
-			else:
-				tile = tile_ramp.instance()
-				tile.rotation_degrees = Vector3(0, -90, 0)
-	elif neighbors & (1 << 2):
-		if neighbors & (1 << 4):
-			tile = tile_sideCornerInner.instance()
-			tile.rotation_degrees = Vector3(0, 180, 0)
-		else:
-			if randf() > RAMP_CHANCE:
-				tile = tile_sideCliff.instance()
-				tile.rotation_degrees = Vector3(0, 180, 0)
-			else:
-				tile = tile_ramp.instance()
-				tile.rotation_degrees = Vector3(0, 180, 0)
-	elif neighbors & (1 << 4):
-		if neighbors & (1 << 6):
-			tile = tile_sideCornerInner.instance()
-			tile.rotation_degrees = Vector3(0, 90, 0)
-		else:
-			if randf() > RAMP_CHANCE:
-				tile = tile_sideCliff.instance()
-				tile.rotation_degrees = Vector3(0, 90, 0)
-			else:
-				tile = tile_ramp.instance()
-				tile.rotation_degrees = Vector3(0, 90, 0)
-	elif neighbors & (1 << 6):
-		if randf() > RAMP_CHANCE:
-			tile = tile_sideCliff.instance()
-		else:
-			tile = tile_ramp.instance()
-	elif neighbors & (1 << 1):
-		tile = tile_sideCorner.instance()
-		tile.rotation_degrees = Vector3(0, -90, 0)
-	elif neighbors & (1 << 3):
-		tile = tile_sideCorner.instance()
-		tile.rotation_degrees = Vector3(0, 180, 0)
-	elif neighbors & (1 << 5):
-		tile = tile_sideCorner.instance()
-		tile.rotation_degrees = Vector3(0, 90, 0)
-	elif neighbors & (1 << 7):
-		tile = tile_sideCorner.instance()
-	else:
-		return
-	
-	add_child(tile)
-	#tile.set_owner(get_tree().edited_scene_root)
-	tile.translation = get_node(tilemap[x][y]).translation
-	get_node(tilemap[x][y]).queue_free()
-	tilemap[x][y] = tile.get_path()
+			tile.rotation_degrees = tilemap[local_x][local_y].rotation
 
 
 func define_tile(x, y):
