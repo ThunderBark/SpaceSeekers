@@ -1,4 +1,4 @@
-tool
+#tool
 extends Navigation
 
 export (PackedScene) var tile_plane
@@ -6,18 +6,18 @@ export (PackedScene) var tile_ramp
 export (PackedScene) var tile_sideCliff
 export (PackedScene) var tile_sideCorner
 export (PackedScene) var tile_sideCornerInner
-export (Vector2) var terrain_size := Vector2(10, 10)
+export (Vector2) var terrain_size := Vector2(32, 32)
+export (Vector2) var sector_size := Vector2(16, 16)
 export (float) var noise_period = 20.0
 export (float) var noise_octaves = 4
 export (float) var noise_persistence = 0.8
 export (float) var noise_lacunarity = 2.0
 
 export (bool) var refresh = false
-export (bool) var has_generate_ramps = false
 
 var tilemap := []
 var noise
-const RAMP_CHANCE = 10.0
+const RAMP_CHANCE = 0.1
 
 func _ready() -> void:
 	generate_terrain()
@@ -58,8 +58,7 @@ func generate_terrain() -> void:
 			)
 	
 	## Generating ramps
-	if has_generate_ramps:
-		check_for_ramps()
+	check_for_ramps()
 
 
 func check_for_ramps():
@@ -90,7 +89,7 @@ func change_tile(x, y, neighbors) -> void:
 		elif neighbors & (1 << 6):
 			tile = tile_sideCornerInner.instance()
 		else:
-			if (randi() % 100 + 1) > RAMP_CHANCE:
+			if randf() > RAMP_CHANCE:
 				tile = tile_sideCliff.instance()
 				tile.rotation_degrees = Vector3(0, -90, 0)
 			else:
@@ -101,7 +100,7 @@ func change_tile(x, y, neighbors) -> void:
 			tile = tile_sideCornerInner.instance()
 			tile.rotation_degrees = Vector3(0, 180, 0)
 		else:
-			if (randi() % 100 + 1) > RAMP_CHANCE:
+			if randf() > RAMP_CHANCE:
 				tile = tile_sideCliff.instance()
 				tile.rotation_degrees = Vector3(0, 180, 0)
 			else:
@@ -112,14 +111,14 @@ func change_tile(x, y, neighbors) -> void:
 			tile = tile_sideCornerInner.instance()
 			tile.rotation_degrees = Vector3(0, 90, 0)
 		else:
-			if (randi() % 100 + 1) > RAMP_CHANCE:
+			if randf() > RAMP_CHANCE:
 				tile = tile_sideCliff.instance()
 				tile.rotation_degrees = Vector3(0, 90, 0)
 			else:
 				tile = tile_ramp.instance()
 				tile.rotation_degrees = Vector3(0, 90, 0)
 	elif neighbors & (1 << 6):
-		if (randi() % 100 + 1) > RAMP_CHANCE:
+		if randf() > RAMP_CHANCE:
 			tile = tile_sideCliff.instance()
 		else:
 			tile = tile_ramp.instance()

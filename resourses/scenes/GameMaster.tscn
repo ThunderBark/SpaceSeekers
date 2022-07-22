@@ -2,11 +2,11 @@
 
 [ext_resource path="res://resourses/scenes/GameMaster.gd" type="Script" id=1]
 [ext_resource path="res://resourses/scenes/levels/navigation_test_controller.gd" type="Script" id=2]
-[ext_resource path="res://resourses/scenes/Terrain.gd" type="Script" id=3]
-[ext_resource path="res://resourses/scenes/levels/terrain/tiles/tile.tscn" type="PackedScene" id=4]
-[ext_resource path="res://resourses/scenes/levels/terrain/tiles/tile_ramp.tscn" type="PackedScene" id=5]
+[ext_resource path="res://resourses/scenes/TerrainGenerator.gd" type="Script" id=3]
+[ext_resource path="res://resourses/scenes/levels/terrain/tiles/tile_ramp.tscn" type="PackedScene" id=4]
+[ext_resource path="res://resourses/scenes/levels/terrain/tiles/tile_sideCorner.tscn" type="PackedScene" id=5]
 [ext_resource path="res://resourses/scenes/levels/terrain/tiles/tile_sideCliff.tscn" type="PackedScene" id=6]
-[ext_resource path="res://resourses/scenes/levels/terrain/tiles/tile_sideCorner.tscn" type="PackedScene" id=7]
+[ext_resource path="res://resourses/scenes/levels/terrain/tiles/tile.tscn" type="PackedScene" id=7]
 [ext_resource path="res://resourses/scenes/levels/terrain/tiles/tile_sideCornerInner.tscn" type="PackedScene" id=8]
 
 [sub_resource type="SphereMesh" id=1]
@@ -19,17 +19,14 @@ radius = 0.3
 [node name="GameMaster" type="Node"]
 script = ExtResource( 1 )
 
-[node name="Terrain" type="Navigation" parent="."]
+[node name="TerrainGenerator" type="Navigation" parent="."]
 script = ExtResource( 3 )
-tile_plane = ExtResource( 4 )
-tile_ramp = ExtResource( 5 )
+tile_plane = ExtResource( 7 )
+tile_ramp = ExtResource( 4 )
 tile_sideCliff = ExtResource( 6 )
-tile_sideCorner = ExtResource( 7 )
+tile_sideCorner = ExtResource( 5 )
 tile_sideCornerInner = ExtResource( 8 )
-terrain_size = Vector2( 50, 50 )
-noise_period = 18.0
 noise_octaves = 1.0
-has_generate_ramps = true
 
 [node name="Pathfinding controller" type="KinematicBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
