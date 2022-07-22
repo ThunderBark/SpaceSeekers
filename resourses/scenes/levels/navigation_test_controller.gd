@@ -32,5 +32,5 @@ func _physics_process(delta):
 
 
 func move_to(target_pos):
-	path = nav.get_simple_path(global_transform.origin, target_pos)
+	path = nav.get_simple_path(global_transform.origin, target_pos, true)
 	path_node = 0

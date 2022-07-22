@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/models/OBJ format/terrain/terrain.obj" type="ArrayMesh" id=1]
+
+[sub_resource type="ConcavePolygonShape" id=3]
+data = PoolVector3Array( 0.5, 0, 0.5, -0.5, 0, -0.5, 0.5, 0, -0.5, -0.5, 0, -0.5, 0.5, 0, 0.5, -0.5, 0, 0.5 )
+
+[sub_resource type="NavigationMesh" id=4]
+vertices = PoolVector3Array( 0.5, 0, 0.5, -0.5, 0, -0.5, 0.5, 0, -0.5, -0.5, 0, 0.5 )
+polygons = [ PoolIntArray( 0, 1, 2 ), PoolIntArray( 1, 0, 3 ) ]
+
+[node name="tile" type="MeshInstance"]
+mesh = ExtResource( 1 )
+material/0 = null
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="StaticBody" type="StaticBody" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
+shape = SubResource( 3 )
+
+[node name="NavigationMeshInstance" type="NavigationMeshInstance" parent="."]
+navmesh = SubResource( 4 )
