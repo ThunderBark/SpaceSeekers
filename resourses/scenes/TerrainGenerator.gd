@@ -4,6 +4,7 @@ extends Navigation
 
 const RAMP_CHANCE = 0.1
 
+export (PackedScene) var sector_obj
 export (PackedScene) var tile_plane
 export (PackedScene) var tile_ramp
 export (PackedScene) var tile_sideCliff
@@ -17,8 +18,8 @@ enum {
 	TILE_SIDE_CORNER_INNER
 }
 
-export (Vector2) var terrain_size := Vector2(32, 32)
-export (Vector2) var sector_size := Vector2(16, 16)
+export (int) var terrain_size := 32
+export (int) var sector_size := 16
 export (float) var noise_period = 20.0
 export (float) var noise_octaves = 4
 export (float) var noise_persistence = 0.8
@@ -33,38 +34,36 @@ var noise_generator
 var cur_sector = 0
 
 func _ready() -> void:
-	generate_terrain()
+	if (not Engine.editor_hint):
+		generate_terrain()
 
 
-func _process(_delta):
-	if Engine.editor_hint:
-		if refresh:
-			generate_terrain()
-			cur_sector = 0
-			refresh = false
-		
-		if next_sector:
-			var sector_cnt = int((terrain_size.x * terrain_size.y)/(sector_size.x * sector_size.y))
-			if (cur_sector < sector_cnt) and cur_sector >= 0:
-				cur_sector += 1
-				generate_sector(
-					int(cur_sector / int(terrain_size.x / sector_size.x)), 
-					int(cur_sector % int(terrain_size.y / sector_size.y))
-				)
-			else:
-				print("All sectors generated!")
-			next_sector = false
-		
-		if clean_scene:
-			## Clear map
-			tilemap.clear()
-			if get_child_count() > 0:
-				for child in get_children():
-					remove_child(child)
-			cur_sector = -1
-			clean_scene = false
-	else:
-		pass
+func _process(_delta) -> void:
+	if refresh or (not Engine.editor_hint and Input.is_key_pressed(KEY_R)):
+		generate_terrain()
+		cur_sector = 0
+		refresh = false
+	
+	if next_sector or (not Engine.editor_hint and Input.is_key_pressed(KEY_N)):
+		var sector_cnt = int((terrain_size * terrain_size)/(sector_size * sector_size))
+		if (cur_sector < sector_cnt - 1) and cur_sector >= 0:
+			cur_sector += 1
+			generate_sector(
+				int(cur_sector / int(terrain_size / sector_size)),
+				int(cur_sector % int(terrain_size / sector_size))
+			)
+		else:
+			print("All sectors generated!")
+		next_sector = false
+	
+	if clean_scene:
+		## Clear map
+		tilemap.clear()
+		if get_child_count() > 0:
+			for child in get_children():
+				remove_child(child)
+		cur_sector = -1
+		clean_scene = false
 
 
 func generate_terrain():
@@ -76,25 +75,24 @@ func generate_terrain():
 	
 	# Configure noise generator
 	noise_generator = OpenSimplexNoise.new()
-	noise_generator.seed = randi()
+	noise_generator.seed = OS.get_ticks_msec()
 	noise_generator.octaves = noise_octaves
 	noise_generator.period = noise_period
 	noise_generator.persistence = noise_persistence
 	noise_generator.lacunarity = noise_lacunarity
 	
 	## Generating tilemap info
-	for x in terrain_size.x:
+	for x in terrain_size:
 		tilemap.append([])
-		for y in terrain_size.y:
+		for y in terrain_size:
 			tilemap[x].append({"height": get_point_height(x, y)})
 	
 	## Defining tiles
-	for x in terrain_size.x:
-		for y in terrain_size.y:
+	for x in terrain_size:
+		for y in terrain_size:
 			var tile_info = define_tile(x, y)
 			tilemap[x][y].type = tile_info.type
 			tilemap[x][y].rotation = tile_info.rotation
-#			print("x: " + String(x) + ", y: " + String(y) + ", " + String(tilemap[x][y]))
 	
 	## Fixing tilemap info
 	# Nothing yet
@@ -116,10 +114,25 @@ func generate_sector(i, j):
 	var tile : Spatial
 	var local_x := 0.0
 	var local_y := 0.0
-	for x in sector_size.x:
-		for y in sector_size.y:
-			local_x = sector_size.x * i + x
-			local_y = sector_size.y * j + y
+	var sector = sector_obj.instance()
+	add_child(sector)
+	sector.name = "Sector(" + String(i) + "," + String(j) + ")"
+	sector.set_owner(get_tree().edited_scene_root)
+	var visibility_notifier = VisibilityNotifier.new()
+	sector.add_child(visibility_notifier)
+	visibility_notifier.set_owner(get_tree().edited_scene_root)
+	visibility_notifier.aabb = AABB(Vector3(-0.5, 0, -0.5), Vector3(sector_size, 2, sector_size))
+	visibility_notifier.translation = Vector3(
+		sector_size * i - terrain_size / 2.0,
+		-1,
+		sector_size * j - terrain_size / 2.0
+	)
+	visibility_notifier.connect("camera_entered", sector, "camera_entered")
+	visibility_notifier.connect("camera_exited", sector, "camera_exited")
+	for x in sector_size:
+		for y in sector_size:
+			local_x = sector_size * i + x
+			local_y = sector_size * j + y
 			match tilemap[local_x][local_y].type:
 				TILE_PLANE:
 					tile = tile_plane.instance()
@@ -131,12 +144,12 @@ func generate_sector(i, j):
 					tile = tile_sideCorner.instance() 
 				TILE_SIDE_CORNER_INNER:
 					tile = tile_sideCornerInner.instance()
-			add_child(tile)
-			#tile.set_owner(get_tree().edited_scene_root)
+			sector.add_child(tile)
+			tile.set_owner(get_tree().edited_scene_root)
 			tile.translation = Vector3(
-				local_x - terrain_size.x / 2, 
+				local_x - terrain_size / 2, 
 				tilemap[local_x][local_y].height, 
-				local_y - terrain_size.y / 2
+				local_y - terrain_size / 2
 			)
 			tile.rotation_degrees = tilemap[local_x][local_y].rotation
 
@@ -146,7 +159,7 @@ func define_tile(x, y):
 		"type": TILE_PLANE,
 		"rotation": Vector3(0, 0, 0)
 	}
-	if (x == 0) or (x == terrain_size.x - 1) or (y == 0) or (y == terrain_size.y - 1):
+	if (x == 0) or (x == terrain_size - 1) or (y == 0) or (y == terrain_size - 1):
 		return tile
 	
 	var neighbors = check_neighbors(x, y)

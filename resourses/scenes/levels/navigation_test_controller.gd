@@ -1,6 +1,6 @@
 extends KinematicBody
 
-onready var nav = $"../Terrain"
+onready var nav = $"../TerrainGenerator"
 export (NodePath) var camera_path
 
 var path = []

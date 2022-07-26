@@ -16,6 +16,8 @@ __meta__ = {
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 mesh = ExtResource( 1 )
+skeleton = NodePath("")
+software_skinning_transform_normals = false
 material/0 = null
 material/1 = null
 
