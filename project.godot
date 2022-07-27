@@ -30,6 +30,10 @@ settings/stdout/print_fps=true
 settings/stdout/verbose_stdout=true
 gdscript/warnings/unused_argument=false
 
+[display]
+
+window/vsync/use_vsync=false
+
 [gdnative]
 
 singletons=[ "res://addons/godot-git-plugin/git_api.gdnlib" ]
@@ -84,7 +88,6 @@ secondary_fire_action={
 
 [physics]
 
-common/physics_fps=20
 common/enable_pause_aware_picking=true
 
 [rendering]

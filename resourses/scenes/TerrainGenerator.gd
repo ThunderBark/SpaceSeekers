@@ -1,4 +1,4 @@
-tool
+#tool
 extends Navigation
 
 
@@ -34,8 +34,9 @@ var noise_generator
 var cur_sector = 0
 
 func _ready() -> void:
-	if (not Engine.editor_hint):
-		generate_terrain()
+	pass
+#	if (not Engine.editor_hint):
+#		generate_terrain()
 
 
 func _process(_delta) -> void:
@@ -119,14 +120,14 @@ func generate_sector(i, j):
 	sector.name = "Sector(" + String(i) + "," + String(j) + ")"
 	sector.set_owner(get_tree().edited_scene_root)
 	var visibility_notifier = VisibilityNotifier.new()
-	sector.add_child(visibility_notifier)
-	visibility_notifier.set_owner(get_tree().edited_scene_root)
 	visibility_notifier.aabb = AABB(Vector3(-0.5, 0, -0.5), Vector3(sector_size, 2, sector_size))
 	visibility_notifier.translation = Vector3(
 		sector_size * i - terrain_size / 2.0,
 		-1,
 		sector_size * j - terrain_size / 2.0
 	)
+	sector.add_child(visibility_notifier)
+	visibility_notifier.set_owner(get_tree().edited_scene_root)
 	visibility_notifier.connect("camera_entered", sector, "camera_entered")
 	visibility_notifier.connect("camera_exited", sector, "camera_exited")
 	for x in sector_size:
@@ -144,14 +145,15 @@ func generate_sector(i, j):
 					tile = tile_sideCorner.instance() 
 				TILE_SIDE_CORNER_INNER:
 					tile = tile_sideCornerInner.instance()
-			sector.add_child(tile)
-			tile.set_owner(get_tree().edited_scene_root)
+			
 			tile.translation = Vector3(
 				local_x - terrain_size / 2, 
 				tilemap[local_x][local_y].height, 
 				local_y - terrain_size / 2
 			)
 			tile.rotation_degrees = tilemap[local_x][local_y].rotation
+			sector.add_child(tile)
+			tile.set_owner(get_tree().edited_scene_root)
 
 
 func define_tile(x, y):
