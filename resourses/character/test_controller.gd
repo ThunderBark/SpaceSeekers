@@ -60,11 +60,12 @@ func _physics_process(delta):
 	if sign(pos.x):
 		rot *= sign(pos.x)
 	mesh.rotation.y = lerp_angle(mesh.rotation.y, rot, 0.3)
+	$CollisionShape.rotation.y = lerp_angle(mesh.rotation.y, rot, 0.3)
 	
-	if Input.is_action_pressed("primary_fire_action"):
-			shoot_bullet()
-	if Input.is_action_pressed("secondary_fire_action"):
-			shoot_rocket()
+#	if Input.is_action_pressed("primary_fire_action"):
+#			shoot_bullet()
+#	if Input.is_action_pressed("secondary_fire_action"):
+#			shoot_rocket()
 
 
 func shoot_rocket():

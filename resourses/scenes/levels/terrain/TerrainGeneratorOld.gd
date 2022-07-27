@@ -40,31 +40,32 @@ func _ready() -> void:
 
 
 func _process(_delta) -> void:
-	if refresh or (not Engine.editor_hint and Input.is_key_pressed(KEY_R)):
-		generate_terrain()
-		cur_sector = 0
-		refresh = false
-	
-	if next_sector or (not Engine.editor_hint and Input.is_key_pressed(KEY_N)):
-		var sector_cnt = int((terrain_size * terrain_size)/(sector_size * sector_size))
-		if (cur_sector < sector_cnt - 1) and cur_sector >= 0:
-			cur_sector += 1
-			generate_sector(
-				int(cur_sector / int(terrain_size / sector_size)),
-				int(cur_sector % int(terrain_size / sector_size))
-			)
-		else:
-			print("All sectors generated!")
-		next_sector = false
-	
-	if clean_scene:
-		## Clear map
-		tilemap.clear()
-		if get_child_count() > 0:
-			for child in get_children():
-				remove_child(child)
-		cur_sector = -1
-		clean_scene = false
+	pass
+#	if refresh or (not Engine.editor_hint and Input.is_key_pressed(KEY_R)):
+#		generate_terrain()
+#		cur_sector = 0
+#		refresh = false
+#
+#	if next_sector or (not Engine.editor_hint and Input.is_key_pressed(KEY_N)):
+#		var sector_cnt = int((terrain_size * terrain_size)/(sector_size * sector_size))
+#		if (cur_sector < sector_cnt - 1) and cur_sector >= 0:
+#			cur_sector += 1
+#			generate_sector(
+#				int(cur_sector / int(terrain_size / sector_size)),
+#				int(cur_sector % int(terrain_size / sector_size))
+#			)
+#		else:
+#			print("All sectors generated!")
+#		next_sector = false
+#
+#	if clean_scene:
+#		## Clear map
+#		tilemap.clear()
+#		if get_child_count() > 0:
+#			for child in get_children():
+#				remove_child(child)
+#		cur_sector = -1
+#		clean_scene = false
 
 
 func generate_terrain():

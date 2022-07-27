@@ -1,14 +1,18 @@
 tool
-extends GridMap
+extends Navigation
 
 # Exports
 export (int) var terrain_size := 32
+export (int) var sector_size := 16
 export (float) var noise_period = 20.0
 export (float) var noise_octaves = 1
 export (float) var noise_persistence = 0.8
 export (float) var noise_lacunarity = 2.0
 export (float) var ramp_chance = 0.1
+
 export (bool) var refresh = false
+export (bool) var next_sector = false
+export (bool) var clean = false
 
 # Constants
 enum {
@@ -20,10 +24,11 @@ enum {
 }
 
 # etc.
+onready var grid : GridMap = $TerrainGridMap
 var noise_generator: OpenSimplexNoise
+var cur_sector: int = 0
 
-
-func _ready() -> void:
+func _ready() -> void:	
 	if not Engine.editor_hint:
 		generate_terrain()
 
@@ -32,34 +37,52 @@ func _process(delta: float) -> void:
 	if refresh or (not Engine.editor_hint and Input.is_key_pressed(KEY_F)):
 		generate_terrain()
 		refresh = false
+	
+	if clean or (not Engine.editor_hint and Input.is_key_pressed(KEY_C)):
+		grid.clear()
+		cur_sector = 0
+		clean = false
+	
+	if next_sector or (not Engine.editor_hint and Input.is_key_pressed(KEY_N)):
+		var sector_cnt = pow((terrain_size / sector_size), 2)
+		if cur_sector < sector_cnt:
+			var point : = Vector2(
+				-terrain_size/2 + sector_size * (cur_sector/(terrain_size / sector_size)) + sector_size/2,
+				-terrain_size/2 + sector_size * (cur_sector%(terrain_size / sector_size)) + sector_size/2
+			)
+			generate_sector(point)
+			print(point)
+			cur_sector += 1
+		else:
+			print("All sectors generated!")
+		next_sector = false
 
 
 func generate_terrain() -> void:
 	## Clearing grid
-	clear()
+	grid.clear()
+	grid.cell_octant_size = sector_size
 	
-	## Configuring noise generator
-	noise_generator = OpenSimplexNoise.new()
-	noise_generator.seed = OS.get_ticks_msec()
-	noise_generator.octaves = noise_octaves
-	noise_generator.period = noise_period
-	noise_generator.persistence = noise_persistence
-	noise_generator.lacunarity = noise_lacunarity
+	shake_noise()
 	
 	## Generating terrain
-	for x in range(-terrain_size / 2, terrain_size / 2):
-		for y in range(-terrain_size / 2, terrain_size / 2):
-			set_cell_item(
+	generate_sector(Vector2(0, 0))
+	
+	## Maybe some terrain fixes
+	
+	## Spawning objects
+
+
+func generate_sector(center: Vector2):
+	for x in range(center.x - sector_size / 2, center.x + sector_size / 2):
+		for y in range(center.y - sector_size / 2, center.y + sector_size / 2):
+			grid.set_cell_item(
 				x,
 				get_interpolated_height_at_point(x, y) / 0.5,
 				y,
 				define_tile(x, y),
 				0
 			)
-	
-	## Maybe some terrain fixes
-	
-	## Spawning objects
 
 
 func define_tile(x: int, y: int) -> int:
@@ -141,6 +164,16 @@ func get_interpolated_height_at_point(x, y):
 
 func get_height_at_point(x, y) -> float:
 	return int(noise_generator.get_noise_2d(x, y) * 3) * 0.5
+
+
+func shake_noise():
+	## Configuring noise generator
+	noise_generator = OpenSimplexNoise.new()
+	noise_generator.seed = OS.get_ticks_msec()
+	noise_generator.octaves = noise_octaves
+	noise_generator.period = noise_period
+	noise_generator.persistence = noise_persistence
+	noise_generator.lacunarity = noise_lacunarity
 
 
 func good_sign(num):
