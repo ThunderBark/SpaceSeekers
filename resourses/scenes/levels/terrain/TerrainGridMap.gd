@@ -36,6 +36,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if refresh or (not Engine.editor_hint and Input.is_key_pressed(KEY_F)):
 		generate_terrain()
+		cur_sector = 0
 		refresh = false
 	
 	if clean or (not Engine.editor_hint and Input.is_key_pressed(KEY_C)):

@@ -7,7 +7,7 @@
 [ext_resource path="res://assets/sounds/SFX/WEAPON GUNSHOT HandGun Muted 02.wav" type="AudioStream" id=5]
 [ext_resource path="res://assets/models/OBJ format/terrain/terrain_sideCliff.obj" type="ArrayMesh" id=6]
 [ext_resource path="res://assets/models/OBJ format/terrain/terrain_sideCornerInner.obj" type="ArrayMesh" id=7]
-[ext_resource path="res://resourses/scenes/levels/enemy_speeder_controller.gd" type="Script" id=8]
+[ext_resource path="res://resourses/character/enemy_speeder_controller.gd" type="Script" id=8]
 [ext_resource path="res://assets/models/OBJ format/terrain/terrain_sideCorner.obj" type="ArrayMesh" id=9]
 [ext_resource path="res://resourses/character/navigation_controller_test/navigation_test_controller.gd" type="Script" id=10]
 [ext_resource path="res://resourses/scenes/levels/terrain/tiles/tile.tscn" type="PackedScene" id=11]

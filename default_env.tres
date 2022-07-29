@@ -6,5 +6,7 @@
 background_mode = 2
 background_sky = SubResource( 1 )
 fog_depth_begin = 0.0
-ssao_enabled = true
+auto_exposure_scale = 0.5
+auto_exposure_max_luma = 5.0
+dof_blur_far_distance = 20.0
 glow_enabled = true

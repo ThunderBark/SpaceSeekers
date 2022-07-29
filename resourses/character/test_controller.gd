@@ -1,7 +1,7 @@
 extends KinematicBody
 
-var Bullet := preload("res://resourses/projectiles/CommonBullet.tscn")
-var Rocket := preload("res://resourses/projectiles/CommonRocket.tscn")
+var Bullet := preload("res://resourses/weapons/projectiles/CommonBullet.tscn")
+var Rocket := preload("res://resourses/weapons/projectiles/CommonRocket.tscn")
 
 export (NodePath) var mesh_path
 export (NodePath) var camera_path
@@ -19,6 +19,7 @@ export (Vector3) var speed = Vector3.ONE
 var rng = RandomNumberGenerator.new()
 
 var velocity : Vector3 = Vector3.ZERO
+var camera_init_position : Vector3 = Vector3.ZERO
 
 
 func _ready():
@@ -28,6 +29,7 @@ func _ready():
 	rocket_cooldown = get_node(rocket_cooldown_path)
 	minigun_cooldown = get_node(minigun_cooldown_path)
 	
+	camera_init_position = camera.translation
 	rng.randomize()
 
 func _physics_process(delta):
@@ -44,10 +46,10 @@ func _physics_process(delta):
 	if Input.is_action_pressed("move_down"):
 		dir.z += 1.0
 		dir.x -= 1.0
-	if Input.is_action_pressed("move_ascend"):
-		dir.y -= 1.0
-	if Input.is_action_pressed("move_descend"):
-		dir.y += 1.0
+#	if Input.is_action_pressed("move_ascend"):
+#		dir.y -= 1.0
+#	if Input.is_action_pressed("move_descend"):
+#		dir.y += 1.0
 	velocity = velocity.linear_interpolate(dir.normalized() * speed, 0.15)
 	move_and_slide(velocity, Vector3.UP)
 	
@@ -60,31 +62,41 @@ func _physics_process(delta):
 	if sign(pos.x):
 		rot *= sign(pos.x)
 	mesh.rotation.y = lerp_angle(mesh.rotation.y, rot, 0.3)
-	$CollisionShape.rotation.y = lerp_angle(mesh.rotation.y, rot, 0.3)
-	
-#	if Input.is_action_pressed("primary_fire_action"):
-#			shoot_bullet()
+	$HullCollision.rotation.y = lerp_angle(mesh.rotation.y, rot, 0.3)
+	 
+	if Input.is_action_pressed("primary_fire_action"):
+			shoot_bullet()
 #	if Input.is_action_pressed("secondary_fire_action"):
 #			shoot_rocket()
+
+	camera.translation = lerp(
+		camera.translation,
+		camera_init_position + Vector3(
+			(get_viewport().get_mouse_position().x - get_viewport().size.x/2),
+			0,
+			(get_viewport().get_mouse_position().y - get_viewport().size.y/2)
+		).rotated(Vector3.UP, -PI/4) * 0.03,
+		delta
+	)
 
 
 func shoot_rocket():
 	if rocket_cooldown.is_stopped():
 		var r = Rocket.instance()
-		owner.add_child(r)
 		r.transform = muzzle.global_transform
 		r.rotate_y(PI)
 		r.shooter = self
+		owner.add_child(r)
 		rocket_cooldown.start()
 
 
 func shoot_bullet():
 	if minigun_cooldown.is_stopped():
 		var b = Bullet.instance()
-		owner.add_child(b)
 		b.transform = muzzle.global_transform
 		b.rotation.y += rng.randf_range(-0.05, 0.05)
 		b.transform = b.transform.translated(Vector3(0, 0, rng.randf_range(-0.1, 0.1)))
 		b.shooter = self
+		owner.add_child(b)
 		$MinigunSFX.play()
 		minigun_cooldown.start()
