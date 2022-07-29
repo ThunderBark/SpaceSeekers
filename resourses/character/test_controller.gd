@@ -72,10 +72,10 @@ func _physics_process(delta):
 	camera.translation = lerp(
 		camera.translation,
 		camera_init_position + Vector3(
-			(get_viewport().get_mouse_position().x - get_viewport().size.x/2),
+			(get_viewport().get_mouse_position().x - get_viewport().size.x/2)/get_viewport().size.x,
 			0,
-			(get_viewport().get_mouse_position().y - get_viewport().size.y/2)
-		).rotated(Vector3.UP, -PI/4) * 0.03,
+			(get_viewport().get_mouse_position().y - get_viewport().size.y/2)/get_viewport().size.y
+		).rotated(Vector3.UP, -PI/4) * 23,
 		delta
 	)
 
