@@ -32,7 +32,11 @@ gdscript/warnings/unused_argument=false
 
 [display]
 
+window/size/width=1600
+window/size/height=900
 window/vsync/use_vsync=false
+window/stretch/mode="viewport"
+window/stretch/aspect="keep"
 
 [gdnative]
 
