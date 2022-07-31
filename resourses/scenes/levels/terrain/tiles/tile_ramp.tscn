@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://assets/models/OBJ format/terrain/terrain_ramp.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://assets/models/Kenney_space/terrain/terrain_ramp.obj" type="ArrayMesh" id=1]
 
 [sub_resource type="ConcavePolygonShape" id=12]
 data = PoolVector3Array( 0.5, 0, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0, 0.5, -0.5, 0, 0.5, 0.5, 0.5, 0, 0.5, 0, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0, 0.5, -0.5, 0.5, 0 )

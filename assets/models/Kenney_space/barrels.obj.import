@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/barrels.obj-89b4fe33ffbaffef37fe76845c078f10.mesh"
+
+[deps]
+
+files=[ "res://.import/barrels.obj-89b4fe33ffbaffef37fe76845c078f10.mesh" ]
+
+source_file="res://assets/models/Kenney_space/barrels.obj"
+dest_files=[ "res://.import/barrels.obj-89b4fe33ffbaffef37fe76845c078f10.mesh", "res://.import/barrels.obj-89b4fe33ffbaffef37fe76845c078f10.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

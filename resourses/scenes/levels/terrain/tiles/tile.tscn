@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://assets/models/OBJ format/terrain/terrain.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://assets/models/Kenney_space/terrain/terrain.obj" type="ArrayMesh" id=1]
 
 [sub_resource type="ConvexPolygonShape" id=5]
 points = PoolVector3Array( -0.502708, 0.00273224, -0.502732, 0.502729, 0.00273224, 0.502732, -0.502708, 0.00273224, 0.502732, 0.502729, 0.00273224, -0.502732 )

@@ -1,10 +1,10 @@
 [gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://assets/models/OBJ format/terrain/terrain_sideCorner.obj" type="ArrayMesh" id=1]
-[ext_resource path="res://assets/models/OBJ format/terrain/terrain_sideCornerInner.obj" type="ArrayMesh" id=2]
-[ext_resource path="res://assets/models/OBJ format/terrain/terrain_ramp.obj" type="ArrayMesh" id=3]
-[ext_resource path="res://assets/models/OBJ format/terrain/terrain_sideCliff.obj" type="ArrayMesh" id=4]
-[ext_resource path="res://assets/models/OBJ format/terrain/terrain.obj" type="ArrayMesh" id=5]
+[ext_resource path="res://assets/models/Kenney_space/terrain/terrain_sideCorner.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://assets/models/Kenney_space/terrain/terrain_sideCornerInner.obj" type="ArrayMesh" id=2]
+[ext_resource path="res://assets/models/Kenney_space/terrain/terrain_ramp.obj" type="ArrayMesh" id=3]
+[ext_resource path="res://assets/models/Kenney_space/terrain/terrain_sideCliff.obj" type="ArrayMesh" id=4]
+[ext_resource path="res://assets/models/Kenney_space/terrain/terrain.obj" type="ArrayMesh" id=5]
 
 [sub_resource type="ConvexPolygonShape" id=5]
 points = PoolVector3Array( -0.502708, 0.00273224, -0.502732, 0.502729, 0.00273224, 0.502732, -0.502708, 0.00273224, 0.502732, 0.502729, 0.00273224, -0.502732 )

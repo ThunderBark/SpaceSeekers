@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/monorail_trackCornerLarge.obj-7c030a310bb5095579e32b02cf5f823b.mesh"
+
+[deps]
+
+files=[ "res://.import/monorail_trackCornerLarge.obj-7c030a310bb5095579e32b02cf5f823b.mesh" ]
+
+source_file="res://assets/models/Kenney_space/monorail_trackCornerLarge.obj"
+dest_files=[ "res://.import/monorail_trackCornerLarge.obj-7c030a310bb5095579e32b02cf5f823b.mesh", "res://.import/monorail_trackCornerLarge.obj-7c030a310bb5095579e32b02cf5f823b.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

@@ -9,13 +9,31 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "KinematicBody",
+"class": "CraftController",
+"language": "GDScript",
+"path": "res://resourses/character/CraftController.gd"
+}, {
+"base": "Node",
+"class": "EnemyCraftController",
+"language": "GDScript",
+"path": "res://resourses/character/EnemyCraftController.gd"
+}, {
 "base": "",
 "class": "GitAPI",
 "language": "NativeScript",
 "path": "res://addons/godot-git-plugin/git_api.gdns"
+}, {
+"base": "Node",
+"class": "PlayerCraftController",
+"language": "GDScript",
+"path": "res://resourses/character/PlayerCraftController.gd"
 } ]
 _global_script_class_icons={
-"GitAPI": ""
+"CraftController": "",
+"EnemyCraftController": "",
+"GitAPI": "",
+"PlayerCraftController": ""
 }
 
 [application]
@@ -23,6 +41,7 @@ _global_script_class_icons={
 config/name="SpaceSeeker"
 run/main_scene="res://resourses/scenes/GameMaster.tscn"
 config/icon="res://assets/icons8-desert-landscape-96.png"
+config/windows_native_icon="res://assets/icons8-desert-landscape-96.ico"
 
 [debug]
 
@@ -32,8 +51,9 @@ gdscript/warnings/unused_argument=false
 
 [display]
 
-window/size/width=1600
-window/size/height=900
+window/size/width=1280
+window/size/height=720
+window/size/resizable=false
 window/vsync/use_vsync=false
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
@@ -41,6 +61,11 @@ window/stretch/aspect="keep"
 [gdnative]
 
 singletons=[ "res://addons/godot-git-plugin/git_api.gdnlib" ]
+
+[global]
+
+frame=false
+framebuffer=false
 
 [input]
 
@@ -96,5 +121,4 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
-quality/filters/anisotropic_filter_level=2
 environment/default_environment="res://default_env.tres"

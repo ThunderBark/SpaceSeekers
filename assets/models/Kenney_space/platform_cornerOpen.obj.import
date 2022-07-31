@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/platform_cornerOpen.obj-2705f0c91c07526fe7c76fbfaf73ee6f.mesh"
+
+[deps]
+
+files=[ "res://.import/platform_cornerOpen.obj-2705f0c91c07526fe7c76fbfaf73ee6f.mesh" ]
+
+source_file="res://assets/models/Kenney_space/platform_cornerOpen.obj"
+dest_files=[ "res://.import/platform_cornerOpen.obj-2705f0c91c07526fe7c76fbfaf73ee6f.mesh", "res://.import/platform_cornerOpen.obj-2705f0c91c07526fe7c76fbfaf73ee6f.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

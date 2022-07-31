@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/structure_detailed.obj-9f2469a3be2ff861df7f0a5b97b1cbda.mesh"
+
+[deps]
+
+files=[ "res://.import/structure_detailed.obj-9f2469a3be2ff861df7f0a5b97b1cbda.mesh" ]
+
+source_file="res://assets/models/Kenney_space/structure_detailed.obj"
+dest_files=[ "res://.import/structure_detailed.obj-9f2469a3be2ff861df7f0a5b97b1cbda.mesh", "res://.import/structure_detailed.obj-9f2469a3be2ff861df7f0a5b97b1cbda.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

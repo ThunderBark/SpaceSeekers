@@ -1,14 +1,13 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://resourses/character/test_controller.gd" type="Script" id=1]
-[ext_resource path="res://assets/models/OBJ format/terrain/terrain_ramp.obj" type="ArrayMesh" id=2]
-[ext_resource path="res://assets/models/OBJ format/terrain/terrain.obj" type="ArrayMesh" id=3]
+[ext_resource path="res://assets/models/Kenney_space/terrain/terrain_ramp.obj" type="ArrayMesh" id=2]
+[ext_resource path="res://assets/models/Kenney_space/terrain/terrain.obj" type="ArrayMesh" id=3]
 [ext_resource path="res://resourses/scenes/levels/test_level.gd" type="Script" id=4]
-[ext_resource path="res://assets/sounds/SFX/WEAPON GUNSHOT HandGun Muted 02.wav" type="AudioStream" id=5]
-[ext_resource path="res://assets/models/OBJ format/terrain/terrain_sideCliff.obj" type="ArrayMesh" id=6]
-[ext_resource path="res://assets/models/OBJ format/terrain/terrain_sideCornerInner.obj" type="ArrayMesh" id=7]
+[ext_resource path="res://assets/models/Kenney_space/terrain/terrain_sideCliff.obj" type="ArrayMesh" id=6]
+[ext_resource path="res://assets/models/Kenney_space/terrain/terrain_sideCornerInner.obj" type="ArrayMesh" id=7]
 [ext_resource path="res://resourses/character/enemy_speeder_controller.gd" type="Script" id=8]
-[ext_resource path="res://assets/models/OBJ format/terrain/terrain_sideCorner.obj" type="ArrayMesh" id=9]
+[ext_resource path="res://assets/models/Kenney_space/terrain/terrain_sideCorner.obj" type="ArrayMesh" id=9]
 [ext_resource path="res://resourses/character/navigation_controller_test/navigation_test_controller.gd" type="Script" id=10]
 [ext_resource path="res://resourses/scenes/levels/terrain/tiles/tile.tscn" type="PackedScene" id=11]
 
@@ -215,9 +214,6 @@ size = 15.0
 wait_time = 0.1
 one_shot = true
 
-[node name="MinigunSFX" type="AudioStreamPlayer3D" parent="PlayerSpeeder"]
-stream = ExtResource( 5 )
-
 [node name="RocketCooldown" type="Timer" parent="PlayerSpeeder"]
 wait_time = 0.3
 one_shot = true
@@ -228,9 +224,6 @@ collision_layer = 3
 input_ray_pickable = false
 script = ExtResource( 8 )
 mesh_path = NodePath("mesh")
-muzzle_path = NodePath("mesh/Muzzle")
-rocket_cooldown_path = NodePath("RocketCooldown")
-minigun_cooldown_path = NodePath("MinigunCooldown")
 attention_area_path = NodePath("AttentionArea")
 
 [node name="mesh" type="MeshInstance" parent="EnemySpeeder"]
@@ -247,16 +240,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.34193e-08, 0.317573, 1.15303
 [node name="CollisionShape" type="CollisionShape" parent="EnemySpeeder"]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.317573, 0 )
 shape = SubResource( 6 )
-
-[node name="MinigunCooldown" type="Timer" parent="EnemySpeeder"]
-wait_time = 0.1
-one_shot = true
-
-[node name="MinigunSFX" type="AudioStreamPlayer3D" parent="EnemySpeeder"]
-stream = ExtResource( 5 )
-
-[node name="RocketCooldown" type="Timer" parent="EnemySpeeder"]
-one_shot = true
 
 [node name="AttentionArea" type="Area" parent="EnemySpeeder"]
 collision_layer = 0

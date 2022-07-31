@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/satelliteDish_detailed.obj-5e1ee9a8d78776e0b28afdace7c6fa0e.mesh"
+
+[deps]
+
+files=[ "res://.import/satelliteDish_detailed.obj-5e1ee9a8d78776e0b28afdace7c6fa0e.mesh" ]
+
+source_file="res://assets/models/Kenney_space/satelliteDish_detailed.obj"
+dest_files=[ "res://.import/satelliteDish_detailed.obj-5e1ee9a8d78776e0b28afdace7c6fa0e.mesh", "res://.import/satelliteDish_detailed.obj-5e1ee9a8d78776e0b28afdace7c6fa0e.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

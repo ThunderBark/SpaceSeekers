@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/rail_middle.obj-910aed495fa0976dc9fcfd56dbc3a4a8.mesh"
+
+[deps]
+
+files=[ "res://.import/rail_middle.obj-910aed495fa0976dc9fcfd56dbc3a4a8.mesh" ]
+
+source_file="res://assets/models/Kenney_space/rail_middle.obj"
+dest_files=[ "res://.import/rail_middle.obj-910aed495fa0976dc9fcfd56dbc3a4a8.mesh", "res://.import/rail_middle.obj-910aed495fa0976dc9fcfd56dbc3a4a8.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

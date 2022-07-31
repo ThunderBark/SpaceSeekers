@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/corridor_windowClosed.obj-8d654c70e1e3e28abd593eaeb0aed721.mesh"
+
+[deps]
+
+files=[ "res://.import/corridor_windowClosed.obj-8d654c70e1e3e28abd593eaeb0aed721.mesh" ]
+
+source_file="res://assets/models/Kenney_space/corridor_windowClosed.obj"
+dest_files=[ "res://.import/corridor_windowClosed.obj-8d654c70e1e3e28abd593eaeb0aed721.mesh", "res://.import/corridor_windowClosed.obj-8d654c70e1e3e28abd593eaeb0aed721.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Prob.obj-d4f446416b72e1e0bf842213d1d23128.mesh"
+
+[deps]
+
+files=[ "res://.import/Prob.obj-d4f446416b72e1e0bf842213d1d23128.mesh" ]
+
+source_file="res://assets/models/Kenney_space/util/Prob.obj"
+dest_files=[ "res://.import/Prob.obj-d4f446416b72e1e0bf842213d1d23128.mesh", "res://.import/Prob.obj-d4f446416b72e1e0bf842213d1d23128.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

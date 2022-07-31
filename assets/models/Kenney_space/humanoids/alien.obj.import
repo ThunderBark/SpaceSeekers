@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/alien.obj-e9abd583f7d7745c758a822965f4cce5.mesh"
+
+[deps]
+
+files=[ "res://.import/alien.obj-e9abd583f7d7745c758a822965f4cce5.mesh" ]
+
+source_file="res://assets/models/Kenney_space/humanoids/alien.obj"
+dest_files=[ "res://.import/alien.obj-e9abd583f7d7745c758a822965f4cce5.mesh", "res://.import/alien.obj-e9abd583f7d7745c758a822965f4cce5.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

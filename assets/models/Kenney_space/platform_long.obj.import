@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/platform_long.obj-0f4a0d3bb5c4694fb22256c4439453d5.mesh"
+
+[deps]
+
+files=[ "res://.import/platform_long.obj-0f4a0d3bb5c4694fb22256c4439453d5.mesh" ]
+
+source_file="res://assets/models/Kenney_space/platform_long.obj"
+dest_files=[ "res://.import/platform_long.obj-0f4a0d3bb5c4694fb22256c4439453d5.mesh", "res://.import/platform_long.obj-0f4a0d3bb5c4694fb22256c4439453d5.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

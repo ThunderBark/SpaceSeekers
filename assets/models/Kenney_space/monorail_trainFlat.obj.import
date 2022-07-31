@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/monorail_trainFlat.obj-c406ea5eaa70a38ab6ba183e455b4695.mesh"
+
+[deps]
+
+files=[ "res://.import/monorail_trainFlat.obj-c406ea5eaa70a38ab6ba183e455b4695.mesh" ]
+
+source_file="res://assets/models/Kenney_space/monorail_trainFlat.obj"
+dest_files=[ "res://.import/monorail_trainFlat.obj-c406ea5eaa70a38ab6ba183e455b4695.mesh", "res://.import/monorail_trainFlat.obj-c406ea5eaa70a38ab6ba183e455b4695.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

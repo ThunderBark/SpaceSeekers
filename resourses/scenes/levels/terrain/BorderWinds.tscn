@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="ParticlesMaterial" id=1]
+emission_shape = 2
+emission_box_extents = Vector3( 4, 4, 1 )
+gravity = Vector3( 0, 0, 0 )
+color = Color( 0.658824, 0.388235, 0, 1 )
+
+[sub_resource type="SphereMesh" id=2]
+
+[node name="BorderWinds" type="Particles"]
+amount = 10
+lifetime = 10.0
+process_material = SubResource( 1 )
+draw_pass_1 = SubResource( 2 )

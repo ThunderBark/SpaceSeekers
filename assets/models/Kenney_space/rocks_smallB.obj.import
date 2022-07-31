@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/rocks_smallB.obj-1d6a32899fb76233226aa41a6576dd7d.mesh"
+
+[deps]
+
+files=[ "res://.import/rocks_smallB.obj-1d6a32899fb76233226aa41a6576dd7d.mesh" ]
+
+source_file="res://assets/models/Kenney_space/rocks_smallB.obj"
+dest_files=[ "res://.import/rocks_smallB.obj-1d6a32899fb76233226aa41a6576dd7d.mesh", "res://.import/rocks_smallB.obj-1d6a32899fb76233226aa41a6576dd7d.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

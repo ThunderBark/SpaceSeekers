@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/hangar_roundGlass.obj-907562097d9f55230e8103c21823babe.mesh"
+
+[deps]
+
+files=[ "res://.import/hangar_roundGlass.obj-907562097d9f55230e8103c21823babe.mesh" ]
+
+source_file="res://assets/models/Kenney_space/hangar_roundGlass.obj"
+dest_files=[ "res://.import/hangar_roundGlass.obj-907562097d9f55230e8103c21823babe.mesh", "res://.import/hangar_roundGlass.obj-907562097d9f55230e8103c21823babe.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

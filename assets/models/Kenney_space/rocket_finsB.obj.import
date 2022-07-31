@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/rocket_finsB.obj-79b92934e5922e6c22aeb2bede3dd295.mesh"
+
+[deps]
+
+files=[ "res://.import/rocket_finsB.obj-79b92934e5922e6c22aeb2bede3dd295.mesh" ]
+
+source_file="res://assets/models/Kenney_space/rocket_finsB.obj"
+dest_files=[ "res://.import/rocket_finsB.obj-79b92934e5922e6c22aeb2bede3dd295.mesh", "res://.import/rocket_finsB.obj-79b92934e5922e6c22aeb2bede3dd295.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

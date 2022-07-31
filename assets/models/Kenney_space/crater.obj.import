@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/crater.obj-b2128c34b28fb73145090b1c5d1b352a.mesh"
+
+[deps]
+
+files=[ "res://.import/crater.obj-b2128c34b28fb73145090b1c5d1b352a.mesh" ]
+
+source_file="res://assets/models/Kenney_space/crater.obj"
+dest_files=[ "res://.import/crater.obj-b2128c34b28fb73145090b1c5d1b352a.mesh", "res://.import/crater.obj-b2128c34b28fb73145090b1c5d1b352a.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

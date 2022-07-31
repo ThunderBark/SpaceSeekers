@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/rocket_topB.obj-8641d12c49349b54025dd2520dd651cf.mesh"
+
+[deps]
+
+files=[ "res://.import/rocket_topB.obj-8641d12c49349b54025dd2520dd651cf.mesh" ]
+
+source_file="res://assets/models/Kenney_space/rocket_topB.obj"
+dest_files=[ "res://.import/rocket_topB.obj-8641d12c49349b54025dd2520dd651cf.mesh", "res://.import/rocket_topB.obj-8641d12c49349b54025dd2520dd651cf.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

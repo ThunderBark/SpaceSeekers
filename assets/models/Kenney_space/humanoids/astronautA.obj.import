@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/astronautA.obj-2b4dfcca1bfec06fe4001fb5f9499cbb.mesh"
+
+[deps]
+
+files=[ "res://.import/astronautA.obj-2b4dfcca1bfec06fe4001fb5f9499cbb.mesh" ]
+
+source_file="res://assets/models/Kenney_space/humanoids/astronautA.obj"
+dest_files=[ "res://.import/astronautA.obj-2b4dfcca1bfec06fe4001fb5f9499cbb.mesh", "res://.import/astronautA.obj-2b4dfcca1bfec06fe4001fb5f9499cbb.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

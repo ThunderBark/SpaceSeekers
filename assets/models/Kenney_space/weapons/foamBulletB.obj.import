@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/foamBulletB.obj-76ec49e49854c5fb097a88a4f086f88c.mesh"
+
+[deps]
+
+files=[ "res://.import/foamBulletB.obj-76ec49e49854c5fb097a88a4f086f88c.mesh" ]
+
+source_file="res://assets/models/Kenney_space/weapons/foamBulletB.obj"
+dest_files=[ "res://.import/foamBulletB.obj-76ec49e49854c5fb097a88a4f086f88c.mesh", "res://.import/foamBulletB.obj-76ec49e49854c5fb097a88a4f086f88c.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286
