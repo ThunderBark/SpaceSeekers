@@ -24,7 +24,7 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/godot-git-plugin/git_api.gdns"
 }, {
-"base": "Node",
+"base": "Spatial",
 "class": "PlayerCraftController",
 "language": "GDScript",
 "path": "res://resourses/character/PlayerCraftController.gd"

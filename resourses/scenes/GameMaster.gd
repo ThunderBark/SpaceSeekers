@@ -1,5 +1,9 @@
 extends Node
 
+enum {
+	PLAYER_FIRING,
+	PLAYER_BUILDING
+}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

@@ -1,5 +1,5 @@
 class_name PlayerCraftController
-extends Node
+extends Spatial
 
 
 onready var craft : KinematicBody = get_child(0)
@@ -30,14 +30,17 @@ func _physics_process(delta):
 		dir.x -= 1.0
 	if craft is CraftController:
 		craft.dir = dir.normalized()
-#
-#	## Rotate speeder towards mouse position
-	var dropPlane = Plane(Vector3(0, 1, 0), craft.translation.y)
-	var mouse_position = dropPlane.intersects_ray(
-		camera.project_ray_origin(get_viewport().get_mouse_position()),
-		camera.project_ray_normal(get_viewport().get_mouse_position())
-	)
-	craft.point_to_look = mouse_position
+
+	## Rotate speeder towards mouse position
+	var space_state = get_world().direct_space_state
+	var mouse_position = get_viewport().get_mouse_position()
+	var ray_origin = camera.project_ray_origin(mouse_position)
+	var ray_end = ray_origin + camera.project_ray_normal(mouse_position) * 2000
+	var intersection = space_state.intersect_ray(ray_origin, ray_end, [self])
+	if not intersection.empty():
+		craft.point_to_look = intersection.position
+	else:
+		craft.point_to_look = Vector3.ZERO
 	
 
 	## Camera offset

@@ -8,6 +8,7 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
 }
+noise_octaves = 1
 
 [node name="TerrainGridMap" type="GridMap" parent="."]
 mesh_library = ExtResource( 1 )

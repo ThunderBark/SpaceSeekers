@@ -170,7 +170,8 @@ transform = Transform( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0
 shadow_enabled = true
 
 [node name="TerrainGenerator" parent="." instance=ExtResource( 2 )]
-terrain_size = 128
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0405154, 0 )
+terrain_size = 64
 
 [node name="terrain" type="MeshInstance" parent="TerrainGenerator"]
 transform = Transform( 1024, 0, 0, 0, 1, 0, 0, 0, 1024, 0, -5, 0 )
@@ -181,9 +182,8 @@ generate_lightmap = false
 mesh = ExtResource( 3 )
 skeleton = NodePath("../..")
 software_skinning_transform_normals = false
-material/0 = null
 
-[node name="PlayerCraftController" type="Node" parent="."]
+[node name="PlayerCraftController" type="Spatial" parent="."]
 script = ExtResource( 4 )
 
 [node name="SpeederA" type="KinematicBody" parent="PlayerCraftController"]
@@ -199,10 +199,6 @@ shape = SubResource( 6 )
 [node name="Hull" type="MeshInstance" parent="PlayerCraftController/SpeederA"]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.317573, 0 )
 mesh = SubResource( 5 )
-material/0 = null
-material/1 = null
-material/2 = null
-material/3 = null
 
 [node name="Weapons" type="Spatial" parent="PlayerCraftController/SpeederA/Hull"]
 
@@ -233,10 +229,6 @@ shape = SubResource( 12 )
 [node name="Hull" type="MeshInstance" parent="EnemyCraftController/EnemySpeeder"]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.317573, 0 )
 mesh = SubResource( 11 )
-material/0 = null
-material/1 = null
-material/2 = null
-material/3 = null
 
 [node name="AttentionArea" type="Area" parent="EnemyCraftController/EnemySpeeder"]
 collision_layer = 0
@@ -248,7 +240,6 @@ shape = SubResource( 13 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 mesh = SubResource( 16 )
-material/0 = null
 
 [node name="Crystal_006" parent="." instance=ExtResource( 7 )]
 transform = Transform( 100, 0, 0, 0, 100, 0, 0, 0, 100, -1.8, 4.4, -5.2 )

@@ -1,5 +1,5 @@
 tool
-extends Navigation
+extends Spatial
 
 # Exports
 export (int) var terrain_size := 32
