@@ -74,7 +74,6 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
-noise_octaves = 1
 
 [node name="TerrainGridMap" type="GridMap" parent="."]
 mesh_library = ExtResource( 3 )
@@ -91,11 +90,8 @@ __meta__ = {
 
 [node name="ObjectGridMap" type="GridMap" parent="."]
 mesh_library = SubResource( 103 )
-cell_size = Vector3( 1, 1, 1 )
+cell_size = Vector3( 1, 0.5, 1 )
 cell_center_y = false
-data = {
-"cells": PoolIntArray( 65535, 1, 1441792, 65531, 65531, 0, 2, 65535, 1048576 )
-}
 __meta__ = {
 "_editor_clip_": 0,
 "_editor_floor_": Vector3( 0, 0, 0 )

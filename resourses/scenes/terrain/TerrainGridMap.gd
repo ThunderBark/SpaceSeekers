@@ -9,6 +9,7 @@ export (float) var noise_octaves = 1
 export (float) var noise_persistence = 0.8
 export (float) var noise_lacunarity = 2.0
 export (float) var ramp_chance = 0.1
+export (int) var crystal_chance := 10000
 
 export (bool) var refresh = false
 export (bool) var next_sector = false
@@ -16,7 +17,7 @@ export (bool) var clean = false
 
 # Constants
 enum {
-	TILE_PLANE,
+	TILE_PLANE = 0,
 	TILE_RAMP,
 	TILE_SIDE_CLIFF = 5,
 	TILE_SIDE_CORNER = 9,
@@ -24,12 +25,14 @@ enum {
 }
 
 enum {
-	OBJECT_CRYSTAL_1,
+	OBJECT_CRYSTAL_1 = 0,
 }
 
 # etc.
 onready var grid : GridMap = $TerrainGridMap
+onready var obj_grid : GridMap = $ObjectGridMap
 var noise_generator: OpenSimplexNoise
+var obj_rng = RandomNumberGenerator.new()
 var cur_sector: int = 0
 
 func _ready() -> void:	
@@ -56,7 +59,7 @@ func _process(delta: float) -> void:
 				-terrain_size/2 + sector_size * (cur_sector%(terrain_size / sector_size)) + sector_size/2
 			)
 			generate_sector(point)
-			print(point)
+			print("Generating sector at: ", point)
 			cur_sector += 1
 		else:
 			print("All sectors generated!")
@@ -81,13 +84,13 @@ func generate_terrain() -> void:
 func generate_sector(center: Vector2):
 	for x in range(center.x - sector_size / 2, center.x + sector_size / 2):
 		for y in range(center.y - sector_size / 2, center.y + sector_size / 2):
-			grid.set_cell_item(
-				x,
-				get_interpolated_height_at_point(x, y) / 0.5,
-				y,
-				define_tile(x, y),
-				0
-			)
+			var tile_height : float = get_interpolated_height_at_point(x, y) / 0.5
+			var tile_type : int = define_tile(x, y)
+			grid.set_cell_item(x, tile_height, y, tile_type, 0)
+			if ((obj_rng.randi_range(0, crystal_chance) == 0) and (tile_type == 0)):
+				var quaternion = Quat(Vector3(0, 1, 0.0), deg2rad(90.0 * obj_rng.randi_range(0, 4)))
+				var orientation = Basis(quaternion).get_orthogonal_index()
+				obj_grid.set_cell_item(x, tile_height, y, 0, orientation)
 
 
 func define_tile(x: int, y: int) -> int:
@@ -179,6 +182,8 @@ func shake_noise():
 	noise_generator.period = noise_period
 	noise_generator.persistence = noise_persistence
 	noise_generator.lacunarity = noise_lacunarity
+	
+	obj_rng.randomize()
 
 
 func good_sign(num):
