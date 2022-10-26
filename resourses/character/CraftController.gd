@@ -31,4 +31,3 @@ func _physics_process(delta):
 		mesh.rotation.x += PI
 		mesh.rotation.z += PI
 		mesh_collision.rotation = mesh.rotation
-	

@@ -40,7 +40,12 @@ func _physics_process(delta):
 	if not intersection.empty():
 		craft.point_to_look = intersection.position
 	else:
-		craft.point_to_look = Vector3.ZERO
+		var dropPlane = Plane(Vector3(0, 1, 0), craft.translation.y)
+		mouse_position = dropPlane.intersects_ray(
+			camera.project_ray_origin(get_viewport().get_mouse_position()),
+			camera.project_ray_normal(get_viewport().get_mouse_position())
+		)
+		craft.point_to_look = mouse_position
 	
 
 	## Camera offset

@@ -43,6 +43,11 @@ run/main_scene="res://resourses/scenes/GameMaster.tscn"
 config/icon="res://assets/icons8-desert-landscape-96.png"
 config/windows_native_icon="res://assets/icons8-desert-landscape-96.ico"
 
+[autoload]
+
+Settings="*res://resourses/globals/settings.gd"
+PlayerState="*res://resourses/globals/player_state.gd"
+
 [debug]
 
 settings/stdout/print_fps=true
