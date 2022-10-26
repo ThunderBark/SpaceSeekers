@@ -20,7 +20,11 @@ enum {
 	TILE_RAMP,
 	TILE_SIDE_CLIFF = 5,
 	TILE_SIDE_CORNER = 9,
-	TILE_SIDE_CORNER_INNER = 13
+	TILE_SIDE_CORNER_INNER = 13,
+}
+
+enum {
+	OBJECT_CRYSTAL_1,
 }
 
 # etc.
@@ -184,3 +188,7 @@ func good_sign(num):
 		return -1
 	else:
 		return 0
+
+
+func populate_with_objects():
+	pass

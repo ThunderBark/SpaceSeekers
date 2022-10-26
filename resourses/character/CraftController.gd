@@ -1,8 +1,8 @@
 class_name CraftController
 extends KinematicBody
 
-export (float) var speed = 10
-export (float) var inertia = 10
+export (float) var speed = 10.0
+export (float) var inertia = 10.0
 export (float) var inertia_momentum = 0.1
 
 onready var mesh : MeshInstance = $Hull
@@ -22,7 +22,7 @@ func _physics_process(delta):
 	## Move craft
 	translation.y = init_height
 	velocity = velocity.linear_interpolate(dir * speed, 1.0 / inertia)
-	move_and_slide(velocity, Vector3.UP)
+	velocity = move_and_slide(velocity, Vector3.UP)
 	dir = Vector3.ZERO
 	
 	## Rotate speeder towards position

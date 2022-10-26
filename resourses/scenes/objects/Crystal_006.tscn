@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://resourses/bubble_shadermaterial.tres" type="Material" id=2]
+[ext_resource path="res://resourses/materials/bubble_shadermaterial.tres" type="Material" id=2]
 
 [sub_resource type="ArrayMesh" id=1]
 blend_shape_mode = 0
@@ -21,4 +21,3 @@ surfaces/0 = {
 transform = Transform( 100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0 )
 use_in_baked_light = true
 mesh = SubResource( 1 )
-material/0 = null

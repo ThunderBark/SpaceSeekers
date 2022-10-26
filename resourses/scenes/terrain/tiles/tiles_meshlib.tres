@@ -1,7 +1,7 @@
 [gd_resource type="MeshLibrary" load_steps=68 format=2]
 
-[ext_resource path="res://resourses/scenes/levels/terrain/tiles/rock_material.tres" type="Material" id=1]
-[ext_resource path="res://resourses/scenes/levels/terrain/tiles/rock_dark_material.tres" type="Material" id=2]
+[ext_resource path="res://resourses/materials/rock_material.tres" type="Material" id=1]
+[ext_resource path="res://resourses/materials/rock_dark_material.tres" type="Material" id=2]
 
 [sub_resource type="SpatialMaterial" id=1]
 resource_name = "rock"
