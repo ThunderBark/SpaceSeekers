@@ -1,11 +1,13 @@
 # SpaceSeeker
-This game intended to be mixup of real-time strategy and arcade bullethell, where you need to fight against an opponent who can do things like you:
+
+A game where you fight for Null-entropy crystals called Space Crystals. Main features:
 - Build resourse harvesting buildings
-- Build infantry and tank  producing factories
+- Build infantry and tank  producing factories to fight opponents army
+- Fight enemy seekers with your own ship
 - All above on procedurally generated map
 
 What was implemented:
 - Working procedural map generation with working navmesh
 - ...
 
-![image](https://user-images.githubusercontent.com/45365159/196510598-ad3d4d62-4781-44c3-9c1d-6a18ae8be2da.png)
+![image](https://user-images.githubusercontent.com/45365159/198135140-758a0e05-9e49-4c65-9a63-b4f8b6b72f7b.png)
