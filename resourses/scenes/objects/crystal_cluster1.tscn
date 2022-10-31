@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://assets/models/crystal_cluster/crystal.obj" type="ArrayMesh" id=3]
+[ext_resource path="res://resourses/scenes/objects/crystal_cluster.mesh" type="ArrayMesh" id=1]
 
 [node name="CrystalCluster1" type="Spatial"]
 
 [node name="CrystalCluster" type="MeshInstance" parent="."]
 transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0 )
-mesh = ExtResource( 3 )
+mesh = ExtResource( 1 )
