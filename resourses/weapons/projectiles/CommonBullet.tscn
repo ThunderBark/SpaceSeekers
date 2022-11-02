@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://resourses/weapons/projectiles/CommonBullet.gd" type="Script" id=1]
 [ext_resource path="res://resourses/weapons/projectiles/CommonBullet_spatialmaterial.tres" type="Material" id=2]
@@ -10,24 +10,31 @@ extents = Vector3( 1, 1, 1.5 )
 material = ExtResource( 2 )
 rings = 3
 
+[sub_resource type="Curve" id=8]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.654049 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=9]
+curve = SubResource( 8 )
+
 [sub_resource type="Curve" id=2]
-_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.988764, 0 ), 0.0, 0.0, 0, 0 ]
 
 [sub_resource type="CurveTexture" id=3]
 width = 128
 curve = SubResource( 2 )
 
 [sub_resource type="ParticlesMaterial" id=4]
-trail_divisor = 4
 trail_size_modifier = SubResource( 3 )
+flag_align_y = true
 direction = Vector3( 0, 0, -1 )
 initial_velocity = 10.0
-scale = 0.01
+scale = 0.05
+scale_curve = SubResource( 9 )
 color = Color( 1, 0.815686, 0.137255, 1 )
 
 [sub_resource type="CubeMesh" id=6]
 material = ExtResource( 2 )
-size = Vector3( 7, 7, 7 )
+size = Vector3( 1, 3, 1 )
 
 [node name="Bullet" type="Area"]
 collision_layer = 0
@@ -46,7 +53,7 @@ mesh = SubResource( 7 )
 [node name="Particles" type="Particles" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, -3.55271e-15, 0, 3.55271e-15, 1, 0, 0, 0 )
 emitting = false
-amount = 32
+amount = 10
 lifetime = 0.1
 one_shot = true
 explosiveness = 1.0
