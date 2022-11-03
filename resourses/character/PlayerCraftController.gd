@@ -54,12 +54,6 @@ func _physics_process(delta):
 
 	if is_building:
 		building_mode()
-
-	# var mouse_position = get_viewport().get_mouse_position()
-	# var ray_origin = camera.project_ray_origin(mouse_position)
-	# var ray_end = ray_origin + camera.project_ray_normal(mouse_position) * 2000
-	# var space_state = get_world().direct_space_state
-	# var intersection = space_state.intersect_ray(ray_origin, ray_end, [self, craft])
 	
 	## Camera offset
 	camera.translation = lerp(
@@ -78,7 +72,7 @@ func building_mode():
 	var ray_origin = camera.project_ray_origin(mouse_position)
 	var ray_end = ray_origin + camera.project_ray_normal(mouse_position) * 2000
 	var space_state = get_world().direct_space_state
-	var intersection = space_state.intersect_ray(ray_origin, ray_end, [self, craft])
+	var intersection = space_state.intersect_ray(ray_origin, ray_end, [self, craft], (1 << 0)|(1 << 2))
 	if not intersection.empty():
 		show_blueprint(intersection)
 
