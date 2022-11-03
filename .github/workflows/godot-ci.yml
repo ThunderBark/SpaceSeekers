@@ -41,7 +41,7 @@ jobs:
         uses: actions/checkout@v2.5.0
         with:
           lfs: true
-          path: "./"
+          path: /
       - name: Setup
         run: |
           mkdir -v -p ~/.local/share/godot/templates
