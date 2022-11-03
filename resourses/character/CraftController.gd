@@ -28,6 +28,6 @@ func _physics_process(delta):
 	## Rotate speeder towards position
 	if point_to_look != Vector3.ZERO:
 		mesh.look_at(point_to_look, Vector3.UP)
-		mesh.rotation.x += PI
+		mesh.rotation.x = PI
 		mesh.rotation.z += PI
 		mesh_collision.rotation = mesh.rotation

@@ -36,29 +36,30 @@ func _physics_process(delta):
 	if Input.is_action_pressed("move_down"):
 		dir.z += 1.0
 		dir.x -= 1.0
+	
+	if Input.is_action_just_pressed("secondary_fire_action"):
+		is_building = not is_building
+		blueprint.visible = is_building
+	
 	if craft is CraftController:
 		craft.dir = dir.normalized()
 
 	## Rotate speeder towards mouse position
-	var space_state = get_world().direct_space_state
-	var mouse_position = get_viewport().get_mouse_position()
-	var ray_origin = camera.project_ray_origin(mouse_position)
-	var ray_end = ray_origin + camera.project_ray_normal(mouse_position) * 2000
-	var intersection = space_state.intersect_ray(ray_origin, ray_end, [self, craft])
-	if not intersection.empty():
-		craft.point_to_look = (
-			intersection.collider.global_translation
-			if intersection.collider is CraftController
-			else intersection.position
-		)
-		show_blueprint(intersection)
-	else:
-		var dropPlane = Plane(Vector3(0, 1, 0), craft.translation.y)
-		mouse_position = dropPlane.intersects_ray(
-			camera.project_ray_origin(get_viewport().get_mouse_position()),
-			camera.project_ray_normal(get_viewport().get_mouse_position())
-		)
-		craft.point_to_look = mouse_position
+	var drop_plane = Plane(Vector3(0, 1, 0), craft.translation.y)
+	var mouse_position = drop_plane.intersects_ray(
+		camera.project_ray_origin(get_viewport().get_mouse_position()),
+		camera.project_ray_normal(get_viewport().get_mouse_position())
+	)
+	craft.point_to_look = mouse_position
+
+	if is_building:
+		building_mode()
+
+	# var mouse_position = get_viewport().get_mouse_position()
+	# var ray_origin = camera.project_ray_origin(mouse_position)
+	# var ray_end = ray_origin + camera.project_ray_normal(mouse_position) * 2000
+	# var space_state = get_world().direct_space_state
+	# var intersection = space_state.intersect_ray(ray_origin, ray_end, [self, craft])
 	
 	## Camera offset
 	camera.translation = lerp(
@@ -72,11 +73,17 @@ func _physics_process(delta):
 	)
 
 
-func show_blueprint(intersection: Dictionary) -> void:
-	if Input.is_action_just_pressed("secondary_fire_action"):
-		is_building = not is_building
-		blueprint.visible = is_building
-	
+func building_mode():
+	var mouse_position = get_viewport().get_mouse_position()
+	var ray_origin = camera.project_ray_origin(mouse_position)
+	var ray_end = ray_origin + camera.project_ray_normal(mouse_position) * 2000
+	var space_state = get_world().direct_space_state
+	var intersection = space_state.intersect_ray(ray_origin, ray_end, [self, craft])
+	if not intersection.empty():
+		show_blueprint(intersection)
+
+
+func show_blueprint(intersection: Dictionary) -> void:	
 	if Input.is_action_just_pressed("move_ascend"):
 		blueprint.rotate(Vector3.UP, PI / 2)
 	if Input.is_action_just_pressed("move_descend"):

@@ -160,9 +160,6 @@ terrain_size = 64
 [node name="TerrainGridMap" parent="MapMaster" index="0"]
 noise_period = 22.0
 
-[node name="ObjectGenerator" parent="MapMaster/TerrainGridMap" index="0"]
-cluster_chance = 10
-
 [node name="PlayerCraftController" type="Spatial" parent="."]
 script = ExtResource( 4 )
 building_bp = ExtResource( 12 )
