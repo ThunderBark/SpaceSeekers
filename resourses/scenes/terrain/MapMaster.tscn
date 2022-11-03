@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://resourses/scenes/terrain/TerrainGenerator.gd" type="Script" id=1]
+[ext_resource path="res://resourses/scenes/terrain/MapMaster.gd" type="Script" id=2]
+[ext_resource path="res://resourses/scenes/terrain/tiles/tiles_meshlib.tres" type="MeshLibrary" id=3]
+[ext_resource path="res://resourses/scenes/terrain/ObjectGenerator.gd" type="Script" id=4]
+[ext_resource path="res://resourses/scenes/objects/crystal_cluster1.tscn" type="PackedScene" id=5]
+
+[node name="MapMaster" type="Spatial"]
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
+terrain_size = 512
+
+[node name="TerrainGridMap" type="GridMap" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -0.5 )
+mesh_library = ExtResource( 3 )
+cell_size = Vector3( 1, 0.5, 1 )
+cell_octant_size = 16
+cell_center_y = false
+script = ExtResource( 1 )
+__meta__ = {
+"_editor_clip_": 0,
+"_editor_floor_": Vector3( 0, 0, 0 )
+}
+
+[node name="ObjectGenerator" type="Spatial" parent="TerrainGridMap"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0.5 )
+script = ExtResource( 4 )
+crystal_cluster = ExtResource( 5 )

@@ -38,7 +38,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="SpaceSeeker"
+config/name="SpaceSeekers"
 run/main_scene="res://resourses/scenes/GameMaster.tscn"
 config/icon="res://assets/icons8-desert-landscape-96.png"
 config/windows_native_icon="res://assets/icons8-desert-landscape-96.ico"
@@ -53,12 +53,12 @@ PlayerState="*res://resourses/globals/player_state.gd"
 settings/stdout/print_fps=true
 settings/stdout/verbose_stdout=true
 gdscript/warnings/unused_argument=false
+gdscript/warnings/integer_division=false
 
 [display]
 
 window/size/width=1280
 window/size/height=720
-window/size/resizable=false
 window/vsync/use_vsync=false
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
@@ -66,6 +66,7 @@ window/stretch/aspect="keep"
 [gdnative]
 
 singletons=[ "res://addons/godot-git-plugin/git_api.gdnlib" ]
+singletons_disabled=[ "res://addons/godot-git-plugin/git_api.gdnlib" ]
 
 [global]
 
@@ -118,7 +119,10 @@ secondary_fire_action={
 [layer_names]
 
 2d_physics/layer_1="Obstacles"
+3d_physics/layer_1="environment"
 2d_physics/layer_2="Character"
+3d_physics/layer_2="unit"
+3d_physics/layer_3="mouse_interaction"
 
 [physics]
 
