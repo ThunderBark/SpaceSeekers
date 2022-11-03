@@ -1,4 +1,4 @@
-# SpaceSeeker
+# SpaceSeekers
 
 A game where you fight for Null-entropy crystals called Space Crystals. Main features:
 - Build resourse harvesting buildings
