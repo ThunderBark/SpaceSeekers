@@ -14,4 +14,4 @@ What was implemented:
 
 ## Prerequisites
 
-Project made with Godot version 3.5.1-stable
+Project made with Godot version 3.5.1
