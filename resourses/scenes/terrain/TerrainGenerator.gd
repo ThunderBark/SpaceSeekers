@@ -1,5 +1,6 @@
 extends GridMap
 
+
 # Exports
 export (float) var noise_period = 20.0
 export (float) var noise_octaves = 1.0
