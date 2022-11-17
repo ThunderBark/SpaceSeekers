@@ -7,10 +7,14 @@ var player_mode: int = PLAYER_FIRING_BULLETS
 
 signal player_selection_state_changed(new_state)
 signal player_hp_changed_sig(new_hp)
+signal player_score_changed_sig(new_score)
 
 
 func player_hp_changed(new_hp):
 	self.emit_signal("player_hp_changed_sig", new_hp)
+
+func player_score_changed(new_score):
+	self.emit_signal("player_score_changed_sig", new_score)
 
 
 func _player_changed_mode(new_mode):
