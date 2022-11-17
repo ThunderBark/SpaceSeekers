@@ -1,19 +1,22 @@
 extends Node
 
-enum {
-	PLAYER_FIRING,
-	PLAYER_BUILDING
-}
-var player_state : int = PLAYER_FIRING
+onready var gui_node: Control = find_node("GUI")
 
-signal player_selection_state_changed
+enum { PLAYER_FIRING_BULLETS, PLAYER_BUILDING }
+var player_mode: int = PLAYER_FIRING_BULLETS
 
-func _input(event):
-	if (event.is_action_pressed("primary_fire_action")):
-		match player_state:
-			PLAYER_FIRING:
-				player_state = PLAYER_BUILDING
-			PLAYER_BUILDING:
-				player_state = PLAYER_FIRING
-		print(player_state)
-		self.emit_signal("player_selection_state_changed")
+signal player_selection_state_changed(new_state)
+signal player_hp_changed_sig(new_hp)
+signal player_score_changed_sig(new_score)
+
+
+func player_hp_changed(new_hp):
+	self.emit_signal("player_hp_changed_sig", new_hp)
+
+func player_score_changed(new_score):
+	self.emit_signal("player_score_changed_sig", new_score)
+
+
+func _player_changed_mode(new_mode):
+	player_mode = new_mode
+	self.emit_signal("player_selection_state_changed", player_mode)

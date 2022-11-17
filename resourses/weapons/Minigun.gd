@@ -2,7 +2,7 @@ extends Position3D
 
 
 export (PackedScene) var bullet
-export (float) var rate_of_fire = 5
+export (float) var rate_of_fire = 5.0
 var cooldown : float = 0
 
 
@@ -13,7 +13,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if Input.is_action_pressed("primary_fire_action"):
+	if Input.is_action_pressed("primary_fire_action") and (PlayerState.player_mode == PlayerState.PLAYER_FIRING_BULLETS):
 		fire_bullet()
 	
 	if cooldown >= 0:
