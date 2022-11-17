@@ -6,8 +6,16 @@ onready var build_mode_button: TextureButton = $ModeSetButtons/Build
 signal player_changed_mode(new_mode)
 
 func _ready():
-	PlayerState.connect("player_selection_state_changed", self, "mode_selected")
 	connect("player_changed_mode", PlayerState, "player_changed_mode")
+
+
+func _input(event):
+	if (event.is_action_pressed("number_1")):
+		self.emit_signal("player_selection_state_changed", PlayerState.PLAYER_FIRING_BULLETS)
+		mode_selected(PlayerState.PLAYER_FIRING_BULLETS)
+	if (event.is_action_pressed("number_2")):
+		self.emit_signal("player_selection_state_changed", PlayerState.PLAYER_BUILDING)
+		mode_selected(PlayerState.PLAYER_BUILDING)
 
 
 func mode_selected(mode: int):
@@ -16,26 +24,24 @@ func mode_selected(mode: int):
 	build_mode_button.pressed = false
 	match mode:
 		PlayerState.PLAYER_FIRING_BULLETS:
+			emit_signal("player_changed_mode", mode)
 			air_mode_button.pressed = true
 		PlayerState.PLAYER_BUILDING:
+			emit_signal("player_changed_mode", mode)
 			build_mode_button.pressed = true
 
 
 func _on_Build_button_down():
 	mode_selected(PlayerState.PLAYER_BUILDING)
-	emit_signal("player_changed_mode", PlayerState.PLAYER_BUILDING)
 
 
 func _on_Air_button_down():
 	mode_selected(PlayerState.PLAYER_FIRING_BULLETS)
-	emit_signal("player_changed_mode", PlayerState.PLAYER_FIRING_BULLETS)
 
 
 func _on_Build_button_up():
 	mode_selected(PlayerState.PLAYER_BUILDING)
-	emit_signal("player_changed_mode", PlayerState.PLAYER_BUILDING)
 
 
 func _on_Air_button_up():
 	mode_selected(PlayerState.PLAYER_FIRING_BULLETS)
-	emit_signal("player_changed_mode", PlayerState.PLAYER_FIRING_BULLETS)

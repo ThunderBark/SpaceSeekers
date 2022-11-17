@@ -18,6 +18,7 @@ var is_building: bool = false
 func _ready():
 	blueprint.visible = false
 	add_child(blueprint)
+
 	rng.randomize()
 
 
@@ -40,13 +41,13 @@ func _physics_process(delta):
 	if craft is CraftController:
 		craft.dir = dir.normalized()
 
-	## Rotate speeder towards mouse position
-	var drop_plane = Plane(Vector3(0, 1, 0), craft.translation.y)
-	var mouse_position = drop_plane.intersects_ray(
-		camera.project_ray_origin(get_viewport().get_mouse_position()),
-		camera.project_ray_normal(get_viewport().get_mouse_position())
-	)
-	craft.point_to_look = mouse_position
+		## Rotate speeder towards mouse position
+		var drop_plane = Plane(Vector3(0, 1, 0), craft.translation.y)
+		var mouse_position = drop_plane.intersects_ray(
+			camera.project_ray_origin(get_viewport().get_mouse_position()),
+			camera.project_ray_normal(get_viewport().get_mouse_position())
+		)
+		craft.point_to_look = mouse_position
 
 	if PlayerState.player_state == PlayerState.PLAYER_BUILDING:
 		building_mode()
