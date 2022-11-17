@@ -1,16 +1,55 @@
 extends ReferenceRect
 
+onready var air_mode_button: TextureButton = $ModeSetButtons/Air
+onready var ground_mode_button: TextureButton = $ModeSetButtons/Ground
+onready var build_mode_button: TextureButton = $ModeSetButtons/Build
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+signal player_changed_mode(new_mode)
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	PlayerState.connect("player_selection_state_changed", self, "mode_selected")
+	connect("player_changed_mode", PlayerState, "player_changed_mode")
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func mode_selected(mode: int):
+	print("mode_selected: " + String(mode))
+	air_mode_button.pressed = false
+	ground_mode_button.pressed = false
+	build_mode_button.pressed = false
+	match mode:
+		PlayerState.PLAYER_FIRING_BULLETS:
+			air_mode_button.pressed = true
+		PlayerState.PLAYER_FIRING_MISSILES:
+			ground_mode_button.pressed = true
+		PlayerState.PLAYER_BUILDING:
+			build_mode_button.pressed = true
+
+
+func _on_Build_button_down():
+	mode_selected(PlayerState.PLAYER_BUILDING)
+	emit_signal("player_changed_mode", PlayerState.PLAYER_BUILDING)
+
+
+func _on_Ground_button_down():
+	mode_selected(PlayerState.PLAYER_FIRING_MISSILES)
+	emit_signal("player_changed_mode", PlayerState.PLAYER_FIRING_MISSILES)
+
+
+func _on_Air_button_down():
+	mode_selected(PlayerState.PLAYER_FIRING_BULLETS)
+	emit_signal("player_changed_mode", PlayerState.PLAYER_FIRING_BULLETS)
+
+
+func _on_Build_button_up():
+	mode_selected(PlayerState.PLAYER_BUILDING)
+	emit_signal("player_changed_mode", PlayerState.PLAYER_BUILDING)
+
+
+func _on_Ground_button_up():
+	mode_selected(PlayerState.PLAYER_FIRING_MISSILES)
+	emit_signal("player_changed_mode", PlayerState.PLAYER_FIRING_MISSILES)
+
+
+func _on_Air_button_up():
+	mode_selected(PlayerState.PLAYER_FIRING_BULLETS)
+	emit_signal("player_changed_mode", PlayerState.PLAYER_FIRING_BULLETS)

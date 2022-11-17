@@ -246,6 +246,7 @@ grow_vertical = 2
 margin_right = 49.0
 margin_bottom = 49.0
 toggle_mode = true
+pressed = true
 texture_normal = ExtResource( 17 )
 texture_pressed = ExtResource( 16 )
 
@@ -351,5 +352,12 @@ margin_right = 113.0
 margin_bottom = 57.0
 theme = ExtResource( 21 )
 text = "0"
+
+[connection signal="button_down" from="GUI/ModeSetButtons/Air" to="GUI" method="_on_Air_button_down"]
+[connection signal="button_up" from="GUI/ModeSetButtons/Air" to="GUI" method="_on_Air_button_up"]
+[connection signal="button_down" from="GUI/ModeSetButtons/Ground" to="GUI" method="_on_Ground_button_down"]
+[connection signal="button_up" from="GUI/ModeSetButtons/Ground" to="GUI" method="_on_Ground_button_up"]
+[connection signal="button_down" from="GUI/ModeSetButtons/Build" to="GUI" method="_on_Build_button_down"]
+[connection signal="button_up" from="GUI/ModeSetButtons/Build" to="GUI" method="_on_Build_button_up"]
 
 [editable path="MapMaster"]

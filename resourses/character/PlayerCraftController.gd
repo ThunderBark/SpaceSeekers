@@ -37,10 +37,6 @@ func _physics_process(delta):
 		dir.z += 1.0
 		dir.x -= 1.0
 	
-	if Input.is_action_just_pressed("secondary_fire_action"):
-		is_building = not is_building
-		blueprint.visible = is_building
-	
 	if craft is CraftController:
 		craft.dir = dir.normalized()
 
@@ -52,8 +48,11 @@ func _physics_process(delta):
 	)
 	craft.point_to_look = mouse_position
 
-	if is_building:
+	if PlayerState.player_state == PlayerState.PLAYER_BUILDING:
 		building_mode()
+		blueprint.visible = true
+	else:
+		blueprint.visible = false
 	
 	## Camera offset
 	camera.translation = lerp(
@@ -85,18 +84,17 @@ func show_blueprint(intersection: Dictionary) -> void:
 
 	var coll: Spatial = intersection.collider
 
-	if is_building:
-		if coll.is_in_group("crystals"):
-			blueprint.translation = coll.translation
-			if blueprint.check_ground():
-				if Input.is_action_just_pressed("primary_fire_action"):
-					var extr: Spatial = extractor1.instance()
-					extr.translation = coll.translation
-					extr.rotation = blueprint.rotation
-					get_parent().add_child(extr)
-				blueprint.green()
-			else:
-				blueprint.red()
+	if coll.is_in_group("crystals"):
+		blueprint.translation = coll.translation
+		if blueprint.check_ground():
+			if Input.is_action_just_pressed("primary_fire_action"):
+				var extr: Spatial = extractor1.instance()
+				extr.translation = coll.translation
+				extr.rotation = blueprint.rotation
+				get_parent().add_child(extr)
+			blueprint.green()
 		else:
 			blueprint.red()
-			blueprint.translation = intersection.position
+	else:
+		blueprint.red()
+		blueprint.translation = intersection.position
