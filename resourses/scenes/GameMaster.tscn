@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://resourses/scenes/GameMaster.gd" type="Script" id=1]
 [ext_resource path="res://resourses/scenes/terrain/MapMaster.tscn" type="PackedScene" id=2]
@@ -18,7 +18,6 @@
 [ext_resource path="res://assets/kenney-ui/PNG/red_button03.png" type="Texture" id=16]
 [ext_resource path="res://assets/kenney-ui/PNG/grey_button12.png" type="Texture" id=17]
 [ext_resource path="res://assets/icons8-ammo-96.png" type="Texture" id=18]
-[ext_resource path="res://assets/icons8-missile-96.png" type="Texture" id=19]
 [ext_resource path="res://assets/icons8-hammer-96.png" type="Texture" id=20]
 [ext_resource path="res://resourses/default_ui.theme" type="Theme" id=21]
 [ext_resource path="res://assets/icons8-nebula-96.png" type="Texture" id=22]
@@ -271,32 +270,9 @@ margin_left = 53.0
 margin_right = 57.0
 margin_bottom = 49.0
 
-[node name="Ground" type="TextureButton" parent="GUI/ModeSetButtons"]
+[node name="Build" type="TextureButton" parent="GUI/ModeSetButtons"]
 margin_left = 61.0
 margin_right = 110.0
-margin_bottom = 49.0
-toggle_mode = true
-texture_normal = ExtResource( 17 )
-texture_pressed = ExtResource( 16 )
-
-[node name="Image" type="TextureRect" parent="GUI/ModeSetButtons/Ground"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource( 19 )
-
-[node name="VSeparator2" type="VSeparator" parent="GUI/ModeSetButtons"]
-modulate = Color( 1, 1, 1, 0 )
-margin_left = 114.0
-margin_right = 118.0
-margin_bottom = 49.0
-
-[node name="Build" type="TextureButton" parent="GUI/ModeSetButtons"]
-margin_left = 122.0
-margin_right = 171.0
 margin_bottom = 49.0
 theme = ExtResource( 21 )
 toggle_mode = true
@@ -355,8 +331,6 @@ text = "0"
 
 [connection signal="button_down" from="GUI/ModeSetButtons/Air" to="GUI" method="_on_Air_button_down"]
 [connection signal="button_up" from="GUI/ModeSetButtons/Air" to="GUI" method="_on_Air_button_up"]
-[connection signal="button_down" from="GUI/ModeSetButtons/Ground" to="GUI" method="_on_Ground_button_down"]
-[connection signal="button_up" from="GUI/ModeSetButtons/Ground" to="GUI" method="_on_Ground_button_up"]
 [connection signal="button_down" from="GUI/ModeSetButtons/Build" to="GUI" method="_on_Build_button_down"]
 [connection signal="button_up" from="GUI/ModeSetButtons/Build" to="GUI" method="_on_Build_button_up"]
 
