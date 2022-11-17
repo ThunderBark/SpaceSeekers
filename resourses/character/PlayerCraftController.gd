@@ -49,7 +49,7 @@ func _physics_process(delta):
 		)
 		craft.point_to_look = mouse_position
 
-	if PlayerState.player_state == PlayerState.PLAYER_BUILDING:
+	if PlayerState.player_mode == PlayerState.PLAYER_BUILDING:
 		building_mode()
 		blueprint.visible = true
 	else:
