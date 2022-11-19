@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://resourses/weapons/MissileLauncher.gd" type="Script" id=1]
+[ext_resource path="res://resourses/weapons/projectiles/Missile.tscn" type="PackedScene" id=2]
+
+[node name="MissileLauncher" type="Position3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0.6 )
+script = ExtResource( 1 )
+missile = ExtResource( 2 )
