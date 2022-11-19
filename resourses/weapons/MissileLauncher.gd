@@ -32,7 +32,7 @@ func fire_missile() -> void:
 			var penalty: float = exp((intersection.position - craft.translation).length() / accuracy)
 			m.target_position = intersection.position + Vector3(
 				rand_range(-penalty, penalty),
-				0,
+				-1.0 if intersection.collider is Extractor else 0.0,
 				rand_range(-penalty, penalty)
 			)
 			owner.add_child(m)

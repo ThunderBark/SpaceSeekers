@@ -2,11 +2,14 @@ extends Area
 
 
 export (float) var speed = 10.0
+export (int) var damage = 100
+
 var shooter: Spatial
 var target: Spatial
 var target_detected: bool = true
 var target_position
 
+var is_already_blow_up: bool = false
 
 func _ready():
 	die_deferred()
@@ -21,18 +24,19 @@ func _physics_process(delta):
 
 func die_deferred():
 	yield(get_tree().create_timer(2), "timeout")
-	hide()
-	set_physics_process(false)
-	yield(get_tree().create_timer(2), "timeout")
-	add_to_group("trash")
+	queue_free()
 
 
 func _on_Rocket_body_entered(body):
-	if body != shooter:
+	if (body != shooter) and not is_already_blow_up:
 		for body in $ExplosionArea.get_overlapping_bodies():
-			pass # Do damage
+			if body is Extractor:
+				body.take_damage(damage)
+		is_already_blow_up = true
 
 		$foamBulletB.visible = false
 		$Trail.emitting = false
 		$AnimationPlayer.play("Explosion")
 		set_physics_process(false)
+		yield(get_tree().create_timer(1), "timeout")
+		queue_free()
