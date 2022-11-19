@@ -6,6 +6,8 @@ onready var blueprint: Spatial = building_bp.instance()
 export(PackedScene) var extractor1: PackedScene
 onready var extractor: Spatial = extractor1.instance()
 
+export (int) var invul_msec: int = 50
+
 onready var craft: KinematicBody = get_child(0)
 onready var camera: Camera = craft.get_node("Camera")
 onready var camera_init_position: Vector3 = camera.translation
@@ -14,13 +16,15 @@ var rng = RandomNumberGenerator.new()
 var velocity: Vector3 = Vector3.ZERO
 var is_building: bool = false
 
+var player_hp: int = 100
+var last_damage_time : int = Time.get_ticks_msec()
+
 
 func _ready():
+	craft.connect("took_damage", self, "craft_took_damage")
+
 	blueprint.visible = false
 	add_child(blueprint)
-
-	rng.randomize()
-
 
 func _physics_process(delta):
 	## Move craft
@@ -75,6 +79,15 @@ func building_mode():
 	var intersection = space_state.intersect_ray(ray_origin, ray_end, [self, craft], (1 << 0)|(1 << 2))
 	if not intersection.empty():
 		show_blueprint(intersection)
+
+
+func craft_took_damage(damage_amount):
+	var damage_time = Time.get_ticks_msec()
+	if (damage_time - last_damage_time) >= invul_msec:
+		last_damage_time = damage_time
+		
+		player_hp -= damage_amount
+		PlayerState.player_hp_changed(player_hp)
 
 
 func show_blueprint(intersection: Dictionary) -> void:	

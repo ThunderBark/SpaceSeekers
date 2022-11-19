@@ -1,6 +1,7 @@
 extends Spatial
 
 export(PackedScene) var border_wind_scene: PackedScene
+export(PackedScene) var border_damage_area_scene: PackedScene
 export(int) var border_wind_dimension: int
 
 onready var tile_grid_map := $TerrainGridMap
@@ -32,6 +33,58 @@ func _ready():
 						-map_size / 2 + j
 					)
 					add_child(border_wind)
+	
+	var border_damage_area : Area = border_damage_area_scene.instance()
+	border_damage_area.translation = Vector3(
+		(map_size - wind_border_width) / 2.0,
+		2.0,
+		0.0
+	)
+	border_damage_area.scale = Vector3(
+		wind_border_width / 2.0,
+		3.0,
+		map_size / 2.0
+	)
+	add_child(border_damage_area)
+
+	border_damage_area = border_damage_area_scene.instance()
+	border_damage_area.translation = Vector3(
+		-(map_size - wind_border_width) / 2.0,
+		2.0,
+		0.0
+	)
+	border_damage_area.scale = Vector3(
+		wind_border_width / 2.0,
+		3.0,
+		map_size / 2.0
+	)
+	add_child(border_damage_area)
+
+	border_damage_area = border_damage_area_scene.instance()
+	border_damage_area.translation = Vector3(
+		0.0,
+		2.0,
+		(map_size - wind_border_width) / 2.0
+	)
+	border_damage_area.scale = Vector3(
+		(terrain_size - 1.0) / 2.0,
+		3.0,
+		wind_border_width / 2.0
+	)
+	add_child(border_damage_area)
+
+	border_damage_area = border_damage_area_scene.instance()
+	border_damage_area.translation = Vector3(
+		0.0,
+		2.0,
+		-(map_size - wind_border_width) / 2.0
+	)
+	border_damage_area.scale = Vector3(
+		(terrain_size - 1.0) / 2.0,
+		3.0,
+		wind_border_width / 2.0
+	)
+	add_child(border_damage_area)
 
 
 func _process(delta):
