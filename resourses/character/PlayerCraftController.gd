@@ -105,6 +105,7 @@ func show_blueprint(intersection: Dictionary) -> void:
 				var extr: Spatial = extractor1.instance()
 				extr.translation = coll.translation
 				extr.rotation = blueprint.rotation
+				extr.add_to_group("player1")
 				get_parent().add_child(extr)
 			blueprint.green()
 		else:
