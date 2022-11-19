@@ -14,6 +14,9 @@ var velocity : Vector3 = Vector3.ZERO
 var dir : Vector3 = Vector3.ZERO
 var point_to_look : Vector3 = Vector3.ZERO
 
+signal took_damage(damage_amount)
+
+
 func _ready():
 	rng.randomize()
 
@@ -31,3 +34,7 @@ func _physics_process(delta):
 		mesh.rotation.x = PI
 		mesh.rotation.z += PI
 		mesh_collision.rotation = mesh.rotation
+
+
+func take_damage(damage_amount : int):
+	emit_signal("took_damage", damage_amount)
