@@ -1,8 +1,8 @@
 class_name Extractor
 extends StaticBody
 
-export (int) var max_health: int = 1000
-export (int) var score_per_second: int = 10
+export(int) var max_health: int = 1000
+export(int) var score_per_second: int = 10
 
 onready var tick: int = Time.get_ticks_msec()
 
@@ -17,7 +17,7 @@ func take_damage(damage_amount):
 	print("Extractor took damage: " + String(damage_amount))
 	health -= damage_amount
 	if health <= 0:
-		queue_free()
+		$AnimationPlayer.play("Explosions")
 
 
 func _process(delta):

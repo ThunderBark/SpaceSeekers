@@ -23,6 +23,8 @@ var last_damage_time : int = Time.get_ticks_msec()
 func _ready():
 	craft.connect("took_damage", self, "craft_took_damage")
 
+	craft.add_to_group("player1")
+
 	blueprint.visible = false
 	add_child(blueprint)
 
@@ -88,6 +90,9 @@ func craft_took_damage(damage_amount):
 		
 		player_hp -= damage_amount
 		PlayerState.player_hp_changed(player_hp)
+		if player_hp <= 0:
+			set_physics_process(false)
+			craft.die()
 
 
 func show_blueprint(intersection: Dictionary) -> void:	

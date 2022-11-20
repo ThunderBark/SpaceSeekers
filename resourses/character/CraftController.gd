@@ -9,16 +9,11 @@ onready var mesh : MeshInstance = $Hull
 onready var mesh_collision : CollisionShape = $HullCollision
 onready var init_height: float = translation.y
 
-var rng = RandomNumberGenerator.new()
 var velocity : Vector3 = Vector3.ZERO
 var dir : Vector3 = Vector3.ZERO
 var point_to_look : Vector3 = Vector3.ZERO
 
 signal took_damage(damage_amount)
-
-
-func _ready():
-	rng.randomize()
 
 
 func _physics_process(delta):
@@ -38,3 +33,7 @@ func _physics_process(delta):
 
 func take_damage(damage_amount : int):
 	emit_signal("took_damage", damage_amount)
+
+func die():
+	set_physics_process(false)
+	$AnimationPlayer.play("Crash")

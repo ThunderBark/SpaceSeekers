@@ -7,9 +7,18 @@ export (float) var accuracy = 15.0
 var cooldown : float = 0
 
 onready var craft: Spatial = get_parent().get_parent().get_parent()
+onready var world_root: Node = get_tree().get_root().get_child(0)
+onready var rng: RandomNumberGenerator = RandomNumberGenerator.new()
+
+func _ready():
+	rng.randomize()
 
 func _physics_process(delta: float) -> void:
-	if Input.is_action_pressed("secondary_fire_action") and (PlayerState.player_mode == PlayerState.PLAYER_FIRING_BULLETS):
+	if (
+		Input.is_action_pressed("secondary_fire_action")
+		and (PlayerState.player_mode == PlayerState.PLAYER_FIRING_BULLETS)
+		and craft.is_in_group("player1")
+	):
 		fire_missile()
 	
 	if cooldown >= 0:
@@ -35,4 +44,4 @@ func fire_missile() -> void:
 				-1.0 if intersection.collider is Extractor else 0.0,
 				rand_range(-penalty, penalty)
 			)
-			owner.add_child(m)
+			world_root.add_child(m)
