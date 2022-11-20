@@ -1,8 +1,8 @@
 class_name Extractor
 extends StaticBody
 
-export (int) var max_health: int = 1000
-export (int) var score_per_second: int = 10
+export(int) var max_health: int = 1000
+export(int) var score_per_second: int = 10
 
 onready var tick: int = Time.get_ticks_msec()
 

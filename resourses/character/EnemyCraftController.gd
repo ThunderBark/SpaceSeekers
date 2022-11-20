@@ -1,7 +1,7 @@
 class_name EnemyCraftController
 extends Node
 
-onready var craft : KinematicBody = get_child(0)
+onready var craft : CraftController = get_child(0)
 onready var attention_area : Area = craft.get_node("AttentionArea")
 
 export (int) var health: int = 30
@@ -30,4 +30,5 @@ func _physics_process(delta):
 			craft.point_to_look = target_body_pos
 
 func die():
-	queue_free()
+	set_physics_process(false)
+	craft.die()
