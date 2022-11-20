@@ -1,16 +1,25 @@
 extends Node
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	# Apply saved settings
+	pass
 
+# We use a dictionary to represent settings because we have few values for now. Also, when you
+# have many more settings, you can replace it with an object without having to refactor the code
+# too much, as in GDScript, you can access a dictionary's keys like you would access an object's
+# member variables.
+func update_settings(settings: Dictionary) -> void:
+	OS.window_fullscreen = settings.fullscreen
+	get_tree().set_screen_stretch(
+		SceneTree.STRETCH_MODE_VIEWPORT, SceneTree.STRETCH_ASPECT_KEEP, settings.resolution
+	)
+	OS.set_window_size(settings.resolution)
+	OS.vsync_enabled = settings.vsync
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func get_settings() -> Dictionary:
+	var settings = {}
+	settings.fullscreen = OS.window_fullscreen
+	settings.resolution = OS.get_real_window_size()
+	settings.vsync = OS.vsync_enabled
+	return settings
