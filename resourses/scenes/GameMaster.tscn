@@ -66,34 +66,6 @@ monitorable = false
 [node name="CollisionShape" type="CollisionShape" parent="EnemyCraftController/SpeederA/AttentionArea"]
 shape = SubResource( 13 )
 
-[node name="EnemyCraftController2" type="Node" parent="."]
-script = ExtResource( 6 )
-
-[node name="SpeederA" parent="EnemyCraftController2" instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 21.1159, 3, -13.9678 )
-
-[node name="AttentionArea" type="Area" parent="EnemyCraftController2/SpeederA"]
-collision_layer = 0
-collision_mask = 2
-monitorable = false
-
-[node name="CollisionShape" type="CollisionShape" parent="EnemyCraftController2/SpeederA/AttentionArea"]
-shape = SubResource( 13 )
-
-[node name="EnemyCraftController3" type="Node" parent="."]
-script = ExtResource( 6 )
-
-[node name="SpeederA" parent="EnemyCraftController3" instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19.985, 3, 6.81978 )
-
-[node name="AttentionArea" type="Area" parent="EnemyCraftController3/SpeederA"]
-collision_layer = 0
-collision_mask = 2
-monitorable = false
-
-[node name="CollisionShape" type="CollisionShape" parent="EnemyCraftController3/SpeederA/AttentionArea"]
-shape = SubResource( 13 )
-
 [node name="GUI" type="ReferenceRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
