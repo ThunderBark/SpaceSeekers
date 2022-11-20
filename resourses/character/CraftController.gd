@@ -36,4 +36,5 @@ func take_damage(damage_amount : int):
 
 func die():
 	set_physics_process(false)
+	$HullCollision.disabled = true
 	$AnimationPlayer.play("Crash")

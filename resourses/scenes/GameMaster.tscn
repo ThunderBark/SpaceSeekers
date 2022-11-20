@@ -211,7 +211,7 @@ margin_bottom = 57.0
 theme = ExtResource( 21 )
 text = "0"
 
-[node name="Camera" type="Camera" parent="."]
+[node name="BackupCamera" type="Camera" parent="."]
 transform = Transform( 0.707107, 0.707107, 3.09086e-08, 0, -4.37114e-08, 1, 0.707107, -0.707107, -3.09086e-08, 0, 20, 0 )
 
 [connection signal="button_down" from="GUI/ModeSetButtons/Air" to="GUI" method="_on_Air_button_down"]
