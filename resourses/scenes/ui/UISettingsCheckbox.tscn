@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://resourses/scenes/ui/UISettingCheckbox.gd" type="Script" id=1]
+
+[node name="UISettingCheckbox" type="HBoxContainer"]
+margin_top = 28.0
+margin_right = 504.0
+margin_bottom = 54.0
+script = ExtResource( 1 )
+title = "Vsync"
+
+[node name="Label" type="Label" parent="."]
+margin_top = 4.0
+margin_bottom = 22.0
+align = 2
+
+[node name="CheckBox" type="CheckBox" parent="."]
+margin_left = 4.0
+margin_right = 28.0
+margin_bottom = 26.0
+
+[connection signal="toggled" from="CheckBox" to="." method="_on_CheckBox_toggled"]

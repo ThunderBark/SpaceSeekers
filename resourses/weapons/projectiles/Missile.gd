@@ -23,7 +23,9 @@ func _physics_process(delta):
 
 
 func die_deferred():
-	yield(get_tree().create_timer(2), "timeout")
+	yield(get_tree().create_timer(1), "timeout")
+	target_position -= Vector3(0.0, 2.0, 0.0)
+	yield(get_tree().create_timer(1), "timeout")
 	queue_free()
 
 

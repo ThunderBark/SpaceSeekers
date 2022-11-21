@@ -1,11 +1,15 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://resourses/scenes/GameMaster.gd" type="Script" id=1]
 [ext_resource path="res://resourses/scenes/terrain/MapMaster.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/kenney-ui/PNG/green_button12.png" type="Texture" id=3]
 [ext_resource path="res://resourses/character/PlayerCraftController.gd" type="Script" id=4]
+[ext_resource path="res://assets/kenney-ui/PNG/red_button12.png" type="Texture" id=5]
 [ext_resource path="res://resourses/character/EnemyCraftController.gd" type="Script" id=6]
 [ext_resource path="res://resourses/character/SpeederA.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/kenney-ui/PNG/red_button00.png" type="Texture" id=8]
+[ext_resource path="res://resourses/scenes/ui/SettingsContainer.tscn" type="PackedScene" id=9]
+[ext_resource path="res://resourses/scenes/PauseMenu.gd" type="Script" id=10]
 [ext_resource path="res://resourses/scenes/blueprint.tscn" type="PackedScene" id=12]
 [ext_resource path="res://resourses/scenes/objects/extractor1.tscn" type="PackedScene" id=13]
 [ext_resource path="res://resourses/scenes/terrain/BorderWinds.tscn" type="PackedScene" id=14]
@@ -64,34 +68,6 @@ collision_mask = 2
 monitorable = false
 
 [node name="CollisionShape" type="CollisionShape" parent="EnemyCraftController/SpeederA/AttentionArea"]
-shape = SubResource( 13 )
-
-[node name="EnemyCraftController2" type="Node" parent="."]
-script = ExtResource( 6 )
-
-[node name="SpeederA" parent="EnemyCraftController2" instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 21.1159, 3, -13.9678 )
-
-[node name="AttentionArea" type="Area" parent="EnemyCraftController2/SpeederA"]
-collision_layer = 0
-collision_mask = 2
-monitorable = false
-
-[node name="CollisionShape" type="CollisionShape" parent="EnemyCraftController2/SpeederA/AttentionArea"]
-shape = SubResource( 13 )
-
-[node name="EnemyCraftController3" type="Node" parent="."]
-script = ExtResource( 6 )
-
-[node name="SpeederA" parent="EnemyCraftController3" instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19.985, 3, 6.81978 )
-
-[node name="AttentionArea" type="Area" parent="EnemyCraftController3/SpeederA"]
-collision_layer = 0
-collision_mask = 2
-monitorable = false
-
-[node name="CollisionShape" type="CollisionShape" parent="EnemyCraftController3/SpeederA/AttentionArea"]
 shape = SubResource( 13 )
 
 [node name="GUI" type="ReferenceRect" parent="."]
@@ -214,9 +190,93 @@ text = "0"
 [node name="BackupCamera" type="Camera" parent="."]
 transform = Transform( 0.707107, 0.707107, 3.09086e-08, 0, -4.37114e-08, 1, 0.707107, -0.707107, -3.09086e-08, 0, 20, 0 )
 
+[node name="PauseMenu" type="ReferenceRect" parent="."]
+pause_mode = 2
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 10 )
+
+[node name="ColorRect" type="ColorRect" parent="PauseMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.498039 )
+
+[node name="SettingsContainer" parent="PauseMenu" instance=ExtResource( 9 )]
+
+[node name="ButtonsContainer" type="MarginContainer" parent="PauseMenu"]
+anchor_left = 0.05
+anchor_top = 0.07
+anchor_right = 0.061
+anchor_bottom = 0.07
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/ButtonsContainer"]
+margin_right = 190.0
+margin_bottom = 192.0
+
+[node name="ReturnButton" type="TextureButton" parent="PauseMenu/ButtonsContainer/VBoxContainer"]
+margin_right = 190.0
+margin_bottom = 45.0
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 8 )
+
+[node name="Label" type="Label" parent="PauseMenu/ButtonsContainer/VBoxContainer/ReturnButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Return"
+align = 1
+valign = 1
+
+[node name="SettingsButton" type="TextureButton" parent="PauseMenu/ButtonsContainer/VBoxContainer"]
+margin_top = 49.0
+margin_right = 190.0
+margin_bottom = 94.0
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 8 )
+
+[node name="Label" type="Label" parent="PauseMenu/ButtonsContainer/VBoxContainer/SettingsButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Settings"
+align = 1
+valign = 1
+
+[node name="MainMenuButton" type="TextureButton" parent="PauseMenu/ButtonsContainer/VBoxContainer"]
+margin_right = 190.0
+margin_bottom = 45.0
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 8 )
+
+[node name="Label" type="Label" parent="PauseMenu/ButtonsContainer/VBoxContainer/MainMenuButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Main Menu"
+align = 1
+valign = 1
+
+[node name="QuitButton" type="TextureButton" parent="PauseMenu/ButtonsContainer/VBoxContainer"]
+margin_top = 98.0
+margin_right = 190.0
+margin_bottom = 143.0
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 8 )
+
+[node name="Label" type="Label" parent="PauseMenu/ButtonsContainer/VBoxContainer/QuitButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Quit"
+align = 1
+valign = 1
+
 [connection signal="button_down" from="GUI/ModeSetButtons/Air" to="GUI" method="_on_Air_button_down"]
 [connection signal="button_up" from="GUI/ModeSetButtons/Air" to="GUI" method="_on_Air_button_up"]
 [connection signal="button_down" from="GUI/ModeSetButtons/Build" to="GUI" method="_on_Build_button_down"]
 [connection signal="button_up" from="GUI/ModeSetButtons/Build" to="GUI" method="_on_Build_button_up"]
+[connection signal="button_up" from="PauseMenu/ButtonsContainer/VBoxContainer/ReturnButton" to="PauseMenu" method="_on_ReturnButton_button_up"]
+[connection signal="button_up" from="PauseMenu/ButtonsContainer/VBoxContainer/SettingsButton" to="PauseMenu" method="_on_SettingsButton_button_up"]
+[connection signal="button_up" from="PauseMenu/ButtonsContainer/VBoxContainer/MainMenuButton" to="PauseMenu" method="_on_MainMenuButton_button_up"]
+[connection signal="button_up" from="PauseMenu/ButtonsContainer/VBoxContainer/QuitButton" to="PauseMenu" method="_on_QuitButton_button_up"]
 
 [editable path="MapMaster"]

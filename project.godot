@@ -45,7 +45,7 @@ _global_script_class_icons={
 [application]
 
 config/name="SpaceSeekers"
-run/main_scene="res://resourses/scenes/GameMaster.tscn"
+run/main_scene="res://resourses/scenes/MainMenu.tscn"
 config/icon="res://assets/icons8-desert-landscape-96.png"
 config/windows_native_icon="res://assets/icons8-desert-landscape-96.ico"
 
@@ -57,7 +57,6 @@ PlayerState="*res://resourses/globals/player_state.gd"
 [debug]
 
 settings/stdout/print_fps=true
-settings/stdout/verbose_stdout=true
 gdscript/warnings/unused_argument=false
 gdscript/warnings/integer_division=false
 
@@ -79,6 +78,10 @@ singletons_disabled=[ "res://addons/godot-git-plugin/git_api.gdnlib" ]
 
 frame=false
 framebuffer=false
+
+[gui]
+
+theme/custom="res://resourses/default_ui.theme"
 
 [input]
 
