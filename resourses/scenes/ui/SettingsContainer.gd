@@ -1,7 +1,10 @@
-# User interface that allows the player to select game settings.
-# To see how we update the actual window and rendering settings, see
-# `Main.gd`.
 extends Control
+
+
+onready var resolution_option_btn: OptionButton = $TabContainer/Display/VBoxContainer/UIResolutionSelector/OptionButton
+onready var vsync_toggle: CheckBox = $TabContainer/Display/VBoxContainer/UIVsyncCheckbox/CheckBox
+onready var fullscreen_toggle: CheckBox = $TabContainer/Display/VBoxContainer/UIFullscreenCheckbox/CheckBox
+
 
 # Emitted when the user presses the "apply" button.
 signal apply_button_pressed(settings)
@@ -12,7 +15,14 @@ var _settings := {resolution = Vector2(640, 480), fullscreen = false, vsync = fa
 
 func _ready():
 	connect("apply_button_pressed", Settings, "update_settings")
-	# Get current settings
+	_settings = Settings.get_settings()
+	vsync_toggle.pressed = _settings.vsync
+	fullscreen_toggle.pressed = _settings.fullscreen
+	for i in resolution_option_btn.get_item_count():
+		if ((String(_settings.resolution.x) in resolution_option_btn.get_item_text(i)) and
+			(String(_settings.resolution.y) in resolution_option_btn.get_item_text(i))):
+			resolution_option_btn.select(i)
+
 
 # Store the resolution selected by the user. As this function is connected
 # to the `resolution_changed` signal, this will be executed any time the
