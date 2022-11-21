@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://resourses/scenes/GameMaster.gd" type="Script" id=1]
 [ext_resource path="res://resourses/scenes/terrain/MapMaster.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://assets/kenney-ui/PNG/red_button00.png" type="Texture" id=8]
 [ext_resource path="res://resourses/scenes/ui/SettingsContainer.tscn" type="PackedScene" id=9]
 [ext_resource path="res://resourses/scenes/PauseMenu.gd" type="Script" id=10]
+[ext_resource path="res://assets/kenney-ui/Font/kenvector_future.ttf" type="DynamicFontData" id=11]
 [ext_resource path="res://resourses/scenes/blueprint.tscn" type="PackedScene" id=12]
 [ext_resource path="res://resourses/scenes/objects/extractor1.tscn" type="PackedScene" id=13]
 [ext_resource path="res://resourses/scenes/terrain/BorderWinds.tscn" type="PackedScene" id=14]
@@ -23,9 +24,14 @@
 [ext_resource path="res://assets/icons8-nebula-96.png" type="Texture" id=22]
 [ext_resource path="res://resourses/scenes/GUI.gd" type="Script" id=23]
 [ext_resource path="res://assets/icons8-missile-96.png" type="Texture" id=24]
+[ext_resource path="res://resourses/scenes/BackupCamera.gd" type="Script" id=25]
 
 [sub_resource type="SphereShape" id=13]
 radius = 14.0
+
+[sub_resource type="DynamicFont" id=14]
+size = 72
+font_data = ExtResource( 11 )
 
 [node name="GameMaster" type="Node"]
 script = ExtResource( 1 )
@@ -188,11 +194,12 @@ theme = ExtResource( 21 )
 text = "0"
 
 [node name="BackupCamera" type="Camera" parent="."]
+pause_mode = 2
 transform = Transform( 0.707107, 0.707107, 3.09086e-08, 0, -4.37114e-08, 1, 0.707107, -0.707107, -3.09086e-08, 0, 20, 0 )
+script = ExtResource( 25 )
 
 [node name="PauseMenu" type="ReferenceRect" parent="."]
 pause_mode = 2
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 10 )
@@ -201,6 +208,31 @@ script = ExtResource( 10 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0, 0, 0, 0.498039 )
+
+[node name="GameOverContainer" type="CenterContainer" parent="PauseMenu"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/GameOverContainer"]
+margin_left = 382.0
+margin_top = 308.0
+margin_right = 898.0
+margin_bottom = 411.0
+
+[node name="Label" type="Label" parent="PauseMenu/GameOverContainer/VBoxContainer"]
+margin_right = 516.0
+margin_bottom = 81.0
+custom_fonts/font = SubResource( 14 )
+text = "Game over"
+align = 1
+
+[node name="Score" type="Label" parent="PauseMenu/GameOverContainer/VBoxContainer"]
+margin_top = 85.0
+margin_right = 516.0
+margin_bottom = 103.0
+text = "Space harvested: 0"
+align = 1
 
 [node name="SettingsContainer" parent="PauseMenu" instance=ExtResource( 9 )]
 
@@ -244,8 +276,9 @@ align = 1
 valign = 1
 
 [node name="MainMenuButton" type="TextureButton" parent="PauseMenu/ButtonsContainer/VBoxContainer"]
+margin_top = 98.0
 margin_right = 190.0
-margin_bottom = 45.0
+margin_bottom = 143.0
 texture_normal = ExtResource( 5 )
 texture_pressed = ExtResource( 8 )
 
@@ -257,9 +290,9 @@ align = 1
 valign = 1
 
 [node name="QuitButton" type="TextureButton" parent="PauseMenu/ButtonsContainer/VBoxContainer"]
-margin_top = 98.0
+margin_top = 147.0
 margin_right = 190.0
-margin_bottom = 143.0
+margin_bottom = 192.0
 texture_normal = ExtResource( 5 )
 texture_pressed = ExtResource( 8 )
 
@@ -270,6 +303,7 @@ text = "Quit"
 align = 1
 valign = 1
 
+[connection signal="player_died" from="PlayerCraftController" to="." method="_on_PlayerCraftController_player_died"]
 [connection signal="button_down" from="GUI/ModeSetButtons/Air" to="GUI" method="_on_Air_button_down"]
 [connection signal="button_up" from="GUI/ModeSetButtons/Air" to="GUI" method="_on_Air_button_up"]
 [connection signal="button_down" from="GUI/ModeSetButtons/Build" to="GUI" method="_on_Build_button_down"]

@@ -2,7 +2,7 @@ extends Node
 
 onready var gui_node: Control = find_node("GUI")
 
-enum { PLAYER_FIRING_BULLETS, PLAYER_BUILDING }
+enum { PLAYER_FIRING_BULLETS, PLAYER_BUILDING, PLAYER_DEAD }
 var player_mode: int = PLAYER_FIRING_BULLETS
 var player_score: int = 0
 

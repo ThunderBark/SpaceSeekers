@@ -6,7 +6,8 @@ func _ready():
 
 
 func _input(event):
-	if event.is_action_pressed("ui_cancel"):
+	if (event.is_action_pressed("ui_cancel") and 
+		(PlayerState.player_mode != PlayerState.PLAYER_DEAD)):
 		visible = !visible
 		get_tree().paused = !get_tree().paused
 
@@ -16,8 +17,9 @@ func show_pause_menu():
 
 
 func _on_ReturnButton_button_up():
-	visible = false
-	get_tree().paused = false
+	if (PlayerState.player_mode != PlayerState.PLAYER_DEAD):
+		visible = false
+		get_tree().paused = false
 
 
 func _on_MainMenuButton_button_up():
