@@ -6,6 +6,7 @@ export(int) var score_per_second: int = 10
 
 onready var tick: int = Time.get_ticks_msec()
 
+var crystal: Crystal
 var health: int = max_health
 
 
@@ -18,6 +19,7 @@ func take_damage(damage_amount):
 	health -= damage_amount
 	if health <= 0:
 		$AnimationPlayer.play("Explosions")
+		crystal.is_vacant = true
 
 
 func _process(delta):

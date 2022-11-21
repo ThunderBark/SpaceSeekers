@@ -21,38 +21,26 @@ func check_ground() -> bool:
 		if intersection.collider is GridMap:
 			var grid: GridMap = intersection.collider
 
-			if (
-				grid.get_cell_item(
+			if (grid.get_cell_item(
 					int(round(box.global_translation.x + 0.5)),
 					int(round(global_translation.y * 2)),
 					int(round(box.global_translation.z + 0.5))
-				)
-				== 0
-			):
-				if (
-					grid.get_cell_item(
+				) == 0):
+				if (grid.get_cell_item(
 						int(round(box.global_translation.x - 0.5)),
 						int(round(global_translation.y * 2)),
 						int(round(box.global_translation.z - 0.5))
-					)
-					== 0
-				):
-					if (
-						grid.get_cell_item(
+					) == 0):
+					if (grid.get_cell_item(
 							int(round(box.global_translation.x - 0.5)),
 							int(round(global_translation.y * 2)),
 							int(round(box.global_translation.z + 0.5))
-						)
-						== 0
-					):
-						if (
-							grid.get_cell_item(
+						) == 0):
+						if (grid.get_cell_item(
 								int(round(box.global_translation.x + 0.5)),
 								int(round(global_translation.y * 2)),
 								int(round(box.global_translation.z - 0.5))
-							)
-							== 0
-						):
+							) == 0):
 							return true
 
 	return false

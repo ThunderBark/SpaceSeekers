@@ -232,7 +232,7 @@ valign = 1
 transform = Transform( 0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 0, 10, 0 )
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, -0.5, 0.5, -0.235042, 2.16701, 1.25125 )
+transform = Transform( 0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, -0.5, 0.5, -0.235042, 2.19232, 1.25125 )
 environment = SubResource( 5 )
 current = true
 
@@ -258,7 +258,7 @@ __meta__ = {
 }
 
 [node name="Hull" type="MeshInstance" parent="Scene"]
-transform = Transform( -0.266683, -0.306063, -0.913895, 0, 0.948237, -0.317564, 0.963784, -0.084689, -0.252879, 2.19264, 0.778174, 0.558832 )
+transform = Transform( -0.266683, -0.306003, -0.913915, 0, 0.948258, -0.317501, 0.963784, -0.0846723, -0.252884, 2.19264, 0.778035, 0.558832 )
 mesh = SubResource( 2 )
 skeleton = NodePath("../..")
 

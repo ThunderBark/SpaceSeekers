@@ -103,7 +103,7 @@ func show_blueprint(intersection: Dictionary) -> void:
 
 	var coll: Spatial = intersection.collider
 
-	if coll.is_in_group("crystals"):
+	if (coll is Crystal) and (coll.is_vacant == true):
 		blueprint.translation = coll.translation
 		if blueprint.check_ground():
 			if Input.is_action_just_pressed("primary_fire_action"):
@@ -111,7 +111,9 @@ func show_blueprint(intersection: Dictionary) -> void:
 				extr.translation = coll.translation
 				extr.rotation = blueprint.rotation
 				extr.add_to_group("player1")
+				extr.crystal = coll
 				get_parent().add_child(extr)
+				coll.is_vacant = false
 			blueprint.green()
 		else:
 			blueprint.red()
