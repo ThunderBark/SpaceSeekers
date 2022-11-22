@@ -14,7 +14,12 @@ func _ready():
 	pass
 
 
-func take_damage(damage_amount):
+func take_damage(damage_amount, shooter: Spatial):
+	if is_in_group("enemy") and shooter.is_in_group("enemy"):
+		return
+	if is_in_group("player1") and shooter.is_in_group("player1"):
+		return
+
 	print("Extractor took damage: " + String(damage_amount))
 	health -= damage_amount
 	if health <= 0:
@@ -22,8 +27,17 @@ func take_damage(damage_amount):
 		crystal.is_vacant = true
 
 
+func set_team(material: Material, group: String):
+	$ExtractorMesh/hangar_roundB.set_surface_material(0, material)
+	$ExtractorMesh/satelliteDish.set_surface_material(4, material)
+	add_to_group(group)
+
+
 func _process(delta):
 	var cur_tick: int = Time.get_ticks_msec()
-	if is_in_group("player1") and (cur_tick - tick) >= 1000:
+	if (cur_tick - tick) >= 1000:
 		tick = cur_tick
-		PlayerState.player_score_increase_by_amount(10)
+		if is_in_group("player1"):
+			PlayerState.player_score_increase_by_amount(score_per_second)
+		elif is_in_group("enemy"):
+			PlayerState.enemy_score_increase_by_amount(score_per_second)

@@ -33,7 +33,7 @@ func _on_Rocket_body_entered(body):
 	if (body != shooter) and not is_already_blow_up:
 		for body in $ExplosionArea.get_overlapping_bodies():
 			if body is Extractor:
-				body.take_damage(damage)
+				body.take_damage(damage, shooter)
 		is_already_blow_up = true
 
 		$foamBulletB.visible = false
