@@ -29,3 +29,4 @@ __meta__ = {
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0.5 )
 script = ExtResource( 4 )
 crystal_cluster = ExtResource( 5 )
+cluster_chance = 100

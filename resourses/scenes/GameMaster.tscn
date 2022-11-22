@@ -65,6 +65,7 @@ size = 15.0
 
 [node name="EnemyCraftController" type="Node" parent="."]
 script = ExtResource( 6 )
+grid_path = NodePath("../MapMaster/TerrainGridMap")
 enemy_material = ExtResource( 26 )
 extractor1 = ExtResource( 13 )
 
