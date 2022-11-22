@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://resourses/scenes/GameMaster.gd" type="Script" id=1]
 [ext_resource path="res://resourses/scenes/terrain/MapMaster.tscn" type="PackedScene" id=2]
@@ -25,6 +25,7 @@
 [ext_resource path="res://resourses/scenes/GUI.gd" type="Script" id=23]
 [ext_resource path="res://assets/icons8-missile-96.png" type="Texture" id=24]
 [ext_resource path="res://resourses/scenes/BackupCamera.gd" type="Script" id=25]
+[ext_resource path="res://resourses/materials/metalRedEnemy.material" type="Material" id=26]
 
 [sub_resource type="SphereShape" id=13]
 radius = 14.0
@@ -64,6 +65,7 @@ size = 15.0
 
 [node name="EnemyCraftController" type="Node" parent="."]
 script = ExtResource( 6 )
+enemy_material = ExtResource( 26 )
 
 [node name="SpeederA" parent="EnemyCraftController" instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -13.9678 )
@@ -200,6 +202,7 @@ script = ExtResource( 25 )
 
 [node name="PauseMenu" type="ReferenceRect" parent="."]
 pause_mode = 2
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 10 )

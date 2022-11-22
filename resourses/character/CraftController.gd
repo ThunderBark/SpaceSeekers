@@ -9,6 +9,8 @@ onready var mesh : MeshInstance = $Hull
 onready var mesh_collision : CollisionShape = $HullCollision
 onready var init_height: float = translation.y
 
+# onready var craft_material: SpatialMaterial = $Hull.get_active_material()
+
 var velocity : Vector3 = Vector3.ZERO
 var dir : Vector3 = Vector3.ZERO
 var point_to_look : Vector3 = Vector3.ZERO
@@ -34,7 +36,12 @@ func _physics_process(delta):
 func take_damage(damage_amount : int):
 	emit_signal("took_damage", damage_amount)
 
+
 func die():
 	set_physics_process(false)
 	$HullCollision.disabled = true
 	$AnimationPlayer.play("Crash")
+
+
+func set_craft_material(material):
+	$Hull.set_surface_material(1, material)

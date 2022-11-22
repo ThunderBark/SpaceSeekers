@@ -14,12 +14,17 @@ func _ready():
 	pass
 
 
-func take_damage(damage_amount):
-	print("Extractor took damage: " + String(damage_amount))
-	health -= damage_amount
-	if health <= 0:
-		$AnimationPlayer.play("Explosions")
-		crystal.is_vacant = true
+func take_damage(damage_amount, shooter: Spatial):
+	for i in get_groups():
+		if shooter.get_groups().has(i):
+			return
+
+	if not (shooter.is_in_group(get_groups()[0])):
+		print("Extractor took damage: " + String(damage_amount))
+		health -= damage_amount
+		if health <= 0:
+			$AnimationPlayer.play("Explosions")
+			crystal.is_vacant = true
 
 
 func _process(delta):
