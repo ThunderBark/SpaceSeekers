@@ -66,13 +66,14 @@ size = 15.0
 [node name="EnemyCraftController" type="Node" parent="."]
 script = ExtResource( 6 )
 enemy_material = ExtResource( 26 )
+extractor1 = ExtResource( 13 )
 
 [node name="SpeederA" parent="EnemyCraftController" instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -13.9678 )
 
 [node name="AttentionArea" type="Area" parent="EnemyCraftController/SpeederA"]
 collision_layer = 0
-collision_mask = 2
+collision_mask = 6
 monitorable = false
 
 [node name="CollisionShape" type="CollisionShape" parent="EnemyCraftController/SpeederA/AttentionArea"]
