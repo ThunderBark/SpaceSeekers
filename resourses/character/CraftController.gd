@@ -45,7 +45,7 @@ func set_hp(value: int, max_value: int):
 
 
 func hide_hp_bar():
-	$Hull/Sprite3D/Viewport/HPBar.visible = false
+	$Hull/Healthbar3D/Viewport/HPBar.visible = false
 
 
 func die():

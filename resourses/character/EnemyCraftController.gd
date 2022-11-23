@@ -29,19 +29,13 @@ func craft_took_damage(amount):
 	health -= amount
 	craft.set_hp(health, max_health)
 	if health <= 0:
+		craft.hide_hp_bar()
 		die()
 
 
 func try_find_rotation(point: Vector3) -> int:
 	for i in 4:
 		var angle: float = i * PI / 2 + PI / 4
-		print(
-			"Angle: " + String(angle) + ", sin: " +
-			String(sign(sin(angle))) + ", cos: " +
-			String(sign(cos(angle))) + ", point: " +
-			String(point)
-		)
-		# print("point: " + String(point))
 		if (grid.get_cell_item(
 				int(round(point.x + sign(sin(angle)) * 0.5 + 0.5)),
 				int(round(point.y * 2)),

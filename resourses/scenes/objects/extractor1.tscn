@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://resourses/scenes/objects/Extractor.gd" type="Script" id=1]
 [ext_resource path="res://assets/models/Kenney_space/satelliteDish.obj" type="ArrayMesh" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://assets/kenney-ui-space/PNG/square_shadow.png" type="Texture" id=6]
 [ext_resource path="res://resourses/character/HPSprite.gd" type="Script" id=7]
 [ext_resource path="res://assets/kenney-ui/PNG/green_button12.png" type="Texture" id=8]
+[ext_resource path="res://resourses/cooltext424111663319016.png" type="Texture" id=9]
+[ext_resource path="res://resourses/cooltext424111587553453.png" type="Texture" id=10]
 
 [sub_resource type="ConvexPolygonShape" id=1]
 points = PoolVector3Array( -0.305262, 0.365833, 0.369718, 0.306212, 0.28954, -0.331141, 0.253871, 0.276991, -0.315388, 0.178606, 0.00936387, 0.48425, 0.480308, 0.592364, 0.177609, 0.497619, 5.55112e-17, -0.172992, -0.0980336, 0.0150028, 0.114139, -0.169067, 0.6, 0.490916, 0.0768, 0.58934, -0.0728547, 0.485641, 0.302286, 0.34508, -0.207209, 0.314526, -0.00959276, 0.49093, 0.6, -0.168989, -0.172842, 5.55112e-17, 0.497275, 0.177614, 0.592354, 0.48028, 0.484506, 0.00941884, 0.178638, 0.0891408, 0.0156962, -0.0851191, -0.332973, 0.276743, 0.486478, -0.122202, 0.588687, 0.16385, -0.0103593, 0.289824, -0.209829, 0.491352, 0.315119, -0.337671, 0.34508, 0.302286, 0.485651, -0.315336, 0.289635, 0.228539, 0.292085, 0.59362, -0.163722, 0.126746, 0.327251, -0.273526, 0.308043, 0.00685344, -0.167329, -0.169648, 0.00386789, 0.349246, -0.13685, 0.289715, -0.0991979, -0.167984, 0.598689, 0.347407, -0.271261, 0.289853, 0.10157, -0.0218219, 0.549186, -0.0219049, 0.139616, 0.289694, -0.288417, -0.33764, 0.315174, 0.491144, -0.289626, 0.314805, 0.152563, -0.136849, 0.0132274, 0.189839, 0.267158, 0.327604, -0.316639, -0.33616, 0.302286, 0.309023, -0.00956996, 0.314523, -0.207233, -0.0340207, 0.0804802, -0.0340261, -0.209805, 0.289821, -0.0103826, 0.486618, 0.276682, -0.332938, -0.107959, 0.33926, -0.10804, 0.189823, 0.0132923, -0.136884, -0.163703, 0.593602, 0.291981, -0.0839256, 0.574511, 0.0767927, 0.163819, 0.588556, -0.122271, 0.382111, 0.544079, -0.203078, 0.496721, 0.328461, -0.329968, 0.382603, 0.0347301, -0.190831, -0.0587059, 0.018819, 0.0521487, -0.330019, 0.276927, 0.369159, -0.291707, 0.225997, 0.280073, 0.309035, 0.302286, -0.336161, -0.31666, 0.327615, 0.267235, -0.273568, 0.32726, 0.126833, -0.181192, 0.586157, 0.489686, -0.163075, 0.0119977, 0.278768, 0.101492, 0.289857, -0.271222, -0.288438, 0.289693, 0.13969, 0.397256, 0.366362, -0.307668, 0.489697, 0.586155, -0.181193, -0.108082, 0.27762, -0.12053, 0.369035, 0.276868, -0.329972, -0.0458753, 0.584837, 0.0398522, -0.190795, 0.0346479, 0.382714 )
@@ -441,6 +443,145 @@ tracks/16/keys = {
 "times": PoolRealArray( 0 )
 }
 
+[sub_resource type="Animation" id=9]
+resource_name = "EnemyCoin"
+length = 0.5
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("EnemyCoin:translation:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.2, 0, 1.5, -0.4, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5 )
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("EnemyCoin:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "PlayerCoin"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("PlayerCoin:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("PlayerCoin:translation:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.2, 0, 1.5, -0.4, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5 )
+}
+
+[sub_resource type="Animation" id=11]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("EnemyCoin:translation:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0.5, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("EnemyCoin:translation:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("EnemyCoin:translation:z")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 0.5, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("EnemyCoin:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("PlayerCoin:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/5/type = "bezier"
+tracks/5/path = NodePath("PlayerCoin:translation:x")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"points": PoolRealArray( 0.5, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/6/type = "bezier"
+tracks/6/path = NodePath("PlayerCoin:translation:y")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/7/type = "bezier"
+tracks/7/path = NodePath("PlayerCoin:translation:z")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"points": PoolRealArray( 0.5, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+
 [node name="extractor1" type="StaticBody"]
 script = ExtResource( 1 )
 enemy_health_bar_text = ExtResource( 5 )
@@ -513,3 +654,22 @@ playback_speed = 0.8
 anims/Explosion = SubResource( 6 )
 anims/Explosions = SubResource( 7 )
 anims/RESET = SubResource( 8 )
+
+[node name="ExtractionAnim" type="AnimationPlayer" parent="."]
+anims/EnemyCoin = SubResource( 9 )
+anims/PlayerCoin = SubResource( 10 )
+anims/RESET = SubResource( 11 )
+
+[node name="EnemyCoin" type="Sprite3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, 0.5 )
+visible = false
+pixel_size = 0.005
+billboard = 1
+texture = ExtResource( 9 )
+
+[node name="PlayerCoin" type="Sprite3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, 0.5 )
+visible = false
+pixel_size = 0.005
+billboard = 1
+texture = ExtResource( 10 )

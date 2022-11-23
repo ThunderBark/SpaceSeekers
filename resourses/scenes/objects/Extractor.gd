@@ -9,6 +9,7 @@ onready var tick: int = Time.get_ticks_msec()
 
 var crystal: Crystal
 var health: int = max_health
+var is_dead: bool = false
 
 
 func _ready():
@@ -30,7 +31,9 @@ func take_damage(damage_amount, shooter: Spatial):
 
 	if health <= 0:
 		$AnimationPlayer.play("Explosions")
+		$ExtractorMesh/Healthbar3D.visible = false
 		crystal.is_vacant = true
+		is_dead = true
 
 
 func set_team(material: Material, group: String):
@@ -43,9 +46,11 @@ func set_team(material: Material, group: String):
 
 func _process(delta):
 	var cur_tick: int = Time.get_ticks_msec()
-	if (cur_tick - tick) >= 1000:
+	if (cur_tick - tick) >= 1000 and not is_dead:
 		tick = cur_tick
 		if is_in_group("player1"):
 			PlayerState.player_score_increase_by_amount(score_per_second)
+			$ExtractionAnim.play("PlayerCoin")
 		elif is_in_group("enemy"):
 			PlayerState.enemy_score_increase_by_amount(score_per_second)
+			$ExtractionAnim.play("EnemyCoin")
