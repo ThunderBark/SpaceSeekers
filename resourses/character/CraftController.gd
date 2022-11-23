@@ -37,11 +37,23 @@ func take_damage(damage_amount : int):
 	emit_signal("took_damage", damage_amount)
 
 
+func set_hp(value: int, max_value: int):
+	$Hull/Healthbar3D/Viewport/HPBar.max_value = max_value
+	$Hull/Healthbar3D/Viewport/HPBar.value = value
+	if is_in_group("enemy") and (max_value != value):
+		$Hull/Healthbar3D.visible = true
+
+
+func hide_hp_bar():
+	$Hull/Healthbar3D/Viewport/HPBar.visible = false
+
+
 func die():
 	set_physics_process(false)
 	$HullCollision.disabled = true
 	$AnimationPlayer.play("Crash")
 
 
-func set_craft_material(material):
+func set_team(material: Material, group: String):
+	add_to_group(group)
 	$Hull.set_surface_material(1, material)

@@ -11,6 +11,7 @@ onready var craft : CraftController = get_child(0)
 onready var attention_area : Area = craft.get_node("AttentionArea")
 onready var grid: GridMap = get_node(grid_path)
 
+export (int) var max_health: int = 30
 export (int) var health: int = 30
 
 var rng = RandomNumberGenerator.new()
@@ -19,28 +20,22 @@ var speed : float = 100.0
 
 
 func _ready():
-	craft.add_to_group("enemy")
 	craft.connect("took_damage", self, "craft_took_damage")
-	craft.set_craft_material(enemy_material)
+	craft.set_team(enemy_material, "enemy")
 
 
 func craft_took_damage(amount):
 	print("Enemy took damage")
 	health -= amount
+	craft.set_hp(health, max_health)
 	if health <= 0:
+		craft.hide_hp_bar()
 		die()
 
 
 func try_find_rotation(point: Vector3) -> int:
 	for i in 4:
 		var angle: float = i * PI / 2 + PI / 4
-		print(
-			"Angle: " + String(angle) + ", sin: " +
-			String(sign(sin(angle))) + ", cos: " +
-			String(sign(cos(angle))) + ", point: " +
-			String(point)
-		)
-		# print("point: " + String(point))
 		if (grid.get_cell_item(
 				int(round(point.x + sign(sin(angle)) * 0.5 + 0.5)),
 				int(round(point.y * 2)),
