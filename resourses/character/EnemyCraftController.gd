@@ -11,6 +11,7 @@ onready var craft : CraftController = get_child(0)
 onready var attention_area : Area = craft.get_node("AttentionArea")
 onready var grid: GridMap = get_node(grid_path)
 
+export (int) var max_health: int = 30
 export (int) var health: int = 30
 
 var rng = RandomNumberGenerator.new()
@@ -19,14 +20,14 @@ var speed : float = 100.0
 
 
 func _ready():
-	craft.add_to_group("enemy")
 	craft.connect("took_damage", self, "craft_took_damage")
-	craft.set_craft_material(enemy_material)
+	craft.set_team(enemy_material, "enemy")
 
 
 func craft_took_damage(amount):
 	print("Enemy took damage")
 	health -= amount
+	craft.set_hp(health, max_health)
 	if health <= 0:
 		die()
 
