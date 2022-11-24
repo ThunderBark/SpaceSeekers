@@ -27,6 +27,7 @@ var const_dir: Vector3 = Vector3.ZERO
 enum {
 	FLEE,
 	ATTACK,
+	HUNT
 }
 var cur_behaviour = FLEE
 
@@ -94,18 +95,45 @@ func is_player_nearby() -> bool:
 
 
 func is_beneficial_to_place_extractor() -> bool:
-	return true
+	var is_beneficial: bool = true
+	if PlayerState.enemy_score > PlayerState.player_score:
+		is_beneficial = true
+	return is_beneficial
 
 
-func prefered_crystal_pos(prefered_dir: Vector3) -> Vector3:
-	var crystal_pos: Vector3 = Vector3.ZERO
+func prefered_crystal_pos(prefered_dir: Vector3) -> Crystal:
+	var crystal: Crystal = null
 
-	return crystal_pos
+	for body in $SpeederA/AttentionArea.get_overlapping_bodies():
+		if body is Crystal and body.is_vacant:
+			crystal = body
+
+	return crystal
+
+
+func place_extractor(crystal: Crystal):
+	var rotation_y = try_find_rotation(crystal.global_translation)
+	if rotation_y == -1:
+		return
+
+	extractor = extractor1.instance()
+	extractor.translation = crystal.translation
+	extractor.rotate(Vector3.UP, rotation_y * PI/2)
+	extractor.crystal = crystal
+	get_parent().add_child(extractor)
+	crystal.is_vacant = false
+	extractor.set_team(enemy_material, "enemy")
+	PlayerState.enemy_buy_extractor()
 
 
 func choose_direction_to_go() -> Vector3:
 	var dir: Vector3 = Vector3.ZERO
-	is_player_nearby()
+	
+	if is_player_nearby():
+		if health > max_health / 2:
+			cur_behaviour = ATTACK
+		else:
+			cur_behaviour = FLEE
 
 	# Player attraction / repulsion
 	var dir_to_player: Vector3 = (
@@ -121,25 +149,27 @@ func choose_direction_to_go() -> Vector3:
 	# Repulsion by borders
 	dir -= (
 		Vector3(craft.translation.x, 0, craft.translation.z).normalized()
-		* 75.0
+		* 100.0
 		/ exp(world_size / craft.translation.distance_to(Vector3.ZERO))
 	)
 
 	# Attraction to point of interest
-	var poi_dir: Vector3 = prefered_crystal_pos(dir)
-	if is_beneficial_to_place_extractor() and (poi_dir != Vector3.ZERO):
-		dir += craft.translation.direction_to(poi_dir)
+	var poi_attraction: float = 50.0
+	var poi_crystal: Crystal = prefered_crystal_pos(dir)
+	if is_beneficial_to_place_extractor() and (poi_crystal != null):
+		place_extractor(poi_crystal)
+		dir += craft.translation.direction_to(poi_crystal.translation)
 	elif (
 		craft.translation.distance_to(last_extractor_position)
 		< craft.translation.distance_to(player_start_pos)
 	):
-		dir += craft.translation.direction_to(last_extractor_position)
+		dir += craft.translation.direction_to(last_extractor_position) * poi_attraction
 	elif (
 		craft.translation.distance_to(player_start_pos)
 		< craft.translation.distance_to(last_extractor_position)
 	):
-		dir += craft.translation.direction_to(player_start_pos)
-	
+		dir += craft.translation.direction_to(player_start_pos) * poi_attraction
+
 	return dir.normalized()
 
 

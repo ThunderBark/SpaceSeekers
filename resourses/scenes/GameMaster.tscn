@@ -29,7 +29,7 @@
 
 [sub_resource type="CylinderShape" id=15]
 height = 7.0
-radius = 10.0
+radius = 30.0
 
 [sub_resource type="DynamicFont" id=14]
 size = 72
