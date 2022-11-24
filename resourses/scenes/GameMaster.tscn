@@ -29,6 +29,8 @@ font_data = ExtResource( 11 )
 
 [node name="GameMaster" type="Node"]
 script = ExtResource( 1 )
+player_controller = ExtResource( 6 )
+enemy_controller = ExtResource( 4 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 8, 0 )

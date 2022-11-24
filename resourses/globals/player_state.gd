@@ -8,6 +8,7 @@ var player_score: int = 200
 var enemy_score: int = 200
 
 var extractor_cost: int = 200
+var respawn_cost: int = 200
 
 
 signal player_selection_state_changed(new_state)
@@ -23,8 +24,22 @@ func player_score_changed(new_score):
 	self.emit_signal("player_score_changed_sig", new_score)
 
 
-func player_won():
-	master_node.player_won()
+func enemy_died():
+	if enemy_score < respawn_cost:
+		master_node.player_won()
+	else:
+		enemy_score_increase_by_amount(-respawn_cost)
+		master_node.respawn_enemy()
+
+
+func player_died():
+	print("Player_score: " + String(player_score))
+	if player_score < respawn_cost:
+		master_node.player_lost()
+	else:
+		player_score_increase_by_amount(-respawn_cost)
+		master_node.respawn_player()
+		
 
 
 func player_score_increase_by_amount(amount):

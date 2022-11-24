@@ -71,7 +71,7 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/beehave/plugin.cfg" )
+enabled=PoolStringArray(  )
 
 [gdnative]
 

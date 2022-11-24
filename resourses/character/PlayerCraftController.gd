@@ -19,7 +19,7 @@ var is_building: bool = false
 var player_hp: int = 100
 var last_damage_time: int = Time.get_ticks_msec()
 
-signal player_died()
+var is_dead: bool = false
 
 
 func _ready():
@@ -97,10 +97,11 @@ func craft_took_damage(damage_amount):
 
 		player_hp -= damage_amount
 		PlayerState.player_hp_changed(player_hp)
-		if player_hp <= 0:
-			emit_signal("player_died")
+		if player_hp <= 0 and not is_dead:
+			is_dead = true
 			set_physics_process(false)
 			craft.die()
+			PlayerState.player_died()
 
 
 func has_enough_score_to_build() -> bool:
