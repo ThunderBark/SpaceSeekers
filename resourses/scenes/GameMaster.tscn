@@ -27,8 +27,9 @@
 [ext_resource path="res://resourses/scenes/BackupCamera.gd" type="Script" id=25]
 [ext_resource path="res://resourses/materials/metalRedEnemy.material" type="Material" id=26]
 
-[sub_resource type="SphereShape" id=13]
-radius = 14.0
+[sub_resource type="CylinderShape" id=15]
+height = 7.0
+radius = 10.0
 
 [sub_resource type="DynamicFont" id=14]
 size = 72
@@ -50,6 +51,9 @@ terrain_size = 64
 
 [node name="TerrainGridMap" parent="MapMaster" index="0"]
 noise_period = 22.0
+
+[node name="ObjectGenerator" parent="MapMaster/TerrainGridMap" index="0"]
+cluster_chance = 1000
 
 [node name="PlayerCraftController" type="Spatial" parent="."]
 script = ExtResource( 4 )
@@ -80,7 +84,7 @@ collision_mask = 6
 monitorable = false
 
 [node name="CollisionShape" type="CollisionShape" parent="EnemyCraftController/SpeederA/AttentionArea"]
-shape = SubResource( 13 )
+shape = SubResource( 15 )
 
 [node name="GUI" type="ReferenceRect" parent="."]
 anchor_right = 1.0
@@ -237,6 +241,31 @@ align = 1
 [node name="Score" type="Label" parent="PauseMenu/GameOverContainer/VBoxContainer"]
 margin_top = 85.0
 margin_right = 516.0
+margin_bottom = 103.0
+text = "Space harvested: 0"
+align = 1
+
+[node name="WinContainer" type="CenterContainer" parent="PauseMenu"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/WinContainer"]
+margin_left = 439.0
+margin_top = 308.0
+margin_right = 841.0
+margin_bottom = 411.0
+
+[node name="Label" type="Label" parent="PauseMenu/WinContainer/VBoxContainer"]
+margin_right = 402.0
+margin_bottom = 81.0
+custom_fonts/font = SubResource( 14 )
+text = "You Win!"
+align = 1
+
+[node name="Score" type="Label" parent="PauseMenu/WinContainer/VBoxContainer"]
+margin_top = 85.0
+margin_right = 402.0
 margin_bottom = 103.0
 text = "Space harvested: 0"
 align = 1

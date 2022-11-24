@@ -856,6 +856,7 @@ tracks/7/keys = {
 }
 
 [node name="extractor1" type="StaticBody"]
+collision_mask = 0
 script = ExtResource( 1 )
 enemy_health_bar_text = ExtResource( 5 )
 

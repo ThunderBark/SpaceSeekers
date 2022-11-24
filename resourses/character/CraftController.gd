@@ -27,9 +27,26 @@ func _physics_process(delta):
 	
 	## Rotate speeder towards position
 	if point_to_look != Vector3.ZERO:
-		mesh.look_at(point_to_look, Vector3.UP)
-		mesh.rotation.x = PI
-		mesh.rotation.z += PI
+		# mesh.look_at(point_to_look, Vector3.UP)
+		# mesh.rotation.x = PI
+		# mesh.rotation.z += PI
+		point_to_look -= translation
+		var rot : float = point_to_look.angle_to(Vector3.BACK) * (
+			sign(point_to_look.x) if sign(point_to_look.x) else 1.0
+		)
+		mesh.rotation.y = wrapf(
+			lerp_angle(mesh.rotation.y, rot, 1 / inertia_momentum * delta),
+			-PI,
+			PI
+		)
+		
+		## Tilt the ship according to rotation
+		mesh.rotation.z = clamp(lerp_angle(
+			mesh.rotation.z,
+			(mesh.rotation.y - rot) * 3,
+			5 * delta
+		), -PI/4, PI/4)
+
 		mesh_collision.rotation = mesh.rotation
 
 

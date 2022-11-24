@@ -8,3 +8,11 @@ func _on_PlayerCraftController_player_died():
 	$PauseMenu/GameOverContainer.visible = true
 	$PauseMenu.show_pause_menu()
 	get_tree().paused = false
+
+func player_won():
+	PlayerState.player_mode = PlayerState.PLAYER_DEAD
+	$GUI.visible = false
+	$PauseMenu/WinContainer/VBoxContainer/Score.text = "Space harvested: " + String(PlayerState.player_score)
+	$PauseMenu/WinContainer.visible = true
+	$PauseMenu.show_pause_menu()
+	get_tree().paused = false
