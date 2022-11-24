@@ -103,6 +103,12 @@ func craft_took_damage(damage_amount):
 			craft.die()
 
 
+func has_enough_score_to_build() -> bool:
+	if PlayerState.player_score >= PlayerState.extractor_cost:
+		return true
+	return false
+
+
 func show_blueprint(intersection: Dictionary) -> void:
 	if Input.is_action_just_pressed("move_ascend"):
 		blueprint.rotate(Vector3.UP, PI / 2)
@@ -113,7 +119,7 @@ func show_blueprint(intersection: Dictionary) -> void:
 
 	if (coll is Crystal) and (coll.is_vacant == true):
 		blueprint.translation = coll.translation
-		if blueprint.check_ground():
+		if blueprint.check_ground() and has_enough_score_to_build():
 			if Input.is_action_just_pressed("primary_fire_action"):
 				var extr: Spatial = extractor1.instance()
 				extr.translation = coll.translation
@@ -122,6 +128,7 @@ func show_blueprint(intersection: Dictionary) -> void:
 				extr.crystal = coll
 				get_parent().add_child(extr)
 				coll.is_vacant = false
+				PlayerState.player_buy_extractor()
 			blueprint.green()
 		else:
 			blueprint.red()

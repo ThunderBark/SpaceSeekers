@@ -13,7 +13,7 @@ var is_dead: bool = false
 
 
 func _ready():
-	pass
+	$AnimationPlayer.play("Construction")
 
 
 func take_damage(damage_amount, shooter: Spatial):

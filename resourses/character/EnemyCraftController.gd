@@ -4,18 +4,16 @@ extends Node
 export (NodePath) var grid_path: NodePath
 export (SpatialMaterial) var enemy_material: SpatialMaterial
 export (PackedScene) var extractor1: PackedScene
-
-onready var extractor: Spatial
-
-onready var craft : CraftController = get_child(0)
-onready var attention_area : Area = craft.get_node("AttentionArea")
-onready var grid: GridMap = get_node(grid_path)
-
+export (Vector3) var last_player_position: Vector3 = Vector3.ZERO
 export (int) var max_health: int = 30
 export (int) var health: int = 30
 
-var rng = RandomNumberGenerator.new()
+onready var extractor: Spatial
+onready var craft : CraftController = $SpeederA
+onready var attention_area : Area = craft.get_node("AttentionArea")
+onready var grid: GridMap = get_node(grid_path)
 
+var rng = RandomNumberGenerator.new()
 var speed : float = 100.0
 
 
@@ -68,7 +66,7 @@ func _physics_process(delta):
 				craft.dir = craft.translation.direction_to(target_body_pos)
 				craft.point_to_look = target_body_pos
 
-		if (body is Crystal) and (body.is_vacant == true):
+		if (body is Crystal) and (body.is_vacant == true) and has_enough_score_to_build():
 			var rotation_y = try_find_rotation(body.global_translation)
 			if rotation_y == -1:
 				return
@@ -80,7 +78,23 @@ func _physics_process(delta):
 			get_parent().add_child(extractor)
 			body.is_vacant = false
 			extractor.set_team(enemy_material, "enemy")
+			PlayerState.enemy_buy_extractor()
+
 
 func die():
 	set_physics_process(false)
 	craft.die()
+
+
+func has_enough_score_to_build() -> bool:
+	if PlayerState.enemy_score >= PlayerState.extractor_cost:
+		return true
+	return false
+
+
+func _think():
+	pass
+
+
+# func get_score() -> int:
+# 	Player
