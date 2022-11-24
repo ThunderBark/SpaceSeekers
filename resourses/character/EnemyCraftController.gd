@@ -39,6 +39,8 @@ signal shoot_missle(pos)
 func _ready():
 	connect("shoot_bullet", $SpeederA/Hull/Weapons/Minigun, "fire_bullet")
 	connect("shoot_bullet", $SpeederA/Hull/Weapons/Minigun2, "fire_bullet")
+	connect("shoot_missle", $SpeederA/Hull/Weapons/MissileLauncher, "fire_missile")
+	connect("shoot_missle", $SpeederA/Hull/Weapons/MissileLauncher2, "fire_missile")
 	craft.connect("took_damage", self, "craft_took_damage")
 	craft.set_team(enemy_material, "enemy")
 
@@ -74,9 +76,15 @@ func is_player_nearby() -> bool:
 		if body.is_in_group("player1") and (body is CraftController):
 			last_player_position = body.translation
 			player_detected = true
+	return player_detected
+
+func is_player_extractor_nearby() -> Extractor:
+	var extractor: Extractor = null
+	for body in $SpeederA/AttentionArea.get_overlapping_bodies():
 		if body.is_in_group("player1") and (body is Extractor):
 			last_extractor_position = body.translation
-	return player_detected
+			extractor = body
+	return extractor
 
 
 func is_beneficial_to_place_extractor() -> bool:
@@ -127,8 +135,8 @@ func choose_direction_to_go() -> Vector3:
 		craft.translation.direction_to(last_player_position).normalized()
 		* world_size
 		/ craft.translation.distance_to(last_player_position)
-	)
-	if (cur_behaviour == FLEE) or (craft.translation.distance_to(last_player_position) < 5):
+	) * 2.0
+	if (cur_behaviour == FLEE) or (craft.translation.distance_to(last_player_position) < 15):
 		dir -= dir_to_player
 	else:
 		dir += dir_to_player
@@ -162,11 +170,12 @@ func _think():
 	craft.dir = const_dir
 
 	# Point to look
-	if is_player_nearby():
-		craft.point_to_look = last_player_position
-
-		if cur_behaviour == ATTACK:
-			emit_signal("shoot_bullet")
+	var extr: Extractor = is_player_extractor_nearby()
+	if extr != null:
+		emit_signal("shoot_missle", extr.translation)
+	elif is_player_nearby():
+		craft.point_to_look = last_player_position + Vector3(randf(), 0, randf())
+		emit_signal("shoot_bullet")
 	else:
 		craft.point_to_look = craft.translation + const_dir
 

@@ -314,3 +314,4 @@ valign = 1
 [connection signal="button_up" from="PauseMenu/ButtonsContainer/VBoxContainer/QuitButton" to="PauseMenu" method="_on_QuitButton_button_up"]
 
 [editable path="MapMaster"]
+[editable path="EnemyCraftController"]
