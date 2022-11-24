@@ -29,11 +29,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://resourses/scenes/objects/Extractor.gd"
 }, {
-"base": "",
-"class": "GitAPI",
-"language": "NativeScript",
-"path": "res://addons/godot-git-plugin/git_api.gdns"
-}, {
 "base": "Spatial",
 "class": "PlayerCraftController",
 "language": "GDScript",
@@ -44,14 +39,13 @@ _global_script_class_icons={
 "Crystal": "",
 "EnemyCraftController": "",
 "Extractor": "",
-"GitAPI": "",
 "PlayerCraftController": ""
 }
 
 [application]
 
 config/name="SpaceSeekers"
-run/main_scene="res://resourses/scenes/MainMenu.tscn"
+run/main_scene="res://resourses/scenes/GameMaster.tscn"
 config/icon="res://assets/icons8-desert-landscape-96.png"
 config/windows_native_icon="res://assets/icons8-desert-landscape-96.ico"
 
@@ -75,10 +69,14 @@ mouse_cursor/custom_image="res://assets/kenney-ui-space/PNG/cursor_pointer3D_sha
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/beehave/plugin.cfg" )
+
 [gdnative]
 
-singletons=[ "res://addons/godot-git-plugin/git_api.gdnlib" ]
-singletons_disabled=[ "res://addons/godot-git-plugin/git_api.gdnlib" ]
+singletons=[  ]
+singletons_disabled=[  ]
 
 [global]
 

@@ -19,15 +19,6 @@ func _physics_process(delta: float) -> void:
 		and (PlayerState.player_mode == PlayerState.PLAYER_FIRING_BULLETS)
 		and craft.is_in_group("player1")
 	):
-		fire_missile()
-	
-	if cooldown >= 0:
-		cooldown -= delta
-
-func fire_missile() -> void:
-	if cooldown <= 0:
-		cooldown = 1 / rate_of_fire
-
 		var mouse_position = get_viewport().get_mouse_position()
 		var camera: Camera = get_viewport().get_camera()
 		var ray_origin = camera.project_ray_origin(mouse_position)
@@ -35,13 +26,22 @@ func fire_missile() -> void:
 		var space_state = get_world().direct_space_state
 		var intersection = space_state.intersect_ray(ray_origin, ray_end, [self], (1 << 0))
 		if not intersection.empty():
-			var m = missile.instance()
-			m.transform = global_transform
-			m.shooter = craft
-			var penalty: float = exp((intersection.position - craft.translation).length() / accuracy)
-			m.target_position = intersection.position + Vector3(
-				rand_range(-penalty, penalty),
-				-1.0 if intersection.collider is Extractor else 0.0,
-				rand_range(-penalty, penalty)
-			)
-			world_root.add_child(m)
+			fire_missile(intersection.position)
+	
+	if cooldown >= 0:
+		cooldown -= delta
+
+func fire_missile(pos: Vector3) -> void:
+	if cooldown <= 0:
+		cooldown = 1 / rate_of_fire
+		
+		var m = missile.instance()
+		m.transform = global_transform
+		m.shooter = craft
+		var penalty: float = exp((pos - craft.translation).length() / accuracy)
+		m.target_position = pos + Vector3(
+			rand_range(-penalty, penalty),
+			0.0,
+			rand_range(-penalty, penalty)
+		)
+		world_root.add_child(m)

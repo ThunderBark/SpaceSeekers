@@ -202,6 +202,7 @@ shape = SubResource( 1 )
 
 [node name="ExplosionArea" type="Area" parent="."]
 collision_layer = 0
+collision_mask = 4
 monitorable = false
 
 [node name="CollisionShape" type="CollisionShape" parent="ExplosionArea"]

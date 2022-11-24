@@ -1,18 +1,15 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://resourses/scenes/GameMaster.gd" type="Script" id=1]
 [ext_resource path="res://resourses/scenes/terrain/MapMaster.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/kenney-ui/PNG/green_button12.png" type="Texture" id=3]
-[ext_resource path="res://resourses/character/PlayerCraftController.gd" type="Script" id=4]
+[ext_resource path="res://resourses/character/EnemyCraftController.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/kenney-ui/PNG/red_button12.png" type="Texture" id=5]
-[ext_resource path="res://resourses/character/EnemyCraftController.gd" type="Script" id=6]
-[ext_resource path="res://resourses/character/SpeederA.tscn" type="PackedScene" id=7]
+[ext_resource path="res://resourses/character/PlayerCraftController.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/kenney-ui/PNG/red_button00.png" type="Texture" id=8]
 [ext_resource path="res://resourses/scenes/ui/SettingsContainer.tscn" type="PackedScene" id=9]
 [ext_resource path="res://resourses/scenes/PauseMenu.gd" type="Script" id=10]
 [ext_resource path="res://assets/kenney-ui/Font/kenvector_future.ttf" type="DynamicFontData" id=11]
-[ext_resource path="res://resourses/scenes/blueprint.tscn" type="PackedScene" id=12]
-[ext_resource path="res://resourses/scenes/objects/extractor1.tscn" type="PackedScene" id=13]
 [ext_resource path="res://resourses/scenes/terrain/BorderWinds.tscn" type="PackedScene" id=14]
 [ext_resource path="res://assets/kenney-ui-space/PNG/square_shadow.png" type="Texture" id=15]
 [ext_resource path="res://assets/kenney-ui/PNG/red_button03.png" type="Texture" id=16]
@@ -25,10 +22,6 @@
 [ext_resource path="res://resourses/scenes/GUI.gd" type="Script" id=23]
 [ext_resource path="res://assets/icons8-missile-96.png" type="Texture" id=24]
 [ext_resource path="res://resourses/scenes/BackupCamera.gd" type="Script" id=25]
-[ext_resource path="res://resourses/materials/metalRedEnemy.material" type="Material" id=26]
-
-[sub_resource type="SphereShape" id=13]
-radius = 14.0
 
 [sub_resource type="DynamicFont" id=14]
 size = 72
@@ -51,36 +44,12 @@ terrain_size = 64
 [node name="TerrainGridMap" parent="MapMaster" index="0"]
 noise_period = 22.0
 
-[node name="PlayerCraftController" type="Spatial" parent="."]
-script = ExtResource( 4 )
-building_bp = ExtResource( 12 )
-extractor1 = ExtResource( 13 )
+[node name="ObjectGenerator" parent="MapMaster/TerrainGridMap" index="0"]
+cluster_chance = 1000
 
-[node name="SpeederA" parent="PlayerCraftController" instance=ExtResource( 7 )]
+[node name="PlayerCraftController" parent="." instance=ExtResource( 6 )]
 
-[node name="Camera" type="Camera" parent="PlayerCraftController/SpeederA"]
-transform = Transform( 0.707107, 0.612372, -0.353554, 0, 0.5, 0.866025, 0.707107, -0.612372, 0.353554, -6.02001, 10.9444, 6.02001 )
-current = true
-size = 15.0
-
-[node name="EnemyCraftController" type="Node" parent="."]
-script = ExtResource( 6 )
-grid_path = NodePath("../MapMaster/TerrainGridMap")
-enemy_material = ExtResource( 26 )
-extractor1 = ExtResource( 13 )
-max_health = 100
-health = 100
-
-[node name="SpeederA" parent="EnemyCraftController" instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -13.9678 )
-
-[node name="AttentionArea" type="Area" parent="EnemyCraftController/SpeederA"]
-collision_layer = 0
-collision_mask = 6
-monitorable = false
-
-[node name="CollisionShape" type="CollisionShape" parent="EnemyCraftController/SpeederA/AttentionArea"]
-shape = SubResource( 13 )
+[node name="EnemyCraftController" parent="." instance=ExtResource( 4 )]
 
 [node name="GUI" type="ReferenceRect" parent="."]
 anchor_right = 1.0
@@ -241,6 +210,31 @@ margin_bottom = 103.0
 text = "Space harvested: 0"
 align = 1
 
+[node name="WinContainer" type="CenterContainer" parent="PauseMenu"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/WinContainer"]
+margin_left = 439.0
+margin_top = 308.0
+margin_right = 841.0
+margin_bottom = 411.0
+
+[node name="Label" type="Label" parent="PauseMenu/WinContainer/VBoxContainer"]
+margin_right = 402.0
+margin_bottom = 81.0
+custom_fonts/font = SubResource( 14 )
+text = "You Win!"
+align = 1
+
+[node name="Score" type="Label" parent="PauseMenu/WinContainer/VBoxContainer"]
+margin_top = 85.0
+margin_right = 402.0
+margin_bottom = 103.0
+text = "Space harvested: 0"
+align = 1
+
 [node name="SettingsContainer" parent="PauseMenu" instance=ExtResource( 9 )]
 
 [node name="ButtonsContainer" type="MarginContainer" parent="PauseMenu"]
@@ -310,7 +304,6 @@ text = "Quit"
 align = 1
 valign = 1
 
-[connection signal="player_died" from="PlayerCraftController" to="." method="_on_PlayerCraftController_player_died"]
 [connection signal="button_down" from="GUI/ModeSetButtons/Air" to="GUI" method="_on_Air_button_down"]
 [connection signal="button_up" from="GUI/ModeSetButtons/Air" to="GUI" method="_on_Air_button_up"]
 [connection signal="button_down" from="GUI/ModeSetButtons/Build" to="GUI" method="_on_Build_button_down"]
@@ -321,3 +314,4 @@ valign = 1
 [connection signal="button_up" from="PauseMenu/ButtonsContainer/VBoxContainer/QuitButton" to="PauseMenu" method="_on_QuitButton_button_up"]
 
 [editable path="MapMaster"]
+[editable path="EnemyCraftController"]
