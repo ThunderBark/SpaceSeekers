@@ -46,7 +46,6 @@ func _ready():
 
 
 func craft_took_damage(amount):
-	print("Enemy took damage")
 	health -= amount
 	craft.set_hp(health, max_health)
 	if health <= 0:
@@ -61,7 +60,7 @@ func _physics_process(delta):
 func die():
 	set_physics_process(false)
 	craft.die()
-	PlayerState.player_won()
+	PlayerState.enemy_died()
 
 
 func has_enough_score_to_build() -> bool:
@@ -91,7 +90,7 @@ func is_beneficial_to_place_extractor() -> bool:
 	var is_beneficial: bool = true
 	if PlayerState.enemy_score > PlayerState.player_score:
 		is_beneficial = true
-	return is_beneficial
+	return false
 
 
 func prefered_crystal_pos(prefered_dir: Vector3) -> Crystal:
