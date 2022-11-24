@@ -19,7 +19,7 @@ var rng = RandomNumberGenerator.new()
 var speed: float = 100.0
 
 var last_player_position: Vector3 = player_start_pos
-var last_extractor_position: Vector3 = Vector3.ZERO
+var last_extractor_position: Vector3 = player_start_pos
 var ref_think_period: int = 300
 var think_period: int = ref_think_period
 var const_dir: Vector3 = Vector3.ZERO
@@ -32,7 +32,13 @@ enum {
 var cur_behaviour = FLEE
 
 
+signal shoot_bullet()
+signal shoot_missle(pos)
+
+
 func _ready():
+	connect("shoot_bullet", $SpeederA/Hull/Weapons/Minigun, "fire_bullet")
+	connect("shoot_bullet", $SpeederA/Hull/Weapons/Minigun2, "fire_bullet")
 	craft.connect("took_damage", self, "craft_took_damage")
 	craft.set_team(enemy_material, "enemy")
 
@@ -47,27 +53,6 @@ func craft_took_damage(amount):
 
 
 func _physics_process(delta):
-	# for body in attention_area.get_overlapping_bodies():
-	# 	if (body is CraftController) and (body.is_in_group("player1")):
-	# 		var target_body_pos : Vector3 = body.translation
-	# 		if craft is CraftController:
-	# 			craft.dir = craft.translation.direction_to(target_body_pos)
-	# 			craft.point_to_look = target_body_pos
-
-	# 	if (body is Crystal) and (body.is_vacant == true) and has_enough_score_to_build():
-	# 		var rotation_y = try_find_rotation(body.global_translation)
-	# 		if rotation_y == -1:
-	# 			return
-
-	# 		extractor = extractor1.instance()
-	# 		extractor.translation = body.translation
-	# 		extractor.rotate(Vector3.UP, rotation_y * PI/2)
-	# 		extractor.crystal = body
-	# 		get_parent().add_child(extractor)
-	# 		body.is_vacant = false
-	# 		extractor.set_team(enemy_material, "enemy")
-	# 		PlayerState.enemy_buy_extractor()
-
 	_think()
 
 
@@ -134,6 +119,8 @@ func choose_direction_to_go() -> Vector3:
 			cur_behaviour = ATTACK
 		else:
 			cur_behaviour = FLEE
+	else:
+		cur_behaviour = HUNT
 
 	# Player attraction / repulsion
 	var dir_to_player: Vector3 = (
@@ -157,18 +144,12 @@ func choose_direction_to_go() -> Vector3:
 	var poi_attraction: float = 50.0
 	var poi_crystal: Crystal = prefered_crystal_pos(dir)
 	if is_beneficial_to_place_extractor() and (poi_crystal != null):
-		place_extractor(poi_crystal)
+		if PlayerState.enemy_score >= PlayerState.extractor_cost:
+			place_extractor(poi_crystal)
 		dir += craft.translation.direction_to(poi_crystal.translation)
-	elif (
-		craft.translation.distance_to(last_extractor_position)
-		< craft.translation.distance_to(player_start_pos)
-	):
-		dir += craft.translation.direction_to(last_extractor_position) * poi_attraction
-	elif (
-		craft.translation.distance_to(player_start_pos)
-		< craft.translation.distance_to(last_extractor_position)
-	):
-		dir += craft.translation.direction_to(player_start_pos) * poi_attraction
+	
+	if cur_behaviour == HUNT:
+		dir += craft.translation.direction_to(last_extractor_position) * poi_attraction * 10
 
 	return dir.normalized()
 
@@ -183,6 +164,9 @@ func _think():
 	# Point to look
 	if is_player_nearby():
 		craft.point_to_look = last_player_position
+
+		if cur_behaviour == ATTACK:
+			emit_signal("shoot_bullet")
 	else:
 		craft.point_to_look = craft.translation + const_dir
 
