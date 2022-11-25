@@ -10,6 +10,7 @@ height = 7.0
 radius = 25.0
 
 [node name="EnemyCraftController" type="Node"]
+pause_mode = 1
 script = ExtResource( 1 )
 grid_path = NodePath("../MapMaster/TerrainGridMap")
 enemy_material = ExtResource( 5 )

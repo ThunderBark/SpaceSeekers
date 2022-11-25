@@ -33,6 +33,7 @@ func _ready():
 func _input(event):
 	if !event.is_action_type():
 		return
+	
 	if last_progress == 100 and is_loading == true:
 		$LoadingScreen.visible = false
 		get_tree().paused = false

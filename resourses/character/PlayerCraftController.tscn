@@ -6,6 +6,7 @@
 [ext_resource path="res://resourses/scenes/objects/extractor1.tscn" type="PackedScene" id=5]
 
 [node name="PlayerCraftController" type="Spatial"]
+pause_mode = 1
 script = ExtResource( 2 )
 building_bp = ExtResource( 4 )
 extractor1 = ExtResource( 5 )
