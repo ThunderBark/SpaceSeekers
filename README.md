@@ -23,6 +23,14 @@ shoot rockets at ground structures like Space Extractors using `RMB`[^1] key.
 
 While in *Building mode* you can see cube template with which you can build Space Extractors. Cube template is red when something obstruct construction or you don't have enough funds, and template is green when you can place the extractor. You can rotate template around with `q` and `e` keys.
 
+## Acknowledgements
+
+Development of this game would be impossible without [Kenney assets](https://www.kenney.nl).
+
+I will thank sites with free sounds when I add sounds to a game)))
+
+And I grateful to my friends for their support. Without them, this project would not have been possible.
+
 ## Prerequisites for project
 
 Project made with Godot version 3.5.1
