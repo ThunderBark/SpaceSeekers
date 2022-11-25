@@ -15,6 +15,9 @@ onready var sector_cnt: int = pow(terrain_size / sector_size, 2)
 var cur_sector: int = 0
 
 
+signal sector_load_pct(load_pct)
+
+
 func _ready():
 	tile_grid_map.clear()
 	tile_grid_map.shake_noise()
@@ -104,3 +107,4 @@ func _process(delta):
 		tile_grid_map.generate_sector(point, sector_size)
 		print("Generating sector at: ", point)
 		cur_sector += 1
+		emit_signal("sector_load_pct", int((100 * cur_sector) / sector_cnt))

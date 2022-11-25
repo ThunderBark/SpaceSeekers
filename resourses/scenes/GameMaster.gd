@@ -5,11 +5,34 @@ export (PackedScene) var player_controller: PackedScene
 export (PackedScene) var enemy_controller: PackedScene
 export (int) var initial_funds: int = 400
 
+var is_loading: bool = true
+var last_progress: int = 0
+
 func _ready():
+	get_tree().paused = true
 	PlayerState.master_node = self
 	PlayerState.player_mode = PlayerState.PLAYER_FIRING_BULLETS
 	PlayerState.player_score = initial_funds
 	PlayerState.enemy_score = initial_funds
+	$MapMaster.connect("sector_load_pct", self, "update_loading_progress")
+
+
+func _input(event):
+	if !event.is_action_type():
+		return
+	if last_progress == 100 and is_loading == true:
+		$LoadingScreen.visible = false
+		get_tree().paused = false
+		is_loading = false
+
+
+
+func update_loading_progress(progress: int):
+	$LoadingScreen/LoadingProgress.max_value = 100
+	$LoadingScreen/LoadingProgress.value = progress
+	last_progress = progress
+	if (progress == 100):
+		$LoadingScreen/PressAnyKey.visible = true
 
 
 func player_lost():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://resourses/scenes/GameMaster.gd" type="Script" id=1]
 [ext_resource path="res://resourses/scenes/terrain/MapMaster.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://resourses/character/EnemyCraftController.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/kenney-ui/PNG/red_button12.png" type="Texture" id=5]
 [ext_resource path="res://resourses/character/PlayerCraftController.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/kenney-ui/PNG/blue_button12.png" type="Texture" id=7]
 [ext_resource path="res://assets/kenney-ui/PNG/red_button00.png" type="Texture" id=8]
 [ext_resource path="res://resourses/scenes/ui/SettingsContainer.tscn" type="PackedScene" id=9]
 [ext_resource path="res://resourses/scenes/PauseMenu.gd" type="Script" id=10]
@@ -28,6 +29,7 @@ size = 72
 font_data = ExtResource( 11 )
 
 [node name="GameMaster" type="Node"]
+pause_mode = 2
 script = ExtResource( 1 )
 player_controller = ExtResource( 6 )
 enemy_controller = ExtResource( 4 )
@@ -37,11 +39,12 @@ transform = Transform( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0
 shadow_enabled = true
 
 [node name="MapMaster" parent="." instance=ExtResource( 2 )]
+pause_mode = 2
 border_wind_scene = ExtResource( 14 )
 border_damage_area_scene = ExtResource( 19 )
 border_wind_dimension = 4
 wind_border_width = 64
-terrain_size = 64
+terrain_size = 128
 
 [node name="TerrainGridMap" parent="MapMaster" index="0"]
 noise_period = 22.0
@@ -50,8 +53,10 @@ noise_period = 22.0
 cluster_chance = 1000
 
 [node name="PlayerCraftController" parent="." instance=ExtResource( 6 )]
+pause_mode = 1
 
 [node name="EnemyCraftController" parent="." instance=ExtResource( 4 )]
+pause_mode = 1
 
 [node name="GUI" type="ReferenceRect" parent="."]
 anchor_right = 1.0
@@ -303,6 +308,43 @@ texture_pressed = ExtResource( 8 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 text = "Quit"
+align = 1
+valign = 1
+
+[node name="LoadingScreen" type="Panel" parent="."]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="LoadingScreen"]
+anchor_left = 0.1
+anchor_top = 0.6
+anchor_right = 0.9
+anchor_bottom = 0.9
+margin_right = 40.0
+margin_bottom = 40.0
+text = "You arrive in enclave free of storm clouds where you can see precious Null-entropy crystalls, or, as all call them, Space Crystals. Your mission is to defeat your opponent in this enclave and establish monopoly. Your ship can be repaired with gained funds, but investors are not going to tolerate losses and your mission will be over. Good news that your opponent is just smuggler like you, so if you make his mission unprofitable your mission will be successful!"
+
+[node name="LoadingProgress" type="TextureProgress" parent="LoadingScreen"]
+anchor_left = 0.1
+anchor_top = 0.9
+anchor_right = 0.9
+anchor_bottom = 0.95
+texture_under = ExtResource( 15 )
+texture_progress = ExtResource( 7 )
+nine_patch_stretch = true
+stretch_margin_left = 5
+stretch_margin_top = 5
+stretch_margin_right = 5
+stretch_margin_bottom = 5
+
+[node name="PressAnyKey" type="Label" parent="LoadingScreen"]
+visible = false
+anchor_left = 0.1
+anchor_top = 0.9
+anchor_right = 0.9
+anchor_bottom = 0.95
+text = "Press any key to start"
 align = 1
 valign = 1
 
