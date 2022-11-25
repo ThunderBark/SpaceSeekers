@@ -45,6 +45,7 @@ func _ready():
 	connect("shoot_missle", $SpeederA/Hull/Weapons/MissileLauncher2, "fire_missile")
 	craft.connect("took_damage", self, "craft_took_damage")
 	craft.set_team(enemy_material, "enemy")
+	print(String(player_start_pos))
 
 
 func craft_took_damage(amount):

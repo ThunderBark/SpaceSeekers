@@ -39,12 +39,8 @@ func _input(event):
 		is_loading = false
 
 		# Spawn players
-		var player = player_controller.instance()
-		player.get_child(0).translation = player_spawn_pos
-		add_child(player)
-		var enemy = enemy_controller.instance()
-		enemy.get_child(0).translation = enemy_spawn_pos
-		add_child(enemy)
+		respawn_player()
+		respawn_enemy()
 
 
 
@@ -82,5 +78,7 @@ func respawn_player():
 
 func respawn_enemy():
 	var enemy = enemy_controller.instance()
+	enemy.player_start_pos = player_spawn_pos
 	add_child(enemy)
 	enemy.craft.translation = enemy_spawn_pos
+

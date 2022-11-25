@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://resourses/scenes/objects/crystal_cluster.mesh" type="ArrayMesh" id=1]
 [ext_resource path="res://resourses/main_menu_scene.anim" type="Animation" id=2]
@@ -11,13 +11,6 @@
 [ext_resource path="res://assets/kenney-ui/PNG/red_button00.png" type="Texture" id=10]
 [ext_resource path="res://resourses/scenes/MainMenu.gd" type="Script" id=11]
 [ext_resource path="res://resourses/scenes/ui/SettingsContainer.tscn" type="PackedScene" id=12]
-
-[sub_resource type="Environment" id=5]
-ambient_light_color = Color( 0.498039, 0.498039, 0.498039, 0.498039 )
-fog_depth_begin = 40.0
-glow_enabled = true
-glow_intensity = 1.0
-glow_blend_mode = 0
 
 [sub_resource type="ArrayMesh" id=2]
 surfaces/0 = {
@@ -233,7 +226,6 @@ transform = Transform( 0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, -0.5, 0.5, -0.235042, 2.19232, 1.25125 )
-environment = SubResource( 5 )
 current = true
 
 [node name="Scene" type="Spatial" parent="."]
