@@ -1,17 +1,30 @@
-# SpaceSeekers
+![image](https://raw.githubusercontent.com/Woolfkiller/SpaceSeekers/master/resourses/cooltext423864377172742.png)
 
-A game where you fight for Null-entropy crystals called Space Crystals. Main features:
-- Build resourse harvesting buildings
-- Build infantry and tank  producing factories to fight opponents army
-- Fight enemy seekers with your own ship
-- All above on procedurally generated map
+---
 
-What was implemented:
-- Working procedural map generation with working navmesh
-- ...
+You arrive in enclave free of storm clouds where you can see precious Null-entropy crystalls, or, as all call them, Space Crystals.
+Your mission is to defeat your opponent in this enclave and establish monopoly. Your ship can be repaired with gained funds, but investors
+are not going to tolerate losses and your mission will be over. Good news that your opponent is just smuggler like you, so if you make his mission
+unprofitable your mission will be successful!
 
 ![image](https://user-images.githubusercontent.com/45365159/198135140-758a0e05-9e49-4c65-9a63-b4f8b6b72f7b.png)
 
-## Prerequisites
+## Controls
+
+This game can only player with **mouse + keyboard**
+
+Move your ship with `w`, `a`, `s`, `d` keys.
+
+Change operating modes using `1` and `2` keys or click on buttons in middle-bottom section of display, where *Firing mode*
+triggers by pressing on button with missile and bullet icons, and *Building mode* triggers by clicking on button with hammer
+
+While in *Firing mode* (`1` on keyboard or button with missile and bullet on display) you can shoot bullets at enemy ship using `LMB`[^1] key, and
+shoot rockets at ground structures like Space Extractors using `RMB`[^1] key.
+
+While in *Building mode* you can see cube template with which you can build Space Extractors. Cube template is red when something obstruct construction or you don't have enough funds, and template is green when you can place the extractor. You can rotate template around with `q` and `e` keys.
+
+## Prerequisites for project
 
 Project made with Godot version 3.5.1
+
+[^1]: LMB and RMB stands for Left Mouse Button and Right Mouse Button accordingly
