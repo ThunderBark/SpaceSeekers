@@ -52,12 +52,6 @@ noise_period = 22.0
 [node name="ObjectGenerator" parent="MapMaster/TerrainGridMap" index="0"]
 cluster_chance = 1000
 
-[node name="PlayerCraftController" parent="." instance=ExtResource( 6 )]
-pause_mode = 1
-
-[node name="EnemyCraftController" parent="." instance=ExtResource( 4 )]
-pause_mode = 1
-
 [node name="GUI" type="ReferenceRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -358,4 +352,3 @@ valign = 1
 [connection signal="button_up" from="PauseMenu/ButtonsContainer/VBoxContainer/QuitButton" to="PauseMenu" method="_on_QuitButton_button_up"]
 
 [editable path="MapMaster"]
-[editable path="EnemyCraftController"]

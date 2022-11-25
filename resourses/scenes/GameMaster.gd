@@ -4,9 +4,22 @@ extends Node
 export (PackedScene) var player_controller: PackedScene
 export (PackedScene) var enemy_controller: PackedScene
 export (int) var initial_funds: int = 400
+export (int) var spawn_offset: int = 10
 
 var is_loading: bool = true
 var last_progress: int = 0
+
+onready var world_size: int = $MapMaster.terrain_size
+onready var enemy_spawn_pos: Vector3 = Vector3(
+	world_size / 2.0 - spawn_offset,
+	3.0,
+	world_size / 2.0 - spawn_offset
+)
+onready var player_spawn_pos: Vector3 = Vector3(
+	-enemy_spawn_pos.x,
+	3.0,
+	-enemy_spawn_pos.z
+)
 
 func _ready():
 	get_tree().paused = true
@@ -24,6 +37,15 @@ func _input(event):
 		$LoadingScreen.visible = false
 		get_tree().paused = false
 		is_loading = false
+
+		# Spawn players
+		var player = player_controller.instance()
+		player.get_child(0).translation = player_spawn_pos
+		add_child(player)
+		var enemy = enemy_controller.instance()
+		enemy.get_child(0).translation = enemy_spawn_pos
+		add_child(enemy)
+
 
 
 
@@ -55,10 +77,10 @@ func player_won():
 func respawn_player():
 	var player = player_controller.instance()
 	add_child(player)
-	player.craft.translation = Vector3(0.0, 3.0, 0.0)
+	player.craft.translation = player_spawn_pos
 
 
 func respawn_enemy():
 	var enemy = enemy_controller.instance()
 	add_child(enemy)
-	enemy.craft.translation = Vector3(0.0, 3.0, 0.0)
+	enemy.craft.translation = enemy_spawn_pos
