@@ -23,6 +23,7 @@ var last_extractor_position: Vector3 = player_start_pos
 var ref_think_period: int = 300
 var think_period: int = ref_think_period
 var const_dir: Vector3 = Vector3.ZERO
+var is_dead: bool = false
 
 enum {
 	FLEE,
@@ -37,6 +38,7 @@ signal shoot_missle(pos)
 
 
 func _ready():
+	is_dead = false
 	connect("shoot_bullet", $SpeederA/Hull/Weapons/Minigun, "fire_bullet")
 	connect("shoot_bullet", $SpeederA/Hull/Weapons/Minigun2, "fire_bullet")
 	connect("shoot_missle", $SpeederA/Hull/Weapons/MissileLauncher, "fire_missile")
@@ -46,6 +48,9 @@ func _ready():
 
 
 func craft_took_damage(amount):
+	if is_dead:
+		return
+	
 	health -= amount
 	craft.set_hp(health, max_health)
 	if health <= 0:
@@ -61,6 +66,7 @@ func die():
 	set_physics_process(false)
 	craft.die()
 	PlayerState.enemy_died()
+	is_dead = true
 
 
 func has_enough_score_to_build() -> bool:

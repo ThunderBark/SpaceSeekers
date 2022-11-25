@@ -10,7 +10,7 @@ onready var fullscreen_toggle: CheckBox = $TabContainer/Display/VBoxContainer/UI
 signal apply_button_pressed(settings)
 
 # We store the selected settings in a dictionary
-var _settings := {resolution = Vector2(640, 480), fullscreen = false, vsync = false}
+var _settings := {resolution = Vector2(1280, 720), fullscreen = false, vsync = false}
 
 
 func _ready():
