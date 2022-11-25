@@ -5,7 +5,6 @@
 [ext_resource path="res://resourses/scenes/ui/SettingsContainer.gd" type="Script" id=4]
 
 [node name="SettingsContainer" type="MarginContainer"]
-visible = false
 anchor_left = 0.3
 anchor_top = 0.2
 anchor_right = 0.7
@@ -32,22 +31,25 @@ margin_bottom = -4.0
 anchor_right = 1.0
 
 [node name="UIResolutionSelector" parent="TabContainer/Display/VBoxContainer" instance=ExtResource( 3 )]
+visible = false
 alignment = 1
 
 [node name="UIFullscreenCheckbox" parent="TabContainer/Display/VBoxContainer" instance=ExtResource( 1 )]
+margin_top = 0.0
+margin_bottom = 26.0
 alignment = 1
 title = "Full Screen"
 
 [node name="UIVsyncCheckbox" parent="TabContainer/Display/VBoxContainer" instance=ExtResource( 1 )]
-margin_top = 58.0
-margin_bottom = 84.0
+margin_top = 30.0
+margin_bottom = 56.0
 alignment = 1
 title = "VSync"
 
 [node name="ApplyButton" type="Button" parent="TabContainer/Display/VBoxContainer"]
-margin_top = 88.0
+margin_top = 60.0
 margin_right = 504.0
-margin_bottom = 112.0
+margin_bottom = 84.0
 text = "Apply"
 
 [node name="Audio" type="Tabs" parent="TabContainer"]
@@ -58,6 +60,36 @@ margin_left = 4.0
 margin_top = 36.0
 margin_right = -4.0
 margin_bottom = -4.0
+
+[node name="Controls" type="Tabs" parent="TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 36.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TabContainer/Controls"]
+anchor_left = 0.05
+anchor_top = 0.05
+anchor_right = 0.95
+anchor_bottom = 0.95
+bbcode_enabled = true
+bbcode_text = "This game can only played with mouse and keyboard. Move your ship with W, A, S, D keys.
+
+Change operating modes using 1 and 2 keys or click on buttons in middle-bottom section of display, where Firing mode triggers by pressing on button with missile and bullet icons, and Building Mode triggers by clicking on button with hammer
+
+While in Firing Mode you can shoot bullets at enemy ship using LMB key, and shoot rockets at ground structures like Space Extractors using RMB key.
+
+While in Building Mode you can see cube template with which you can build Space Extractors. Cube template is red when something obstruct construction or you don't have enough funds, and template is green when you can place the extractor. You can rotate template around with Q and E keys."
+text = "This game can only played with mouse and keyboard. Move your ship with W, A, S, D keys.
+
+Change operating modes using 1 and 2 keys or click on buttons in middle-bottom section of display, where Firing mode triggers by pressing on button with missile and bullet icons, and Building Mode triggers by clicking on button with hammer
+
+While in Firing Mode you can shoot bullets at enemy ship using LMB key, and shoot rockets at ground structures like Space Extractors using RMB key.
+
+While in Building Mode you can see cube template with which you can build Space Extractors. Cube template is red when something obstruct construction or you don't have enough funds, and template is green when you can place the extractor. You can rotate template around with Q and E keys."
 
 [connection signal="resolution_changed" from="TabContainer/Display/VBoxContainer/UIResolutionSelector" to="." method="_on_UIResolutionSelector_resolution_changed"]
 [connection signal="toggled" from="TabContainer/Display/VBoxContainer/UIFullscreenCheckbox" to="." method="_on_UIFullscreenCheckbox_toggled"]
