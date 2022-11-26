@@ -21,7 +21,7 @@
 [ext_resource path="res://resourses/scenes/terrain/BorderDamageArea.tscn" type="PackedScene" id=19]
 [ext_resource path="res://assets/icons8-hammer-96.png" type="Texture" id=20]
 [ext_resource path="res://resourses/default_ui.theme" type="Theme" id=21]
-[ext_resource path="res://assets/icons8-nebula-96.png" type="Texture" id=22]
+[ext_resource path="res://assets/icons8-nebula-96(1).png" type="Texture" id=22]
 [ext_resource path="res://resourses/scenes/GUI.gd" type="Script" id=23]
 [ext_resource path="res://assets/icons8-missile-96.png" type="Texture" id=24]
 [ext_resource path="res://resourses/scenes/BackupCamera.gd" type="Script" id=25]
@@ -1263,7 +1263,7 @@ anchor_bottom = 1.0
 position = Vector2( 96, -64 )
 scale = Vector2( 1.42676, 1.42676 )
 frames = SubResource( 240 )
-frame = 224
+frame = 48
 speed_scale = 3.0
 playing = true
 

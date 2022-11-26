@@ -1,6 +1,6 @@
 extends Node
 
-onready var master_node: Node = get_node("/root/GameMaster")
+onready var master_node: Node 
 
 enum { PLAYER_FIRING_BULLETS, PLAYER_BUILDING, PLAYER_DEAD }
 var player_mode: int = PLAYER_FIRING_BULLETS
