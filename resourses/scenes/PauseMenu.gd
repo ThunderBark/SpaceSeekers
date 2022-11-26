@@ -9,7 +9,7 @@ func _input(event):
 	if (event.is_action_pressed("ui_cancel") and 
 		(PlayerState.player_mode != PlayerState.PLAYER_DEAD)):
 		visible = !visible
-		get_tree().paused = !get_tree().paused
+		get_tree().paused = visible
 
 func show_pause_menu():
 	visible = true
