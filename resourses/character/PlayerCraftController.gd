@@ -6,7 +6,7 @@ onready var blueprint: Spatial = building_bp.instance()
 export(PackedScene) var extractor1: PackedScene
 onready var extractor: Spatial = extractor1.instance()
 
-export(int) var invul_msec: int = 50
+export(int) var invul_msec: int = 10
 
 onready var craft: KinematicBody = get_child(0)
 onready var camera: Camera = craft.get_node("Camera")
@@ -16,13 +16,15 @@ var rng = RandomNumberGenerator.new()
 var velocity: Vector3 = Vector3.ZERO
 var is_building: bool = false
 
-var player_hp: int = 100
+var max_hp: int = 100
+var player_hp: int = max_hp
 var last_damage_time: int = Time.get_ticks_msec()
 
 var is_dead: bool = false
 
 
 func _ready():
+	PlayerState.player_hp_changed(player_hp)
 	craft.connect("took_damage", self, "craft_took_damage")
 
 	craft.add_to_group("player1")

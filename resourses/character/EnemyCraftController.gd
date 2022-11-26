@@ -20,6 +20,7 @@ var speed: float = 100.0
 
 var last_player_position: Vector3 = player_start_pos
 var last_extractor_position: Vector3 = player_start_pos
+var hiding_pos: Vector3
 var ref_think_period: int = 300
 var think_period: int = ref_think_period
 var const_dir: Vector3 = Vector3.ZERO
@@ -28,7 +29,8 @@ var is_dead: bool = false
 enum {
 	FLEE,
 	ATTACK,
-	HUNT
+	HUNT,
+	HIDE
 }
 var cur_behaviour = FLEE
 
@@ -75,12 +77,12 @@ func has_enough_score_to_build() -> bool:
 	return false
 
 
-func is_player_nearby() -> bool:
-	var player_detected: bool = false
+func is_player_nearby() -> CraftController:
+	var player_detected: CraftController = null
 	for body in $SpeederA/AttentionArea.get_overlapping_bodies():
 		if body.is_in_group("player1") and (body is CraftController):
 			last_player_position = body.translation
-			player_detected = true
+			player_detected = body
 	return player_detected
 
 func is_player_extractor_nearby() -> Extractor:
@@ -93,10 +95,12 @@ func is_player_extractor_nearby() -> Extractor:
 
 
 func is_beneficial_to_place_extractor() -> bool:
-	var is_beneficial: bool = true
-	if PlayerState.enemy_score > PlayerState.player_score:
+	var is_beneficial: bool = false
+
+	if PlayerState.enemy_score >= (PlayerState.respawn_cost + PlayerState.extractor_cost):
 		is_beneficial = true
-	return false
+	
+	return is_beneficial
 
 
 func prefered_crystal_pos(prefered_dir: Vector3) -> Crystal:
@@ -127,13 +131,19 @@ func place_extractor(crystal: Crystal):
 func choose_direction_to_go() -> Vector3:
 	var dir: Vector3 = Vector3.ZERO
 	
-	if is_player_nearby():
-		if health > max_health / 2:
+	if health > max_health / 2:
+		if is_player_nearby() != null:
 			cur_behaviour = ATTACK
 		else:
-			cur_behaviour = FLEE
+			cur_behaviour = HUNT
 	else:
-		cur_behaviour = HUNT
+		if is_player_nearby() != null:
+			cur_behaviour = FLEE
+		else:
+			if cur_behaviour != HIDE:
+				hiding_pos = -last_player_position;
+			cur_behaviour = HIDE
+		
 
 	# Player attraction / repulsion
 	var dir_to_player: Vector3 = (
@@ -141,28 +151,41 @@ func choose_direction_to_go() -> Vector3:
 		* world_size
 		/ craft.translation.distance_to(last_player_position)
 	) * 2.0
-	if (cur_behaviour == FLEE) or (craft.translation.distance_to(last_player_position) < 15):
+	if (cur_behaviour == FLEE) or (craft.translation.distance_to(last_player_position) < 10):
 		dir -= dir_to_player
-	else:
+	elif cur_behaviour == ATTACK:
 		dir += dir_to_player
 
 	# Repulsion by borders
-	dir -= (
-		Vector3(craft.translation.x, 0, craft.translation.z).normalized()
-		* 100.0
-		/ exp(world_size / craft.translation.distance_to(Vector3.ZERO))
-	)
+	if (craft.translation.distance_to(Vector3.ZERO) > ((world_size / 2) - 15)):
+		dir -= (
+			Vector3(craft.translation.x, 0, craft.translation.z).normalized()
+			* 300.0
+			/ exp(world_size / craft.translation.distance_to(Vector3.ZERO))
+		)
 
 	# Attraction to point of interest
-	var poi_attraction: float = 50.0
+	var poi_attraction: float = 500.0
 	var poi_crystal: Crystal = prefered_crystal_pos(dir)
 	if is_beneficial_to_place_extractor() and (poi_crystal != null):
-		if PlayerState.enemy_score >= PlayerState.extractor_cost:
-			place_extractor(poi_crystal)
-		dir += craft.translation.direction_to(poi_crystal.translation)
-	
+		place_extractor(poi_crystal)
+		# dir += craft.translation.direction_to(poi_crystal.translation) * poi_attraction
 	if cur_behaviour == HUNT:
-		dir += craft.translation.direction_to(last_extractor_position) * poi_attraction * 10
+		if craft.translation.distance_to(last_extractor_position) < 5:
+			last_extractor_position = Vector3.ZERO
+
+		if last_extractor_position != Vector3.ZERO:
+			dir += craft.translation.direction_to(last_extractor_position) * poi_attraction
+		else:
+			pass # Wandering around
+	elif cur_behaviour == HIDE:
+		dir += craft.translation.direction_to(hiding_pos) * poi_attraction
+	# if cur_behaviour == HUNT:
+	# 	if (craft.translation.distance_to(last_extractor_position)
+	# 		< craft.translation.distance_to(player_start_pos)): 
+	# 		dir += craft.translation.direction_to(last_extractor_position) * poi_attraction
+	# 	else:
+	# 		dir += craft.translation.direction_to(player_start_pos) * poi_attraction
 
 	return dir.normalized()
 
@@ -177,9 +200,15 @@ func _think():
 	# Point to look
 	var extr: Extractor = is_player_extractor_nearby()
 	if extr != null:
+		craft.point_to_look = Vector3(extr.translation.x, 0, extr.translation.z)
 		emit_signal("shoot_missle", extr.translation)
-	elif is_player_nearby():
-		craft.point_to_look = last_player_position + Vector3(randf(), 0, randf())
+	elif is_player_nearby() != null:
+		craft.point_to_look = (
+			last_player_position 
+			+ is_player_nearby().velocity 
+			* (craft.translation.distance_to(last_player_position) * 0.03)
+		)
+
 		emit_signal("shoot_bullet")
 	else:
 		craft.point_to_look = craft.translation + const_dir

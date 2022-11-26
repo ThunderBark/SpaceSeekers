@@ -944,6 +944,7 @@ pause_mode = 2
 script = ExtResource( 1 )
 player_controller = ExtResource( 6 )
 enemy_controller = ExtResource( 4 )
+spawn_offset = 15
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 8, 0 )
@@ -978,7 +979,7 @@ grow_vertical = 2
 
 [node name="Air" type="TextureButton" parent="GUI/ModeSetButtons"]
 margin_right = 49.0
-margin_bottom = 49.0
+margin_bottom = 54.0
 toggle_mode = true
 pressed = true
 texture_normal = ExtResource( 17 )
@@ -1019,12 +1020,12 @@ flip_h = true
 modulate = Color( 1, 1, 1, 0 )
 margin_left = 53.0
 margin_right = 57.0
-margin_bottom = 49.0
+margin_bottom = 54.0
 
 [node name="Build" type="TextureButton" parent="GUI/ModeSetButtons"]
 margin_left = 61.0
 margin_right = 110.0
-margin_bottom = 49.0
+margin_bottom = 54.0
 theme = ExtResource( 21 )
 toggle_mode = true
 texture_normal = ExtResource( 17 )
@@ -1048,8 +1049,8 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="HPBar" type="TextureProgress" parent="GUI/HPBarContainer"]
-margin_right = 38.0
-margin_bottom = 324.0
+margin_right = 57.0
+margin_bottom = 486.0
 value = 100.0
 texture_under = ExtResource( 15 )
 texture_progress = ExtResource( 3 )
@@ -1129,10 +1130,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/GameOverContainer"]
-margin_left = 382.0
-margin_top = 308.0
-margin_right = 898.0
-margin_bottom = 411.0
+margin_left = 702.0
+margin_top = 488.0
+margin_right = 1218.0
+margin_bottom = 591.0
 
 [node name="Label" type="Label" parent="PauseMenu/GameOverContainer/VBoxContainer"]
 margin_right = 516.0
@@ -1154,10 +1155,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/WinContainer"]
-margin_left = 439.0
-margin_top = 308.0
-margin_right = 841.0
-margin_bottom = 411.0
+margin_left = 759.0
+margin_top = 488.0
+margin_right = 1161.0
+margin_bottom = 591.0
 
 [node name="Label" type="Label" parent="PauseMenu/WinContainer/VBoxContainer"]
 margin_right = 402.0
@@ -1262,7 +1263,7 @@ anchor_bottom = 1.0
 position = Vector2( 96, -64 )
 scale = Vector2( 1.42676, 1.42676 )
 frames = SubResource( 240 )
-frame = 164
+frame = 224
 speed_scale = 3.0
 playing = true
 

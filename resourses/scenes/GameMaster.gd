@@ -101,10 +101,11 @@ func respawn_player():
 	add_child(player)
 	player.craft.translation = player_spawn_pos
 
-
 func respawn_enemy():
 	var enemy = enemy_controller.instance()
 	enemy.player_start_pos = player_spawn_pos
+	enemy.last_extractor_position = player_spawn_pos
 	add_child(enemy)
 	enemy.craft.translation = enemy_spawn_pos
+	enemy.world_size = world_size
 

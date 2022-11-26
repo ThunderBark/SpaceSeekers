@@ -45,7 +45,7 @@ _global_script_class_icons={
 [application]
 
 config/name="SpaceSeekers"
-run/main_scene="res://resourses/scenes/MainMenu.tscn"
+run/main_scene="res://resourses/scenes/GameMaster.tscn"
 config/icon="res://assets/icons8-desert-landscape-96.png"
 config/windows_native_icon="res://assets/icons8-desert-landscape-96.ico"
 
@@ -62,8 +62,8 @@ gdscript/warnings/integer_division=false
 
 [display]
 
-window/size/width=1280
-window/size/height=720
+window/size/width=1920
+window/size/height=1080
 window/vsync/use_vsync=false
 mouse_cursor/custom_image="res://assets/kenney-ui-space/PNG/cursor_pointer3D_shadow.png"
 window/stretch/mode="viewport"
