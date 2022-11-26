@@ -25,8 +25,6 @@ func _input(event):
 	if event.is_action_pressed("number_2"):
 		self.emit_signal("player_selection_state_changed", PlayerState.PLAYER_BUILDING)
 		_mode_selected(PlayerState.PLAYER_BUILDING)
-	# if event.is_action_pressed("primary_fire_action"):
-	# 	PlayerState.player_score_changed(int(score_label.text) + 10)
 
 
 func _player_hp_changed(new_hp):

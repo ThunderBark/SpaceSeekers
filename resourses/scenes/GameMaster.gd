@@ -52,6 +52,8 @@ func _input(event):
 		else:
 			$GUI/ControlsTooltip.visible = false
 
+		PlayerState.player_score_changed(PlayerState.player_score)
+
 
 
 

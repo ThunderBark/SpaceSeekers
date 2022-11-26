@@ -1243,6 +1243,7 @@ valign = 1
 
 [node name="LoadingScreen" type="Panel" parent="."]
 pause_mode = 2
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 
@@ -1261,7 +1262,7 @@ anchor_bottom = 1.0
 position = Vector2( 96, -64 )
 scale = Vector2( 1.42676, 1.42676 )
 frames = SubResource( 240 )
-frame = 37
+frame = 199
 speed_scale = 3.0
 playing = true
 
