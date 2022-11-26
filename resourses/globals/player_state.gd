@@ -25,6 +25,7 @@ func player_score_changed(new_score):
 
 
 func enemy_died():
+	player_score_increase_by_amount(100)
 	if enemy_score < respawn_cost:
 		master_node.player_won()
 	else:
@@ -33,6 +34,7 @@ func enemy_died():
 
 
 func player_died():
+	enemy_score_increase_by_amount(100)
 	print("Player_score: " + String(player_score))
 	if player_score < respawn_cost:
 		master_node.player_lost()
