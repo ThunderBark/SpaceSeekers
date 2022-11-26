@@ -12,6 +12,8 @@ var target_position
 var is_already_blow_up: bool = false
 
 func _ready():
+	$Thrust.pitch_scale = 0.75 + randf() * 0.5
+	$Thrust.play()
 	die_deferred()
 
 func _physics_process(delta):
@@ -35,6 +37,9 @@ func _on_Rocket_body_entered(body):
 			if body is Extractor:
 				body.take_damage(damage, shooter)
 		is_already_blow_up = true
+		$Thrust.stop()
+		$Explosion.pitch_scale = 0.75 + randf() * 0.5
+		$Explosion.play()
 
 		$foamBulletB.visible = false
 		$Trail.emitting = false

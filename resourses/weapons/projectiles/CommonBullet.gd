@@ -8,6 +8,8 @@ var lifetime : float = 3.0
 var particle_time : float = 0.1
 
 func _ready():
+	$AudioStreamPlayer3D.pitch_scale = 0.75 + randf() * 0.5
+	$AudioStreamPlayer3D.play()
 	yield(get_tree().create_timer(2), "timeout")
 	queue_free()
 

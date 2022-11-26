@@ -34,3 +34,4 @@ func fire_bullet() -> void:
 		b.transform = b.transform.translated(Vector3(0, 0, rand_range(-0.1, 0.1)))
 		b.shooter = craft
 		world_root.add_child(b)
+

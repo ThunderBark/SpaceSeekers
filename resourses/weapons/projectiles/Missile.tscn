@@ -1,8 +1,10 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://resourses/weapons/projectiles/Missile.gd" type="Script" id=1]
 [ext_resource path="res://assets/models/Kenney_space/weapons/foamBulletA.obj" type="ArrayMesh" id=2]
 [ext_resource path="res://resourses/weapons/projectiles/CommonBullet_spatialmaterial.tres" type="Material" id=3]
+[ext_resource path="res://assets/audio/noise.ogg" type="AudioStream" id=4]
+[ext_resource path="res://assets/audio/small_explosion.ogg" type="AudioStream" id=5]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 2, 2, 1 )
@@ -227,5 +229,11 @@ material/0 = SubResource( 12 )
 playback_speed = 1.5
 anims/Explosion = SubResource( 8 )
 anims/RESET = SubResource( 9 )
+
+[node name="Explosion" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 5 )
+
+[node name="Thrust" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 4 )
 
 [connection signal="body_entered" from="." to="." method="_on_Rocket_body_entered"]
