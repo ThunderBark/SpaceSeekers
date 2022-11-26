@@ -3,6 +3,8 @@ extends Node
 onready var settings_file = "user://settings"
 onready var settings_handle = File.new()
 
+var last_settings: Dictionary
+
 
 func update_settings(settings: Dictionary) -> void:
 	OS.window_fullscreen = settings.fullscreen
@@ -11,6 +13,8 @@ func update_settings(settings: Dictionary) -> void:
 	)
 	OS.set_window_size(settings.resolution)
 	OS.vsync_enabled = settings.vsync
+
+	last_settings = settings
 
 	settings_handle.open(settings_file, File.WRITE)
 	settings_handle.store_var(settings, true)
@@ -23,7 +27,14 @@ func get_settings() -> Dictionary:
 		settings = settings_handle.get_var(true)
 		settings_handle.close()
 	else:
-		settings = {resolution = Vector2(1280, 720), fullscreen = false, vsync = false}
+		settings = {
+			resolution = Vector2(1280, 720),
+			fullscreen = false,
+			vsync = false,
+			control_tips = true
+		}
+
+	last_settings = settings
 
 	update_settings(settings)
 	return settings

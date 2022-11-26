@@ -5,6 +5,7 @@
 [ext_resource path="res://resourses/scenes/ui/SettingsContainer.gd" type="Script" id=4]
 
 [node name="SettingsContainer" type="MarginContainer"]
+visible = false
 anchor_left = 0.3
 anchor_top = 0.2
 anchor_right = 0.7
@@ -46,10 +47,16 @@ margin_bottom = 56.0
 alignment = 1
 title = "VSync"
 
-[node name="ApplyButton" type="Button" parent="TabContainer/Display/VBoxContainer"]
+[node name="UIControlTipCheckbox" parent="TabContainer/Display/VBoxContainer" instance=ExtResource( 1 )]
 margin_top = 60.0
+margin_bottom = 86.0
+alignment = 1
+title = "Control tips"
+
+[node name="ApplyButton" type="Button" parent="TabContainer/Display/VBoxContainer"]
+margin_top = 90.0
 margin_right = 504.0
-margin_bottom = 84.0
+margin_bottom = 114.0
 text = "Apply"
 
 [node name="Audio" type="Tabs" parent="TabContainer"]
@@ -94,4 +101,5 @@ While in Building Mode you can see cube template with which you can build Space 
 [connection signal="resolution_changed" from="TabContainer/Display/VBoxContainer/UIResolutionSelector" to="." method="_on_UIResolutionSelector_resolution_changed"]
 [connection signal="toggled" from="TabContainer/Display/VBoxContainer/UIFullscreenCheckbox" to="." method="_on_UIFullscreenCheckbox_toggled"]
 [connection signal="toggled" from="TabContainer/Display/VBoxContainer/UIVsyncCheckbox" to="." method="_on_UIVsyncCheckbox_toggled"]
+[connection signal="toggled" from="TabContainer/Display/VBoxContainer/UIControlTipCheckbox" to="." method="_on_UIControlTipCheckbox_toggled"]
 [connection signal="button_up" from="TabContainer/Display/VBoxContainer/ApplyButton" to="." method="_on_ApplyButton_button_up"]

@@ -169,6 +169,32 @@ margin_bottom = 57.0
 theme = ExtResource( 21 )
 text = "0"
 
+[node name="ControlsTooltip" type="Panel" parent="GUI"]
+visible = false
+modulate = Color( 1, 1, 1, 0.498039 )
+anchor_left = 0.65
+anchor_top = 0.83
+anchor_right = 0.95
+anchor_bottom = 0.95
+
+[node name="FireTooltip" type="RichTextLabel" parent="GUI/ControlsTooltip"]
+visible = false
+anchor_left = 0.05
+anchor_top = 0.1
+anchor_right = 0.95
+anchor_bottom = 0.9
+text = "LMB - fire at craft
+RMB - fire at building"
+
+[node name="BuildTooltip" type="RichTextLabel" parent="GUI/ControlsTooltip"]
+visible = false
+anchor_left = 0.05
+anchor_top = 0.1
+anchor_right = 0.95
+anchor_bottom = 0.9
+text = "Q or E - rotate building template
+LMB - build (costs 200 points)"
+
 [node name="BackupCamera" type="Camera" parent="."]
 pause_mode = 2
 transform = Transform( 0.707107, 0.707107, 3.09086e-08, 0, -4.37114e-08, 1, 0.707107, -0.707107, -3.09086e-08, 0, 20, 0 )

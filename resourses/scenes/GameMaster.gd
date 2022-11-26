@@ -28,6 +28,7 @@ func _ready():
 	PlayerState.player_score = initial_funds
 	PlayerState.enemy_score = initial_funds
 	$MapMaster.connect("sector_load_pct", self, "update_loading_progress")
+	$GUI.connect("player_changed_mode", self, "player_changed_mode")
 
 
 func _input(event):
@@ -43,6 +44,14 @@ func _input(event):
 		respawn_player()
 		respawn_enemy()
 
+		var settings: Dictionary = Settings.last_settings
+		if settings.control_tips == true:
+			$GUI/ControlsTooltip.visible = true
+			$GUI/ControlsTooltip/FireTooltip.visible = true
+			$GUI/ControlsTooltip/BuildTooltip.visible = false
+		else:
+			$GUI/ControlsTooltip.visible = false
+
 
 
 
@@ -52,6 +61,20 @@ func update_loading_progress(progress: int):
 	last_progress = progress
 	if (progress == 100):
 		$LoadingScreen/PressAnyKey.visible = true
+
+
+func player_changed_mode(new_mode: int):
+	var settings: Dictionary = Settings.last_settings
+	if settings.control_tips == true:
+		$GUI/ControlsTooltip.visible = true
+		if new_mode == PlayerState.PLAYER_FIRING_BULLETS:
+			$GUI/ControlsTooltip/FireTooltip.visible = true
+			$GUI/ControlsTooltip/BuildTooltip.visible = false
+		else:
+			$GUI/ControlsTooltip/FireTooltip.visible = false
+			$GUI/ControlsTooltip/BuildTooltip.visible = true
+	else:
+		$GUI/ControlsTooltip.visible = false
 
 
 func player_lost():

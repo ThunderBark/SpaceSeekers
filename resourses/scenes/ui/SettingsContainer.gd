@@ -4,6 +4,7 @@ extends Control
 onready var resolution_option_btn: OptionButton = $TabContainer/Display/VBoxContainer/UIResolutionSelector/OptionButton
 onready var vsync_toggle: CheckBox = $TabContainer/Display/VBoxContainer/UIVsyncCheckbox/CheckBox
 onready var fullscreen_toggle: CheckBox = $TabContainer/Display/VBoxContainer/UIFullscreenCheckbox/CheckBox
+onready var control_tips_toggle: CheckBox = $TabContainer/Display/VBoxContainer/UIControlTipCheckbox/CheckBox
 
 
 # Emitted when the user presses the "apply" button.
@@ -18,6 +19,7 @@ func _ready():
 	_settings = Settings.get_settings()
 	vsync_toggle.pressed = _settings.vsync
 	fullscreen_toggle.pressed = _settings.fullscreen
+	control_tips_toggle.pressed = _settings.control_tips
 	for i in resolution_option_btn.get_item_count():
 		if ((String(_settings.resolution.x) in resolution_option_btn.get_item_text(i)) and
 			(String(_settings.resolution.y) in resolution_option_btn.get_item_text(i))):
@@ -41,6 +43,10 @@ func _on_UIFullscreenCheckbox_toggled(is_button_pressed: bool) -> void:
 # the UIVSyncCheckbox
 func _on_UIVsyncCheckbox_toggled(is_button_pressed: bool) -> void:
 	_settings.vsync = is_button_pressed
+
+
+func _on_UIControlTipCheckbox_toggled(is_button_pressed: bool):
+	_settings.control_tips = is_button_pressed
 
 
 func _on_ApplyButton_button_up():
