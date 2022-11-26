@@ -5,6 +5,7 @@
 [ext_resource path="res://resourses/scenes/ui/SettingsContainer.gd" type="Script" id=4]
 
 [node name="SettingsContainer" type="MarginContainer"]
+visible = false
 anchor_left = 0.3
 anchor_top = 0.2
 anchor_right = 0.7
@@ -54,15 +55,6 @@ margin_top = 118.0
 margin_right = 504.0
 margin_bottom = 142.0
 text = "Apply"
-
-[node name="Audio" type="Tabs" parent="TabContainer"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 36.0
-margin_right = -4.0
-margin_bottom = -4.0
 
 [node name="Controls" type="Tabs" parent="TabContainer"]
 visible = false

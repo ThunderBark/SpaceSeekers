@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/1st Contact - Eclipse.mp3-b1930f1227f77d9e37a9275eb54979a0.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/1st Contact - Eclipse.mp3"
+dest_files=[ "res://.import/1st Contact - Eclipse.mp3-b1930f1227f77d9e37a9275eb54979a0.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

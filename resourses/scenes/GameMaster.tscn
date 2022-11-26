@@ -1,4 +1,4 @@
-[gd_scene load_steps=253 format=2]
+[gd_scene load_steps=254 format=2]
 
 [ext_resource path="res://resourses/scenes/GameMaster.gd" type="Script" id=1]
 [ext_resource path="res://resourses/scenes/terrain/MapMaster.tscn" type="PackedScene" id=2]
@@ -25,6 +25,7 @@
 [ext_resource path="res://resourses/scenes/GUI.gd" type="Script" id=23]
 [ext_resource path="res://assets/icons8-missile-96.png" type="Texture" id=24]
 [ext_resource path="res://resourses/scenes/BackupCamera.gd" type="Script" id=25]
+[ext_resource path="res://assets/audio/wind.wav" type="AudioStream" id=26]
 
 [sub_resource type="DynamicFont" id=14]
 size = 72
@@ -1243,7 +1244,6 @@ valign = 1
 
 [node name="LoadingScreen" type="Panel" parent="."]
 pause_mode = 2
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 
@@ -1262,7 +1262,7 @@ anchor_bottom = 1.0
 position = Vector2( 96, -64 )
 scale = Vector2( 1.42676, 1.42676 )
 frames = SubResource( 240 )
-frame = 199
+frame = 164
 speed_scale = 3.0
 playing = true
 
@@ -1302,6 +1302,11 @@ anchor_bottom = 0.95
 text = "Press any key to start"
 align = 1
 valign = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 26 )
+volume_db = -35.0
+autoplay = true
 
 [connection signal="button_down" from="GUI/ModeSetButtons/Air" to="GUI" method="_on_Air_button_down"]
 [connection signal="button_up" from="GUI/ModeSetButtons/Air" to="GUI" method="_on_Air_button_up"]

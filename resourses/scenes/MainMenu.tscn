@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://resourses/scenes/objects/crystal_cluster.mesh" type="ArrayMesh" id=1]
 [ext_resource path="res://resourses/main_menu_scene.anim" type="Animation" id=2]
 [ext_resource path="res://resourses/scenes/terrain/tiles/tiles_meshlib.tres" type="MeshLibrary" id=3]
+[ext_resource path="res://assets/audio/1st Contact - Eclipse.mp3" type="AudioStream" id=4]
 [ext_resource path="res://resourses/materials/metalDark.material" type="Material" id=5]
 [ext_resource path="res://resourses/materials/metal.material" type="Material" id=6]
 [ext_resource path="res://resourses/materials/dark.material" type="Material" id=7]
@@ -259,6 +260,11 @@ autoplay = "New Anim"
 reset_on_save = false
 "anims/New Anim" = ExtResource( 2 )
 anims/RESET = SubResource( 4 )
+
+[node name="Music" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 4 )
+unit_db = -10.0
+autoplay = true
 
 [connection signal="button_down" from="MainMenu/ButtonsContainer/VBoxContainer/PlayButton" to="MainMenu" method="_on_PlayButton_button_down"]
 [connection signal="button_down" from="MainMenu/ButtonsContainer/VBoxContainer/SettingsButton" to="MainMenu" method="_on_SettingsButton_button_down"]
