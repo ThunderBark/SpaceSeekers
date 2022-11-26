@@ -232,8 +232,10 @@ anims/RESET = SubResource( 9 )
 
 [node name="Explosion" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 5 )
+bus = "SFX"
 
 [node name="Thrust" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 4 )
+bus = "SFX"
 
 [connection signal="body_entered" from="." to="." method="_on_Rocket_body_entered"]

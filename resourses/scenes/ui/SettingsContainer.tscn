@@ -5,7 +5,6 @@
 [ext_resource path="res://resourses/scenes/ui/SettingsContainer.gd" type="Script" id=4]
 
 [node name="SettingsContainer" type="MarginContainer"]
-visible = false
 anchor_left = 0.3
 anchor_top = 0.2
 anchor_right = 0.7
@@ -32,31 +31,28 @@ margin_bottom = -4.0
 anchor_right = 1.0
 
 [node name="UIResolutionSelector" parent="TabContainer/Display/VBoxContainer" instance=ExtResource( 3 )]
-visible = false
 alignment = 1
 
 [node name="UIFullscreenCheckbox" parent="TabContainer/Display/VBoxContainer" instance=ExtResource( 1 )]
-margin_top = 0.0
-margin_bottom = 26.0
 alignment = 1
 title = "Full Screen"
 
 [node name="UIVsyncCheckbox" parent="TabContainer/Display/VBoxContainer" instance=ExtResource( 1 )]
-margin_top = 30.0
-margin_bottom = 56.0
+margin_top = 58.0
+margin_bottom = 84.0
 alignment = 1
 title = "VSync"
 
 [node name="UIControlTipCheckbox" parent="TabContainer/Display/VBoxContainer" instance=ExtResource( 1 )]
-margin_top = 60.0
-margin_bottom = 86.0
+margin_top = 88.0
+margin_bottom = 114.0
 alignment = 1
 title = "Control tips"
 
 [node name="ApplyButton" type="Button" parent="TabContainer/Display/VBoxContainer"]
-margin_top = 90.0
+margin_top = 118.0
 margin_right = 504.0
-margin_bottom = 114.0
+margin_bottom = 142.0
 text = "Apply"
 
 [node name="Audio" type="Tabs" parent="TabContainer"]

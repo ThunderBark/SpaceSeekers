@@ -1251,11 +1251,17 @@ position = Vector2( 539, 714 )
 scale = Vector2( 0.679932, 0.679932 )
 texture = ExtResource( 13 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="LoadingScreen"]
-position = Vector2( 1376, 656 )
+[node name="Control" type="Control" parent="LoadingScreen"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="LoadingScreen/Control"]
+position = Vector2( 96, -64 )
 scale = Vector2( 1.42676, 1.42676 )
 frames = SubResource( 240 )
-frame = 172
+frame = 37
 speed_scale = 3.0
 playing = true
 
