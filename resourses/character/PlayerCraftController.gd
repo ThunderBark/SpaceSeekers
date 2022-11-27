@@ -100,6 +100,7 @@ func craft_took_damage(damage_amount):
 		player_hp -= damage_amount
 		PlayerState.player_hp_changed(player_hp)
 		if player_hp <= 0 and not is_dead:
+			blueprint.queue_free()
 			is_dead = true
 			set_physics_process(false)
 			craft.die()
@@ -114,9 +115,9 @@ func has_enough_score_to_build() -> bool:
 
 func show_blueprint(intersection: Dictionary) -> void:
 	if Input.is_action_just_pressed("move_ascend"):
-		blueprint.rotate(Vector3.UP, PI / 2)
-	if Input.is_action_just_pressed("move_descend"):
 		blueprint.rotate(Vector3.UP, -PI / 2)
+	if Input.is_action_just_pressed("move_descend"):
+		blueprint.rotate(Vector3.UP, PI / 2)
 
 	var coll: Spatial = intersection.collider
 

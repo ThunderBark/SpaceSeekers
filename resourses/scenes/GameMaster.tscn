@@ -1294,7 +1294,7 @@ anchor_bottom = 1.0
 position = Vector2( 96, -64 )
 scale = Vector2( 1.42676, 1.42676 )
 frames = SubResource( 240 )
-frame = 220
+frame = 135
 speed_scale = 3.0
 playing = true
 
