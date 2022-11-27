@@ -29,11 +29,15 @@ func take_damage(damage_amount, shooter: Spatial):
 	$ExtractorMesh/Healthbar3D/Viewport/HPBar.value = health
 	$ExtractorMesh/Healthbar3D.visible = true
 
-	if health <= 0:
+	if health <= 0 and !is_dead:
+		is_dead = true
+		if is_in_group("enemy"):
+			PlayerState.player_score_increase_by_amount(50)
+		elif is_in_group("player1"):
+			PlayerState.enemy_score_increase_by_amount(50)
 		$AnimationPlayer.play("Explosions")
 		$ExtractorMesh/Healthbar3D.visible = false
 		crystal.is_vacant = true
-		is_dead = true
 
 
 func set_team(material: Material, group: String):
