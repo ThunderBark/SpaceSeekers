@@ -70,6 +70,8 @@ func _process(delta):
 					body.queue_free()
 			# Spawn clouds
 			$MapMaster.spawn_storm_at_spawn()
+			$Wind.stop()
+			$StrongWind.play()
 			if PlayerState.player_score < PlayerState.enemy_score:
 				player_lost()
 			else:
