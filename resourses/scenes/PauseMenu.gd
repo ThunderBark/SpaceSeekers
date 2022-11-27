@@ -7,7 +7,8 @@ func _ready():
 
 func _input(event):
 	if (event.is_action_pressed("ui_cancel") and 
-		(PlayerState.player_mode != PlayerState.PLAYER_DEAD)):
+		(PlayerState.player_mode != PlayerState.PLAYER_DEAD) and
+		!get_parent().is_loading):
 		visible = !visible
 		get_tree().paused = visible
 
