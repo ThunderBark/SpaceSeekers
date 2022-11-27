@@ -1,4 +1,4 @@
-[gd_scene load_steps=254 format=2]
+[gd_scene load_steps=255 format=2]
 
 [ext_resource path="res://resourses/scenes/GameMaster.gd" type="Script" id=1]
 [ext_resource path="res://resourses/scenes/terrain/MapMaster.tscn" type="PackedScene" id=2]
@@ -26,6 +26,10 @@
 [ext_resource path="res://assets/icons8-missile-96.png" type="Texture" id=24]
 [ext_resource path="res://resourses/scenes/BackupCamera.gd" type="Script" id=25]
 [ext_resource path="res://assets/audio/wind.wav" type="AudioStream" id=26]
+
+[sub_resource type="DynamicFont" id=241]
+size = 55
+font_data = ExtResource( 11 )
 
 [sub_resource type="DynamicFont" id=14]
 size = 72
@@ -969,6 +973,17 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 23 )
 
+[node name="Timeout" type="Label" parent="GUI"]
+anchor_left = 0.5
+anchor_top = 0.07
+anchor_right = 0.5
+anchor_bottom = 0.07
+grow_horizontal = 2
+grow_vertical = 2
+custom_fonts/font = SubResource( 241 )
+text = "0:00"
+align = 1
+
 [node name="ModeSetButtons" type="HBoxContainer" parent="GUI"]
 anchor_left = 0.5
 anchor_top = 0.85
@@ -1149,6 +1164,13 @@ margin_bottom = 103.0
 text = "Space harvested: 0"
 align = 1
 
+[node name="EnemyScore" type="Label" parent="PauseMenu/GameOverContainer/VBoxContainer"]
+margin_top = 85.0
+margin_right = 402.0
+margin_bottom = 103.0
+text = "Space harvested by opponent: 0"
+align = 1
+
 [node name="WinContainer" type="CenterContainer" parent="PauseMenu"]
 visible = false
 anchor_right = 1.0
@@ -1171,7 +1193,14 @@ align = 1
 margin_top = 85.0
 margin_right = 402.0
 margin_bottom = 103.0
-text = "Space harvested: 0"
+text = "Space harvested by player: 0"
+align = 1
+
+[node name="EnemyScore" type="Label" parent="PauseMenu/WinContainer/VBoxContainer"]
+margin_top = 85.0
+margin_right = 402.0
+margin_bottom = 103.0
+text = "Space harvested by opponent: 0"
 align = 1
 
 [node name="SettingsContainer" parent="PauseMenu" instance=ExtResource( 9 )]
@@ -1243,6 +1272,8 @@ text = "Quit"
 align = 1
 valign = 1
 
+[node name="SettingsContainer2" parent="PauseMenu" instance=ExtResource( 9 )]
+
 [node name="LoadingScreen" type="Panel" parent="."]
 pause_mode = 2
 anchor_right = 1.0
@@ -1263,7 +1294,7 @@ anchor_bottom = 1.0
 position = Vector2( 96, -64 )
 scale = Vector2( 1.42676, 1.42676 )
 frames = SubResource( 240 )
-frame = 48
+frame = 220
 speed_scale = 3.0
 playing = true
 

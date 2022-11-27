@@ -90,6 +90,18 @@ func _ready():
 	add_child(border_damage_area)
 
 
+func spawn_storm_at_spawn():
+	for i in pow(32, 2):
+		var border_wind : Particles = border_wind_scene.instance()
+		border_wind.translation = Vector3(
+			16 * (-border_wind_dimension) + (i / 32) * border_wind_dimension,
+			0,
+			16 * (-border_wind_dimension) + (i % 32) * border_wind_dimension
+		)
+		add_child(border_wind)
+
+
+
 func _process(delta):
 	if cur_sector < sector_cnt:
 		var point := Vector2(

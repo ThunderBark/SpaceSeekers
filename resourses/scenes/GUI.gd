@@ -35,6 +35,10 @@ func _player_score_changed(new_score):
 	score_label.text = String(new_score)
 
 
+func world_end_time_changed(new_time: int):
+	$Timeout.text = String(int(new_time / 60)) + ":" + String(int(new_time % 60))
+
+
 func _mode_selected(mode: int):
 	air_mode_button.pressed = false
 	build_mode_button.pressed = false

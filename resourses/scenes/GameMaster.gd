@@ -8,6 +8,8 @@ export (int) var spawn_offset: int = 10
 
 var is_loading: bool = true
 var last_progress: int = 0
+var timeout: int = 180
+var last_timeout_tick: int = 0
 
 onready var world_size: int = $MapMaster.terrain_size
 onready var enemy_spawn_pos: Vector3 = Vector3(
@@ -29,6 +31,7 @@ func _ready():
 	PlayerState.enemy_score = initial_funds
 	$MapMaster.connect("sector_load_pct", self, "update_loading_progress")
 	$GUI.connect("player_changed_mode", self, "player_changed_mode")
+	$GUI.world_end_time_changed(timeout)
 
 
 func _input(event):
@@ -55,6 +58,22 @@ func _input(event):
 		PlayerState.player_score_changed(PlayerState.player_score)
 
 
+func _process(delta):
+	if ((Time.get_ticks_msec() - last_timeout_tick >= 1000)
+		and !is_loading and !get_tree().paused):
+		timeout -= 1
+		$GUI.world_end_time_changed(timeout)
+		last_timeout_tick = Time.get_ticks_msec()
+		if (timeout == 0):
+			for body in get_children():
+				if (body is PlayerCraftController) or (body is EnemyCraftController):
+					body.queue_free()
+			# Spawn clouds
+			$MapMaster.spawn_storm_at_spawn()
+			if PlayerState.player_score < PlayerState.enemy_score:
+				player_lost()
+			else:
+				player_won()
 
 
 func update_loading_progress(progress: int):
@@ -82,7 +101,12 @@ func player_changed_mode(new_mode: int):
 func player_lost():
 	PlayerState.player_mode = PlayerState.PLAYER_DEAD
 	$GUI.visible = false
-	$PauseMenu/GameOverContainer/VBoxContainer/Score.text = "Space harvested: " + String(PlayerState.player_score)
+	$PauseMenu/GameOverContainer/VBoxContainer/Score.text = (
+		"Space harvested by player: " + String(PlayerState.player_score)
+	)
+	$PauseMenu/GameOverContainer/VBoxContainer/EnemyScore.text = (
+		"Space harvested by opponent: " + String(PlayerState.enemy_score)
+	)
 	$PauseMenu/GameOverContainer.visible = true
 	$PauseMenu.show_pause_menu()
 	get_tree().paused = false
@@ -90,7 +114,12 @@ func player_lost():
 func player_won():
 	PlayerState.player_mode = PlayerState.PLAYER_DEAD
 	$GUI.visible = false
-	$PauseMenu/WinContainer/VBoxContainer/Score.text = "Space harvested: " + String(PlayerState.player_score)
+	$PauseMenu/WinContainer/VBoxContainer/Score.text = (
+		"Space harvested by player: " + String(PlayerState.player_score)
+	)
+	$PauseMenu/WinContainer/VBoxContainer/EnemyScore.text = (
+		"Space harvested by opponent: " + String(PlayerState.enemy_score)
+	)
 	$PauseMenu/WinContainer.visible = true
 	$PauseMenu.show_pause_menu()
 	get_tree().paused = false

@@ -32,6 +32,7 @@ material = SubResource( 2 )
 size = Vector2( 10, 6 )
 
 [node name="BorderWinds" type="Particles"]
+pause_mode = 2
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1, 0 )
 layers = 2
 cast_shadow = 0
