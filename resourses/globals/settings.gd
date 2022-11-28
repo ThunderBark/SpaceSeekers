@@ -14,6 +14,8 @@ func update_settings(settings: Dictionary) -> void:
 	OS.set_window_size(settings.resolution)
 	OS.vsync_enabled = settings.vsync
 
+	TranslationServer.set_locale(settings.language)
+
 	last_settings = settings
 
 	settings_handle.open(settings_file, File.WRITE)
@@ -31,7 +33,8 @@ func get_settings() -> Dictionary:
 			resolution = Vector2(1280, 720),
 			fullscreen = false,
 			vsync = false,
-			control_tips = true
+			control_tips = true,
+			language = "en"
 		}
 
 	last_settings = settings

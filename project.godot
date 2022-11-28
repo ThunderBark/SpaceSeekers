@@ -82,6 +82,8 @@ singletons_disabled=[  ]
 
 frame=false
 framebuffer=false
+local=false
+locale=false
 
 [gui]
 
@@ -147,6 +149,11 @@ number_2={
 2d_physics/layer_2="Character"
 3d_physics/layer_2="unit"
 3d_physics/layer_3="mouse_interaction"
+
+[locale]
+
+translations=PoolStringArray( "res://Translation.en.translation", "res://Translation.ru.translation" )
+locale_filter=[ 1, [ "en", "ru" ] ]
 
 [physics]
 
