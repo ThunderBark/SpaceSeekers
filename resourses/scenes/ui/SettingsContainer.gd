@@ -4,14 +4,14 @@ extends Control
 onready var resolution_option_btn: OptionButton = $TabContainer/DISPLAY/VBoxContainer/UIResolutionSelector/OptionButton
 onready var vsync_toggle: CheckBox = $TabContainer/DISPLAY/VBoxContainer/UIVsyncCheckbox/CheckBox
 onready var fullscreen_toggle: CheckBox = $TabContainer/DISPLAY/VBoxContainer/UIFullscreenCheckbox/CheckBox
-onready var control_tips_toggle: CheckBox = $TabContainer/DISPLAY/VBoxContainer/UIControlTipCheckbox/CheckBox
+onready var control_tips_toggle: CheckBox = $TabContainer/COMMON/VBoxContainer/UIControlTipCheckbox/CheckBox
 
 
 # Emitted when the user presses the "apply" button.
 signal apply_button_pressed(settings)
 
 # We store the selected settings in a dictionary
-var _settings := {resolution = Vector2(1280, 720), fullscreen = false, vsync = false}
+var _settings := {resolution = Vector2(1280, 720), fullscreen = false, vsync = false, language = "en"}
 
 
 func _ready():
@@ -20,6 +20,10 @@ func _ready():
 	vsync_toggle.pressed = _settings.vsync
 	fullscreen_toggle.pressed = _settings.fullscreen
 	control_tips_toggle.pressed = _settings.control_tips
+	if _settings.language in "en":
+		$TabContainer/COMMON/VBoxContainer/UILanguageSelector/OptionButton.select(0)
+	elif _settings.language in "ru":
+		$TabContainer/COMMON/VBoxContainer/UILanguageSelector/OptionButton.select(1)
 	for i in resolution_option_btn.get_item_count():
 		if ((String(_settings.resolution.x) in resolution_option_btn.get_item_text(i)) and
 			(String(_settings.resolution.y) in resolution_option_btn.get_item_text(i))):
@@ -52,3 +56,10 @@ func _on_UIControlTipCheckbox_toggled(is_button_pressed: bool):
 func _on_ApplyButton_button_up():
 	# Send the last selected settings with the signal
 	emit_signal("apply_button_pressed", _settings)
+
+
+func _on_OptionButton_item_selected(index:int):
+	if index == 0:
+		_settings.language = "en"
+	elif index == 1:
+		_settings.language = "ru"

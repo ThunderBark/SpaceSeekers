@@ -1143,8 +1143,7 @@ margin_left = 7.0
 margin_top = 7.0
 margin_right = 377.0
 margin_bottom = 79.4
-text = "Q or E - rotate building template
-LMB - build (costs 200 points)"
+text = "BUILD_TOOLTIP"
 autowrap = true
 
 [node name="BackupCamera" type="Camera" parent="."]
@@ -1338,7 +1337,7 @@ anchor_bottom = 1.0
 position = Vector2( 96, -64 )
 scale = Vector2( 1.42676, 1.42676 )
 frames = SubResource( 240 )
-frame = 13
+frame = 17
 speed_scale = 3.0
 playing = true
 

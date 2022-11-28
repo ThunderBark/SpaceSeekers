@@ -27,6 +27,41 @@ margin_top = 43.0
 margin_right = -4.0
 margin_bottom = -4.0
 
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/COMMON"]
+anchor_right = 1.0
+
+[node name="UILanguageSelector" type="HBoxContainer" parent="TabContainer/COMMON/VBoxContainer"]
+margin_right = 504.0
+margin_bottom = 31.0
+alignment = 1
+
+[node name="Label" type="Label" parent="TabContainer/COMMON/VBoxContainer/UILanguageSelector"]
+margin_left = 137.0
+margin_top = 3.0
+margin_right = 256.0
+margin_bottom = 28.0
+text = "LANGUAGE"
+
+[node name="OptionButton" type="OptionButton" parent="TabContainer/COMMON/VBoxContainer/UILanguageSelector"]
+margin_left = 260.0
+margin_right = 367.0
+margin_bottom = 31.0
+text = "English"
+items = [ "English", null, false, 0, null, "Русский", null, false, 1, null ]
+selected = 0
+
+[node name="UIControlTipCheckbox" parent="TabContainer/COMMON/VBoxContainer" instance=ExtResource( 1 )]
+margin_top = 35.0
+margin_bottom = 68.0
+alignment = 1
+title = "CONTROL_TIPS"
+
+[node name="ApplyButton" type="Button" parent="TabContainer/COMMON/VBoxContainer"]
+margin_top = 72.0
+margin_right = 504.0
+margin_bottom = 103.0
+text = "APPLY"
+
 [node name="DISPLAY" type="Tabs" parent="TabContainer"]
 visible = false
 anchor_right = 1.0
@@ -54,12 +89,6 @@ margin_top = 72.0
 margin_bottom = 105.0
 alignment = 1
 title = "VSYNC"
-
-[node name="UIControlTipCheckbox" parent="TabContainer/DISPLAY/VBoxContainer" instance=ExtResource( 1 )]
-margin_top = 109.0
-margin_bottom = 142.0
-alignment = 1
-title = "CONTROL_TIPS"
 
 [node name="ApplyButton" type="Button" parent="TabContainer/DISPLAY/VBoxContainer"]
 margin_top = 146.0
@@ -94,8 +123,10 @@ visible = false
 margin_right = 40.0
 margin_bottom = 35.0
 
+[connection signal="item_selected" from="TabContainer/COMMON/VBoxContainer/UILanguageSelector/OptionButton" to="." method="_on_OptionButton_item_selected"]
+[connection signal="toggled" from="TabContainer/COMMON/VBoxContainer/UIControlTipCheckbox" to="." method="_on_UIControlTipCheckbox_toggled"]
+[connection signal="button_up" from="TabContainer/COMMON/VBoxContainer/ApplyButton" to="." method="_on_ApplyButton_button_up"]
 [connection signal="resolution_changed" from="TabContainer/DISPLAY/VBoxContainer/UIResolutionSelector" to="." method="_on_UIResolutionSelector_resolution_changed"]
 [connection signal="toggled" from="TabContainer/DISPLAY/VBoxContainer/UIFullscreenCheckbox" to="." method="_on_UIFullscreenCheckbox_toggled"]
 [connection signal="toggled" from="TabContainer/DISPLAY/VBoxContainer/UIVsyncCheckbox" to="." method="_on_UIVsyncCheckbox_toggled"]
-[connection signal="toggled" from="TabContainer/DISPLAY/VBoxContainer/UIControlTipCheckbox" to="." method="_on_UIControlTipCheckbox_toggled"]
 [connection signal="button_up" from="TabContainer/DISPLAY/VBoxContainer/ApplyButton" to="." method="_on_ApplyButton_button_up"]

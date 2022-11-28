@@ -6,15 +6,6 @@ onready var settings_handle = File.new()
 var last_settings: Dictionary
 
 
-
-func _process(delta):
-	if Input.is_action_just_pressed("move_ascend"):
-		if TranslationServer.get_locale() in "en":
-			TranslationServer.set_locale("ru")
-		else:
-			TranslationServer.set_locale("en")
-
-
 func update_settings(settings: Dictionary) -> void:
 	OS.window_fullscreen = settings.fullscreen
 	get_tree().set_screen_stretch(
@@ -22,6 +13,8 @@ func update_settings(settings: Dictionary) -> void:
 	)
 	OS.set_window_size(settings.resolution)
 	OS.vsync_enabled = settings.vsync
+
+	TranslationServer.set_locale(settings.language)
 
 	last_settings = settings
 
@@ -40,7 +33,8 @@ func get_settings() -> Dictionary:
 			resolution = Vector2(1280, 720),
 			fullscreen = false,
 			vsync = false,
-			control_tips = true
+			control_tips = true,
+			language = "en"
 		}
 
 	last_settings = settings
