@@ -974,11 +974,22 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 23 )
 
-[node name="Timeout" type="Label" parent="GUI"]
-anchor_left = 0.5
-anchor_top = 0.07
-anchor_right = 0.5
-anchor_bottom = 0.07
+[node name="PanelContainer" type="PanelContainer" parent="GUI"]
+self_modulate = Color( 1, 1, 1, 0.498039 )
+anchor_left = 0.42
+anchor_top = 0.08
+anchor_right = 0.58
+anchor_bottom = 0.08
+margin_right = 14.0
+margin_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Timeout" type="Label" parent="GUI/PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 211.8
+margin_bottom = 70.0
 grow_horizontal = 2
 grow_vertical = 2
 custom_fonts/font = SubResource( 241 )
@@ -995,7 +1006,7 @@ grow_vertical = 2
 
 [node name="Air" type="TextureButton" parent="GUI/ModeSetButtons"]
 margin_right = 49.0
-margin_bottom = 54.0
+margin_bottom = 49.0
 toggle_mode = true
 pressed = true
 texture_normal = ExtResource( 17 )
@@ -1036,12 +1047,12 @@ flip_h = true
 modulate = Color( 1, 1, 1, 0 )
 margin_left = 53.0
 margin_right = 57.0
-margin_bottom = 54.0
+margin_bottom = 49.0
 
 [node name="Build" type="TextureButton" parent="GUI/ModeSetButtons"]
 margin_left = 61.0
 margin_right = 110.0
-margin_bottom = 54.0
+margin_bottom = 49.0
 theme = ExtResource( 21 )
 toggle_mode = true
 texture_normal = ExtResource( 17 )
@@ -1065,8 +1076,8 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="HPBar" type="TextureProgress" parent="GUI/HPBarContainer"]
-margin_right = 57.0
-margin_bottom = 486.0
+margin_right = 38.0
+margin_bottom = 324.0
 value = 100.0
 texture_under = ExtResource( 15 )
 texture_progress = ExtResource( 3 )
@@ -1077,23 +1088,32 @@ stretch_margin_top = 5
 stretch_margin_right = 5
 stretch_margin_bottom = 5
 
-[node name="ScoreContainer" type="HBoxContainer" parent="GUI"]
-anchor_left = 0.85
-anchor_top = 0.03
-anchor_right = 0.98
+[node name="PanelContainer2" type="PanelContainer" parent="GUI"]
+self_modulate = Color( 1, 1, 1, 0.498039 )
+anchor_left = 0.81
+anchor_top = 0.1
+anchor_right = 0.96
 anchor_bottom = 0.1
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScoreContainer" type="HBoxContainer" parent="GUI/PanelContainer2"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 185.0
+margin_bottom = 103.0
 grow_horizontal = 0
 
-[node name="Icon" type="TextureRect" parent="GUI/ScoreContainer"]
+[node name="Icon" type="TextureRect" parent="GUI/PanelContainer2/ScoreContainer"]
 margin_right = 96.0
 margin_bottom = 96.0
 texture = ExtResource( 22 )
 
-[node name="Score" type="Label" parent="GUI/ScoreContainer"]
+[node name="Score" type="Label" parent="GUI/PanelContainer2/ScoreContainer"]
 margin_left = 100.0
-margin_top = 39.0
-margin_right = 113.0
-margin_bottom = 57.0
+margin_top = 35.0
+margin_right = 115.0
+margin_bottom = 60.0
 theme = ExtResource( 21 )
 text = "0"
 
@@ -1146,10 +1166,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/GameOverContainer"]
-margin_left = 702.0
-margin_top = 477.0
-margin_right = 1218.0
-margin_bottom = 602.0
+margin_left = 382.0
+margin_top = 290.0
+margin_right = 898.0
+margin_bottom = 429.0
 
 [node name="Label" type="Label" parent="PauseMenu/GameOverContainer/VBoxContainer"]
 margin_right = 516.0
@@ -1178,10 +1198,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/WinContainer"]
-margin_left = 759.0
-margin_top = 477.0
-margin_right = 1161.0
-margin_bottom = 602.0
+margin_left = 439.0
+margin_top = 290.0
+margin_right = 841.0
+margin_bottom = 429.0
 
 [node name="Label" type="Label" parent="PauseMenu/WinContainer/VBoxContainer"]
 margin_right = 402.0
@@ -1295,23 +1315,9 @@ anchor_bottom = 1.0
 position = Vector2( 96, -64 )
 scale = Vector2( 1.42676, 1.42676 )
 frames = SubResource( 240 )
-frame = 141
+frame = 34
 speed_scale = 3.0
 playing = true
-
-[node name="Panel" type="Panel" parent="LoadingScreen"]
-modulate = Color( 1, 1, 1, 0.498039 )
-anchor_left = 0.08
-anchor_top = 0.57
-anchor_right = 0.92
-anchor_bottom = 0.8
-
-[node name="RichTextLabel" type="RichTextLabel" parent="LoadingScreen"]
-anchor_left = 0.1
-anchor_top = 0.6
-anchor_right = 0.9
-anchor_bottom = 0.8
-text = "You arrive in enclave free of storm clouds where you can see precious Null-entropy crystalls, or, as all call them, Space Crystals. Your mission is to defeat your opponent in this enclave and establish monopoly. Your ship can be repaired with gained funds, but investors are not going to tolerate losses and your mission will be over. Good news that your opponent is just smuggler like you, so if you make his mission unprofitable your mission will be successful!"
 
 [node name="LoadingProgress" type="TextureProgress" parent="LoadingScreen"]
 anchor_left = 0.1
@@ -1335,6 +1341,23 @@ anchor_bottom = 0.95
 text = "Press any key to start"
 align = 1
 valign = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="LoadingScreen"]
+self_modulate = Color( 1, 1, 1, 0.498039 )
+anchor_left = 0.1
+anchor_top = 0.7
+anchor_right = 0.9
+anchor_bottom = 0.7
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="LoadingScreen/PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1017.0
+margin_bottom = 137.0
+text = "You arrive in enclave free of storm clouds where you can see precious Null-entropy crystalls, or, as all call them, Space Crystals. Your mission is to defeat your opponent in this enclave and establish monopoly. Your ship can be repaired with gained funds, but investors are not going to tolerate losses and your mission will be over. Good news that your opponent is just smuggler like you, so if you make his mission unprofitable your mission will be successful!"
+fit_content_height = true
 
 [node name="Wind" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 26 )

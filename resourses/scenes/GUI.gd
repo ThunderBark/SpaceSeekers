@@ -4,7 +4,7 @@ onready var air_mode_button: TextureButton = $ModeSetButtons/Air
 onready var build_mode_button: TextureButton = $ModeSetButtons/Build
 
 onready var hp_bar: TextureProgress = $HPBarContainer/HPBar
-onready var score_label : Label = $ScoreContainer/Score
+onready var score_label : Label = $PanelContainer2/ScoreContainer/Score
 
 signal player_changed_mode(new_mode)
 
@@ -36,7 +36,10 @@ func _player_score_changed(new_score):
 
 
 func world_end_time_changed(new_time: int):
-	$Timeout.text = String(int(new_time / 60)) + ":" + String(int(new_time % 60))
+	$PanelContainer/Timeout.text = String(int(new_time / 60)) + ":"
+	if int(new_time % 60) < 10:
+		$PanelContainer/Timeout.text += "0"
+	$PanelContainer/Timeout.text += String(int(new_time % 60))
 
 
 func _mode_selected(mode: int):
