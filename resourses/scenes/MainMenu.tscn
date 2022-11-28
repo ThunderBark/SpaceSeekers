@@ -168,6 +168,7 @@ anchor_bottom = 1.0
 script = ExtResource( 11 )
 
 [node name="SettingsContainer" parent="MainMenu" instance=ExtResource( 12 )]
+visible = false
 
 [node name="ButtonsContainer" type="MarginContainer" parent="MainMenu"]
 anchor_left = 0.05

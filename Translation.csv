@@ -1,15 +1,24 @@
-keys,ru,en
-PLAY_1,Играть,Play
-SETTINGS,Настройки,Settings
-QUIT,Выйти,Quit
-RETURN,Вернуться,Return
-MAIN_MENU,Главное меню,Main Menu
-RESTART,Перезапуск,Restart
-APPLY,Применить,Apply
-FULL_SCREEN,На Весь Экран,Full Screen
-RESOLUTION,Разрешение,Resolution
-DISPLAY,Экран,Display
-CONTROLS,Управление,Controls
-AUDIO,Звук,Audio
-VSYNC,Верт. Синх.,Vertical Sync
-CONTROL_TIPS,Подсказки управления,Control tips
+keys;ru;en
+PLAY_1;Играть;Play
+SETTINGS;Настройки;Settings
+QUIT;Выйти;Quit
+RETURN;Вернуться;Return
+MAIN_MENU;Главное меню;Main Menu
+RESTART;Перезапуск;Restart
+APPLY;Применить;Apply
+FULL_SCREEN;На Весь Экран;Full Screen
+RESOLUTION;Разрешение;Resolution
+DISPLAY;Экран;Display
+CONTROLS;Управление;Controls
+AUDIO;Звук;Audio
+VSYNC;Верт. Синх.;Vertical Sync
+CONTROL_TIPS;Подсказки управления;Control tips
+PRESS_KEY;Нажмите любую кнопку;Press any key
+LOADING_TEXT;Вы прибываете в свободный от грозовых туч анклав, где можете видеть драгоценные Нуль-энтропийные кристаллы, или, как их все называют, Кристаллы Пространства. Ваша миссия состоит в том, чтобы победить своего противника в этом анклаве и установить монополию. Ваш корабль можно отремонтировать на вырученные средства, но инвесторы не собираются терпеть убытки, и ваша миссия будет завершена. Хорошая новость в том, что ваш противник такой же контрабандист, как и вы, поэтому, если вы сделаете его миссию невыгодной, ваша миссия будет успешной!;You arrive in enclave free of storm clouds where you can see precious Null-entropy crystalls, or, as all call them, Space Crystals. Your mission is to defeat your opponent in this enclave and establish monopoly. Your ship can be repaired with gained funds, but investors are not going to tolerate losses and your mission will be over. Good news that your opponent is just smuggler like you, so if you make his mission unprofitable your mission will be successful!
+FIRE_TOOLTIP;ЛКМ - стрелять по воздуху, ПКМ - стрелять по земле;LMB - fire at craft, RMB - fire at building
+BUILD_TOOLTIP;Q или E – вращение здания, ЛКМ – построить (стоит 200 кристаллов);Q or E - rotate building template, LMB - build (costs 200 crystals)
+YOU_WIN;Победа!;Victory!
+YOU_LOSE;Проигрыш!;Defeat!
+YOU_COLLECTED_SPACE;Собрано кристаллов: ;Space harvested: 
+ENEMY_COLLECTED_SPACE;Собрано кристаллов оппонентом: ;Space harvested by opponent: 
+COMMON;Общее;Common

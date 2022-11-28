@@ -103,25 +103,29 @@ func player_changed_mode(new_mode: int):
 func player_lost():
 	PlayerState.player_mode = PlayerState.PLAYER_DEAD
 	$GUI.visible = false
-	$PauseMenu/GameOverContainer/VBoxContainer/Score.text = (
-		"Space harvested by player: " + String(PlayerState.player_score)
+	$PauseMenu/GameOverContainer/VBoxContainer/HBoxContainer/Score.text = (
+		String(PlayerState.player_score)
 	)
-	$PauseMenu/GameOverContainer/VBoxContainer/EnemyScore.text = (
-		"Space harvested by opponent: " + String(PlayerState.enemy_score)
+	$PauseMenu/GameOverContainer/VBoxContainer/HBoxContainer2/EnemyScore.text = (
+		String(PlayerState.enemy_score)
 	)
 	$PauseMenu/GameOverContainer.visible = true
+	$PauseMenu/GameOverContainer/VBoxContainer/LostLabel.visible = true
+	$PauseMenu/GameOverContainer/VBoxContainer/WinLabel.visible = false
 	$PauseMenu.show_end_menu()
 
 func player_won():
 	PlayerState.player_mode = PlayerState.PLAYER_DEAD
 	$GUI.visible = false
-	$PauseMenu/WinContainer/VBoxContainer/Score.text = (
-		"Space harvested by player: " + String(PlayerState.player_score)
+	$PauseMenu/GameOverContainer/VBoxContainer/HBoxContainer/Score.text = (
+		String(PlayerState.player_score)
 	)
-	$PauseMenu/WinContainer/VBoxContainer/EnemyScore.text = (
-		"Space harvested by opponent: " + String(PlayerState.enemy_score)
+	$PauseMenu/GameOverContainer/VBoxContainer/HBoxContainer2/EnemyScore.text = (
+		String(PlayerState.enemy_score)
 	)
-	$PauseMenu/WinContainer.visible = true
+	$PauseMenu/GameOverContainer.visible = true
+	$PauseMenu/GameOverContainer/VBoxContainer/LostLabel.visible = false
+	$PauseMenu/GameOverContainer/VBoxContainer/WinLabel.visible = true
 	$PauseMenu.show_end_menu()
 
 

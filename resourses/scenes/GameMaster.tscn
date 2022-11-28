@@ -1,4 +1,4 @@
-[gd_scene load_steps=256 format=2]
+[gd_scene load_steps=257 format=2]
 
 [ext_resource path="res://resourses/scenes/GameMaster.gd" type="Script" id=1]
 [ext_resource path="res://resourses/scenes/terrain/MapMaster.tscn" type="PackedScene" id=2]
@@ -27,6 +27,7 @@
 [ext_resource path="res://resourses/scenes/BackupCamera.gd" type="Script" id=25]
 [ext_resource path="res://assets/audio/wind.wav" type="AudioStream" id=26]
 [ext_resource path="res://assets/audio/strong_wind.wav" type="AudioStream" id=27]
+[ext_resource path="res://assets/fonts/nasalization-rg.otf" type="DynamicFontData" id=28]
 
 [sub_resource type="DynamicFont" id=241]
 size = 55
@@ -34,7 +35,7 @@ font_data = ExtResource( 11 )
 
 [sub_resource type="DynamicFont" id=14]
 size = 72
-font_data = ExtResource( 11 )
+font_data = ExtResource( 28 )
 
 [sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 12 )
@@ -1003,6 +1004,9 @@ anchor_right = 0.5
 anchor_bottom = 0.9
 grow_horizontal = 2
 grow_vertical = 2
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="Air" type="TextureButton" parent="GUI/ModeSetButtons"]
 margin_right = 49.0
@@ -1091,11 +1095,9 @@ stretch_margin_bottom = 5
 [node name="PanelContainer2" type="PanelContainer" parent="GUI"]
 self_modulate = Color( 1, 1, 1, 0.498039 )
 anchor_left = 0.81
-anchor_top = 0.1
+anchor_top = 0.05
 anchor_right = 0.96
-anchor_bottom = 0.1
-grow_horizontal = 2
-grow_vertical = 2
+anchor_bottom = 0.05
 
 [node name="ScoreContainer" type="HBoxContainer" parent="GUI/PanelContainer2"]
 margin_left = 7.0
@@ -1117,31 +1119,33 @@ margin_bottom = 60.0
 theme = ExtResource( 21 )
 text = "0"
 
-[node name="ControlsTooltip" type="Panel" parent="GUI"]
+[node name="ControlsTooltip" type="PanelContainer" parent="GUI"]
 visible = false
-modulate = Color( 1, 1, 1, 0.498039 )
+self_modulate = Color( 1, 1, 1, 0.498039 )
 anchor_left = 0.65
-anchor_top = 0.83
+anchor_top = 0.875
 anchor_right = 0.95
-anchor_bottom = 0.95
+anchor_bottom = 0.875
+grow_vertical = 2
 
-[node name="FireTooltip" type="RichTextLabel" parent="GUI/ControlsTooltip"]
+[node name="FireTooltip" type="Label" parent="GUI/ControlsTooltip"]
 visible = false
-anchor_left = 0.05
-anchor_top = 0.1
-anchor_right = 0.95
-anchor_bottom = 0.9
-text = "LMB - fire at craft
-RMB - fire at building"
+margin_left = 7.0
+margin_top = 30.0
+margin_right = 377.0
+margin_bottom = 55.0
+text = "FIRE_TOOLTIP"
+autowrap = true
 
-[node name="BuildTooltip" type="RichTextLabel" parent="GUI/ControlsTooltip"]
+[node name="BuildTooltip" type="Label" parent="GUI/ControlsTooltip"]
 visible = false
-anchor_left = 0.05
-anchor_top = 0.1
-anchor_right = 0.95
-anchor_bottom = 0.9
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 377.0
+margin_bottom = 79.4
 text = "Q or E - rotate building template
 LMB - build (costs 200 points)"
+autowrap = true
 
 [node name="BackupCamera" type="Camera" parent="."]
 pause_mode = 2
@@ -1166,65 +1170,72 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/GameOverContainer"]
-margin_left = 382.0
-margin_top = 290.0
-margin_right = 898.0
-margin_bottom = 429.0
+margin_left = 484.0
+margin_top = 333.0
+margin_right = 796.0
+margin_bottom = 387.0
 
-[node name="Label" type="Label" parent="PauseMenu/GameOverContainer/VBoxContainer"]
-margin_right = 516.0
-margin_bottom = 81.0
-custom_fonts/font = SubResource( 14 )
-text = "Game over"
-align = 1
-
-[node name="Score" type="Label" parent="PauseMenu/GameOverContainer/VBoxContainer"]
-margin_top = 85.0
-margin_right = 516.0
-margin_bottom = 103.0
-text = "Space harvested: 0"
-align = 1
-
-[node name="EnemyScore" type="Label" parent="PauseMenu/GameOverContainer/VBoxContainer"]
-margin_top = 85.0
-margin_right = 402.0
-margin_bottom = 103.0
-text = "Space harvested by opponent: 0"
-align = 1
-
-[node name="WinContainer" type="CenterContainer" parent="PauseMenu"]
+[node name="LostLabel" type="Label" parent="PauseMenu/GameOverContainer/VBoxContainer"]
 visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/WinContainer"]
-margin_left = 439.0
-margin_top = 290.0
-margin_right = 841.0
-margin_bottom = 429.0
-
-[node name="Label" type="Label" parent="PauseMenu/WinContainer/VBoxContainer"]
-margin_right = 402.0
-margin_bottom = 81.0
+margin_right = 398.0
+margin_bottom = 87.0
 custom_fonts/font = SubResource( 14 )
-text = "You Win!"
+text = "YOU_LOSE"
 align = 1
 
-[node name="Score" type="Label" parent="PauseMenu/WinContainer/VBoxContainer"]
-margin_top = 85.0
-margin_right = 402.0
-margin_bottom = 103.0
-text = "Space harvested by player: 0"
+[node name="WinLabel" type="Label" parent="PauseMenu/GameOverContainer/VBoxContainer"]
+visible = false
+margin_top = 91.0
+margin_right = 398.0
+margin_bottom = 178.0
+custom_fonts/font = SubResource( 14 )
+text = "YOU_WIN"
 align = 1
 
-[node name="EnemyScore" type="Label" parent="PauseMenu/WinContainer/VBoxContainer"]
-margin_top = 85.0
-margin_right = 402.0
-margin_bottom = 103.0
-text = "Space harvested by opponent: 0"
+[node name="HBoxContainer" type="HBoxContainer" parent="PauseMenu/GameOverContainer/VBoxContainer"]
+margin_right = 312.0
+margin_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="ScoreText" type="Label" parent="PauseMenu/GameOverContainer/VBoxContainer/HBoxContainer"]
+margin_left = 18.0
+margin_right = 274.0
+margin_bottom = 25.0
+text = "YOU_COLLECTED_SPACE"
+align = 1
+
+[node name="Score" type="Label" parent="PauseMenu/GameOverContainer/VBoxContainer/HBoxContainer"]
+margin_left = 278.0
+margin_right = 293.0
+margin_bottom = 25.0
+text = "0"
+align = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PauseMenu/GameOverContainer/VBoxContainer"]
+margin_top = 29.0
+margin_right = 312.0
+margin_bottom = 54.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="ScoreText" type="Label" parent="PauseMenu/GameOverContainer/VBoxContainer/HBoxContainer2"]
+margin_right = 293.0
+margin_bottom = 25.0
+text = "ENEMY_COLLECTED_SPACE"
+align = 1
+
+[node name="EnemyScore" type="Label" parent="PauseMenu/GameOverContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 297.0
+margin_right = 312.0
+margin_bottom = 25.0
+text = "0"
 align = 1
 
 [node name="SettingsContainer" parent="PauseMenu" instance=ExtResource( 9 )]
+visible = false
 
 [node name="ButtonsContainer" type="MarginContainer" parent="PauseMenu"]
 anchor_left = 0.05
@@ -1248,7 +1259,7 @@ texture_pressed = ExtResource( 8 )
 [node name="Label" type="Label" parent="PauseMenu/ButtonsContainer/VBoxContainer/RestartButton"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-text = "Restart"
+text = "RESTART"
 align = 1
 valign = 1
 
@@ -1261,7 +1272,7 @@ texture_pressed = ExtResource( 8 )
 [node name="Label" type="Label" parent="PauseMenu/ButtonsContainer/VBoxContainer/ReturnButton"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-text = "Return"
+text = "RETURN"
 align = 1
 valign = 1
 
@@ -1275,7 +1286,7 @@ texture_pressed = ExtResource( 8 )
 [node name="Label" type="Label" parent="PauseMenu/ButtonsContainer/VBoxContainer/SettingsButton"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-text = "Settings"
+text = "SETTINGS"
 align = 1
 valign = 1
 
@@ -1289,7 +1300,7 @@ texture_pressed = ExtResource( 8 )
 [node name="Label" type="Label" parent="PauseMenu/ButtonsContainer/VBoxContainer/MainMenuButton"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-text = "Main Menu"
+text = "MAIN_MENU"
 align = 1
 valign = 1
 
@@ -1303,11 +1314,9 @@ texture_pressed = ExtResource( 8 )
 [node name="Label" type="Label" parent="PauseMenu/ButtonsContainer/VBoxContainer/QuitButton"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-text = "Quit"
+text = "QUIT"
 align = 1
 valign = 1
-
-[node name="SettingsContainer2" parent="PauseMenu" instance=ExtResource( 9 )]
 
 [node name="LoadingScreen" type="Panel" parent="."]
 pause_mode = 2
@@ -1329,7 +1338,7 @@ anchor_bottom = 1.0
 position = Vector2( 96, -64 )
 scale = Vector2( 1.42676, 1.42676 )
 frames = SubResource( 240 )
-frame = 50
+frame = 13
 speed_scale = 3.0
 playing = true
 
@@ -1352,7 +1361,7 @@ anchor_left = 0.1
 anchor_top = 0.9
 anchor_right = 0.9
 anchor_bottom = 0.95
-text = "Press any key to start"
+text = "PRESS_KEY"
 align = 1
 valign = 1
 
@@ -1365,13 +1374,13 @@ anchor_bottom = 0.7
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="LoadingScreen/PanelContainer"]
+[node name="Label" type="Label" parent="LoadingScreen/PanelContainer"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 1017.0
-margin_bottom = 137.0
-text = "You arrive in enclave free of storm clouds where you can see precious Null-entropy crystalls, or, as all call them, Space Crystals. Your mission is to defeat your opponent in this enclave and establish monopoly. Your ship can be repaired with gained funds, but investors are not going to tolerate losses and your mission will be over. Good news that your opponent is just smuggler like you, so if you make his mission unprofitable your mission will be successful!"
-fit_content_height = true
+margin_bottom = 32.0
+text = "LOADING_TEXT"
+autowrap = true
 
 [node name="Wind" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 26 )
