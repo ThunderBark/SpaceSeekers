@@ -16,7 +16,7 @@ This game can only be played with **mouse + keyboard**
 Move your ship with `w`, `a`, `s`, `d` keys.
 
 Change operating modes using `1` and `2` keys or click on buttons in middle-bottom section of display, where *Firing mode*
-triggers by pressing on button with missile and bullet icons, and *Building mode* triggers by clicking on button with hammer
+can be selected by pressing on button with missile and bullet icons, and *Building mode* can be selected by clicking on button with hammer
 
 While in *Firing mode* (`1` on keyboard or button with missile and bullet on display) you can shoot bullets at enemy ship using `LMB`[^1] key, and
 shoot rockets at ground structures like Space Extractors using `RMB`[^1] key.
