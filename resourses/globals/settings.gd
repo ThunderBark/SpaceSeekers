@@ -6,6 +6,15 @@ onready var settings_handle = File.new()
 var last_settings: Dictionary
 
 
+
+func _process(delta):
+	if Input.is_action_just_pressed("move_ascend"):
+		if TranslationServer.get_locale() in "en":
+			TranslationServer.set_locale("ru")
+		else:
+			TranslationServer.set_locale("en")
+
+
 func update_settings(settings: Dictionary) -> void:
 	OS.window_fullscreen = settings.fullscreen
 	get_tree().set_screen_stretch(

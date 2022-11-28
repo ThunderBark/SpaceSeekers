@@ -190,9 +190,12 @@ texture_pressed = ExtResource( 10 )
 [node name="Label" type="Label" parent="MainMenu/ButtonsContainer/VBoxContainer/PlayButton"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-text = "Play"
+text = "PLAY_1"
 align = 1
 valign = 1
+__meta__ = {
+"_editor_description_": "PLAY_1"
+}
 
 [node name="SettingsButton" type="TextureButton" parent="MainMenu/ButtonsContainer/VBoxContainer"]
 margin_top = 49.0
@@ -204,7 +207,7 @@ texture_pressed = ExtResource( 10 )
 [node name="Label" type="Label" parent="MainMenu/ButtonsContainer/VBoxContainer/SettingsButton"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-text = "Settings"
+text = "SETTINGS"
 align = 1
 valign = 1
 
@@ -218,7 +221,7 @@ texture_pressed = ExtResource( 10 )
 [node name="Label" type="Label" parent="MainMenu/ButtonsContainer/VBoxContainer/QuitButton"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-text = "Quit"
+text = "QUIT"
 align = 1
 valign = 1
 

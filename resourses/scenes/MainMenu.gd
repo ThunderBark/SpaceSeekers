@@ -11,3 +11,4 @@ func _on_SettingsButton_button_down():
 
 func _on_PlayButton_button_down():
 	get_tree().change_scene("res://resourses/scenes/GameMaster.tscn")
+

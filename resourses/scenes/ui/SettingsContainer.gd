@@ -1,10 +1,10 @@
 extends Control
 
 
-onready var resolution_option_btn: OptionButton = $TabContainer/Display/VBoxContainer/UIResolutionSelector/OptionButton
-onready var vsync_toggle: CheckBox = $TabContainer/Display/VBoxContainer/UIVsyncCheckbox/CheckBox
-onready var fullscreen_toggle: CheckBox = $TabContainer/Display/VBoxContainer/UIFullscreenCheckbox/CheckBox
-onready var control_tips_toggle: CheckBox = $TabContainer/Display/VBoxContainer/UIControlTipCheckbox/CheckBox
+onready var resolution_option_btn: OptionButton = $TabContainer/DISPLAY/VBoxContainer/UIResolutionSelector/OptionButton
+onready var vsync_toggle: CheckBox = $TabContainer/DISPLAY/VBoxContainer/UIVsyncCheckbox/CheckBox
+onready var fullscreen_toggle: CheckBox = $TabContainer/DISPLAY/VBoxContainer/UIFullscreenCheckbox/CheckBox
+onready var control_tips_toggle: CheckBox = $TabContainer/DISPLAY/VBoxContainer/UIControlTipCheckbox/CheckBox
 
 
 # Emitted when the user presses the "apply" button.
