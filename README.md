@@ -11,7 +11,7 @@ unprofitable your mission will be successful!
 
 ## Controls
 
-This game can only player with **mouse + keyboard**
+This game can only be played with **mouse + keyboard**
 
 Move your ship with `w`, `a`, `s`, `d` keys.
 
