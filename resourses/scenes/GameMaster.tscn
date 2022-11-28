@@ -1238,6 +1238,20 @@ margin_bottom = 40.0
 margin_right = 190.0
 margin_bottom = 192.0
 
+[node name="RestartButton" type="TextureButton" parent="PauseMenu/ButtonsContainer/VBoxContainer"]
+visible = false
+margin_right = 190.0
+margin_bottom = 45.0
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 8 )
+
+[node name="Label" type="Label" parent="PauseMenu/ButtonsContainer/VBoxContainer/RestartButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Restart"
+align = 1
+valign = 1
+
 [node name="ReturnButton" type="TextureButton" parent="PauseMenu/ButtonsContainer/VBoxContainer"]
 margin_right = 190.0
 margin_bottom = 45.0
@@ -1315,7 +1329,7 @@ anchor_bottom = 1.0
 position = Vector2( 96, -64 )
 scale = Vector2( 1.42676, 1.42676 )
 frames = SubResource( 240 )
-frame = 34
+frame = 50
 speed_scale = 3.0
 playing = true
 
@@ -1372,6 +1386,7 @@ volume_db = -35.0
 [connection signal="button_up" from="GUI/ModeSetButtons/Air" to="GUI" method="_on_Air_button_up"]
 [connection signal="button_down" from="GUI/ModeSetButtons/Build" to="GUI" method="_on_Build_button_down"]
 [connection signal="button_up" from="GUI/ModeSetButtons/Build" to="GUI" method="_on_Build_button_up"]
+[connection signal="button_up" from="PauseMenu/ButtonsContainer/VBoxContainer/RestartButton" to="PauseMenu" method="_on_RestartButton_button_up"]
 [connection signal="button_up" from="PauseMenu/ButtonsContainer/VBoxContainer/ReturnButton" to="PauseMenu" method="_on_ReturnButton_button_up"]
 [connection signal="button_up" from="PauseMenu/ButtonsContainer/VBoxContainer/SettingsButton" to="PauseMenu" method="_on_SettingsButton_button_up"]
 [connection signal="button_up" from="PauseMenu/ButtonsContainer/VBoxContainer/MainMenuButton" to="PauseMenu" method="_on_MainMenuButton_button_up"]

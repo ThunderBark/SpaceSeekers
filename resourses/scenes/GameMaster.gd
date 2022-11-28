@@ -110,8 +110,7 @@ func player_lost():
 		"Space harvested by opponent: " + String(PlayerState.enemy_score)
 	)
 	$PauseMenu/GameOverContainer.visible = true
-	$PauseMenu.show_pause_menu()
-	get_tree().paused = false
+	$PauseMenu.show_end_menu()
 
 func player_won():
 	PlayerState.player_mode = PlayerState.PLAYER_DEAD
@@ -123,8 +122,7 @@ func player_won():
 		"Space harvested by opponent: " + String(PlayerState.enemy_score)
 	)
 	$PauseMenu/WinContainer.visible = true
-	$PauseMenu.show_pause_menu()
-	get_tree().paused = false
+	$PauseMenu.show_end_menu()
 
 
 func respawn_player():

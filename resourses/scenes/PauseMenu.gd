@@ -17,6 +17,12 @@ func show_pause_menu():
 	get_tree().paused = true
 
 
+func show_end_menu():
+	visible = true
+	$ButtonsContainer/VBoxContainer/RestartButton.visible = true
+	$ButtonsContainer/VBoxContainer/ReturnButton.visible = false
+
+
 func _on_ReturnButton_button_up():
 	if (PlayerState.player_mode != PlayerState.PLAYER_DEAD):
 		visible = false
@@ -35,3 +41,7 @@ func _on_SettingsButton_button_up():
 
 func _on_QuitButton_button_up():
 	get_tree().quit()
+
+
+func _on_RestartButton_button_up():
+	get_tree().change_scene("res://resourses/scenes/GameMaster.tscn")
