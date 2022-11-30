@@ -1,4 +1,4 @@
-[gd_scene load_steps=257 format=2]
+[gd_scene load_steps=258 format=2]
 
 [ext_resource path="res://resourses/scenes/GameMaster.gd" type="Script" id=1]
 [ext_resource path="res://resourses/scenes/terrain/MapMaster.tscn" type="PackedScene" id=2]
@@ -28,6 +28,7 @@
 [ext_resource path="res://assets/audio/wind.wav" type="AudioStream" id=26]
 [ext_resource path="res://assets/audio/strong_wind.wav" type="AudioStream" id=27]
 [ext_resource path="res://assets/fonts/nasalization-rg.otf" type="DynamicFontData" id=28]
+[ext_resource path="res://resourses/scenes/terrain/tiles/tile.tscn" type="PackedScene" id=29]
 
 [sub_resource type="DynamicFont" id=241]
 size = 55
@@ -960,9 +961,11 @@ shadow_enabled = true
 pause_mode = 2
 border_wind_scene = ExtResource( 14 )
 border_damage_area_scene = ExtResource( 19 )
+plane_scene = ExtResource( 29 )
 border_wind_dimension = 4
 wind_border_width = 64
 terrain_size = 128
+sector_size = 32
 
 [node name="TerrainGridMap" parent="MapMaster" index="0"]
 noise_period = 22.0
@@ -1333,13 +1336,11 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="LoadingScreen/Control"]
+[node name="PlanetAnimatedSprite" type="AnimatedSprite" parent="LoadingScreen/Control"]
 position = Vector2( 96, -64 )
 scale = Vector2( 1.42676, 1.42676 )
 frames = SubResource( 240 )
-frame = 148
 speed_scale = 3.0
-playing = true
 
 [node name="LoadingProgress" type="TextureProgress" parent="LoadingScreen"]
 anchor_left = 0.1

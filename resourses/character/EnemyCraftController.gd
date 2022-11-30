@@ -209,7 +209,7 @@ func _think():
 			* (craft.translation.distance_to(last_player_position) * 0.03)
 		)
 
-		emit_signal("shoot_bullet")
+		# emit_signal("shoot_bullet")
 	else:
 		craft.point_to_look = craft.translation + const_dir
 

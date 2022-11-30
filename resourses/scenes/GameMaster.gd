@@ -25,13 +25,17 @@ onready var player_spawn_pos: Vector3 = Vector3(
 
 func _ready():
 	get_tree().paused = true
+
 	PlayerState.master_node = self
 	PlayerState.player_mode = PlayerState.PLAYER_FIRING_BULLETS
 	PlayerState.player_score = initial_funds
 	PlayerState.enemy_score = initial_funds
+
 	$MapMaster.connect("sector_load_pct", self, "update_loading_progress")
 	$GUI.connect("player_changed_mode", self, "player_changed_mode")
 	$GUI.world_end_time_changed(timeout)
+
+	$LoadingScreen/Control/PlanetAnimatedSprite.playing = true
 
 
 func _input(event):

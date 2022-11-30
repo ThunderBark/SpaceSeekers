@@ -12,8 +12,8 @@ curve = SubResource( 4 )
 emission_shape = 2
 emission_box_extents = Vector3( 4, 4, 2 )
 gravity = Vector3( 0, 0, 0 )
-initial_velocity = 1.0
-damping = 0.3
+initial_velocity = 0.4
+damping = 0.1
 scale_curve = SubResource( 5 )
 
 [sub_resource type="SpatialMaterial" id=2]
@@ -34,10 +34,10 @@ size = Vector2( 10, 6 )
 [node name="BorderWinds" type="Particles"]
 pause_mode = 2
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1, 0 )
-layers = 2
 cast_shadow = 0
-amount = 10
-lifetime = 10.0
+amount = 4
+lifetime = 5.0
+explosiveness = 1.0
 randomness = 1.0
 visibility_aabb = AABB( 0, 0, 0, 1, 1, 1 )
 draw_order = 2

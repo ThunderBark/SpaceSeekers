@@ -2,6 +2,7 @@ extends Spatial
 
 export(PackedScene) var border_wind_scene: PackedScene
 export(PackedScene) var border_damage_area_scene: PackedScene
+export(PackedScene) var plane_scene: PackedScene
 export(int) var border_wind_dimension: int
 
 onready var tile_grid_map := $TerrainGridMap
@@ -11,7 +12,7 @@ export(int) var wind_border_width: int = 32
 export(int) var terrain_size: int = 32
 export(int) var sector_size: int = 16
 
-onready var sector_cnt: int = pow(terrain_size / sector_size, 2)
+onready var sector_cnt: int = pow((terrain_size / sector_size) + 2, 2)
 var cur_sector: int = 0
 
 
@@ -28,11 +29,11 @@ func _ready():
 		for j in range(0, map_size):
 			if (((i <= wind_border_width) or (i >= (terrain_size + wind_border_width))) or
 				((j <= wind_border_width) or (j >= (terrain_size + wind_border_width)))):
-				if (i % (border_wind_dimension / 2) == 0) and (j % (border_wind_dimension / 2) == 0):
+				if ((i % border_wind_dimension) == 0) and ((j % border_wind_dimension) == 0):
 					var border_wind : Particles = border_wind_scene.instance()
 					border_wind.translation = Vector3(
 						-map_size / 2 + i,
-						0,
+						2.0,
 						-map_size / 2 + j
 					)
 					add_child(border_wind)
@@ -95,7 +96,7 @@ func spawn_storm_at_spawn():
 		var border_wind : Particles = border_wind_scene.instance()
 		border_wind.translation = Vector3(
 			16 * (-border_wind_dimension) + (i / 32) * border_wind_dimension,
-			0,
+			3.0,
 			16 * (-border_wind_dimension) + (i % 32) * border_wind_dimension
 		)
 		add_child(border_wind)
@@ -104,19 +105,22 @@ func spawn_storm_at_spawn():
 
 func _process(delta):
 	if cur_sector < sector_cnt:
-		var point := Vector2(
-			(
-				-terrain_size / 2
-				+ sector_size * (cur_sector / (terrain_size / sector_size))
-				+ sector_size / 2
-			),
-			(
-				-terrain_size / 2
-				+ sector_size * (cur_sector % (terrain_size / sector_size))
-				+ sector_size / 2
-			)
-		)
-		tile_grid_map.generate_sector(point, sector_size)
-		print("Generating sector at: ", point)
+		var i: int = (cur_sector / (terrain_size / sector_size + 2))
+		var j: int = (cur_sector % (terrain_size / sector_size + 2))
+		var x: int = ((-terrain_size / 2) + (-sector_size / 2) + (sector_size * i))
+		var z: int = ((-terrain_size / 2) + (-sector_size / 2) + (sector_size * j))
+		tile_grid_map.generate_sector(Vector2(x,z), sector_size)
+		# print("Generating sector at: ", Vector2(x,z))
+
 		cur_sector += 1
+		if cur_sector == sector_cnt:
+			for body in $TerrainGridMap/ObjectGenerator.get_children():
+				if (
+					(body is Crystal) and 
+					(
+						(abs(body.translation.x) > (terrain_size / 2) - 7)
+						or (abs(body.translation.z) > (terrain_size / 2) - 7)
+					)
+				):
+					body.queue_free()
 		emit_signal("sector_load_pct", int((100 * cur_sector) / sector_cnt))
