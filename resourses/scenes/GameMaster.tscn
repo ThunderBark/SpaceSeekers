@@ -1337,7 +1337,7 @@ anchor_bottom = 1.0
 position = Vector2( 96, -64 )
 scale = Vector2( 1.42676, 1.42676 )
 frames = SubResource( 240 )
-frame = 17
+frame = 148
 speed_scale = 3.0
 playing = true
 
@@ -1385,10 +1385,12 @@ autowrap = true
 stream = ExtResource( 26 )
 volume_db = -35.0
 autoplay = true
+bus = "SFX"
 
 [node name="StrongWind" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 27 )
 volume_db = -35.0
+bus = "SFX"
 
 [connection signal="button_down" from="GUI/ModeSetButtons/Air" to="GUI" method="_on_Air_button_down"]
 [connection signal="button_up" from="GUI/ModeSetButtons/Air" to="GUI" method="_on_Air_button_up"]

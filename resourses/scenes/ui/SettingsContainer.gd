@@ -5,21 +5,34 @@ onready var resolution_option_btn: OptionButton = $TabContainer/DISPLAY/VBoxCont
 onready var vsync_toggle: CheckBox = $TabContainer/DISPLAY/VBoxContainer/UIVsyncCheckbox/CheckBox
 onready var fullscreen_toggle: CheckBox = $TabContainer/DISPLAY/VBoxContainer/UIFullscreenCheckbox/CheckBox
 onready var control_tips_toggle: CheckBox = $TabContainer/COMMON/VBoxContainer/UIControlTipCheckbox/CheckBox
+onready var music_vol_slider: Slider = $TabContainer/AUDIO/VBoxContainer/HBoxContainer2/MusicVolumeSlider
+onready var sfx_vol_slider: Slider = $TabContainer/AUDIO/VBoxContainer/HBoxContainer/EffectsVolumeSlider
 
 
 # Emitted when the user presses the "apply" button.
 signal apply_button_pressed(settings)
 
 # We store the selected settings in a dictionary
-var _settings := {resolution = Vector2(1280, 720), fullscreen = false, vsync = false, language = "en"}
+var _settings := {
+	resolution = Vector2(1280, 720),
+	fullscreen = false,
+	vsync = false,
+	language = "en",
+	music_vol = 0.0,
+	sfx_vol = 0.0
+}
 
 
 func _ready():
 	connect("apply_button_pressed", Settings, "update_settings")
+
 	_settings = Settings.get_settings()
+
 	vsync_toggle.pressed = _settings.vsync
 	fullscreen_toggle.pressed = _settings.fullscreen
 	control_tips_toggle.pressed = _settings.control_tips
+	music_vol_slider.value = _settings.music_vol
+	sfx_vol_slider.value = _settings.sfx_vol
 	if _settings.language in "en":
 		$TabContainer/COMMON/VBoxContainer/UILanguageSelector/OptionButton.select(0)
 	elif _settings.language in "ru":
@@ -63,3 +76,12 @@ func _on_OptionButton_item_selected(index:int):
 		_settings.language = "en"
 	elif index == 1:
 		_settings.language = "ru"
+
+
+func _on_MusicVolumeSlider_value_changed(value):
+	_settings.music_vol = value
+
+
+func _on_EffectsVolumeSlider_value_changed(value):
+	_settings.sfx_vol = value
+

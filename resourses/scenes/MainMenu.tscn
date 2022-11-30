@@ -269,6 +269,7 @@ anims/RESET = SubResource( 4 )
 stream = ExtResource( 4 )
 unit_db = -10.0
 autoplay = true
+bus = "Music"
 
 [connection signal="button_down" from="MainMenu/ButtonsContainer/VBoxContainer/PlayButton" to="MainMenu" method="_on_PlayButton_button_down"]
 [connection signal="button_down" from="MainMenu/ButtonsContainer/VBoxContainer/SettingsButton" to="MainMenu" method="_on_SettingsButton_button_down"]

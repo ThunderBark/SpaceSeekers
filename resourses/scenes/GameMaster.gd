@@ -47,7 +47,7 @@ func _input(event):
 		respawn_player()
 		respawn_enemy()
 
-		var settings: Dictionary = Settings.last_settings
+		var settings := Settings.get_settings()
 		if settings.control_tips == true:
 			$GUI/ControlsTooltip.visible = true
 			$GUI/ControlsTooltip/FireTooltip.visible = true
@@ -87,7 +87,7 @@ func update_loading_progress(progress: int):
 
 
 func player_changed_mode(new_mode: int):
-	var settings: Dictionary = Settings.last_settings
+	var settings := Settings.get_settings()
 	if settings.control_tips == true:
 		$GUI/ControlsTooltip.visible = true
 		if new_mode == PlayerState.PLAYER_FIRING_BULLETS:

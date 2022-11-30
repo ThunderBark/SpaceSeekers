@@ -9,16 +9,19 @@ script = ExtResource( 1 )
 
 [node name="Resolution" type="Label" parent="."]
 margin_top = 3.0
-margin_right = 136.0
+margin_right = 250.0
 margin_bottom = 28.0
+size_flags_horizontal = 3
 text = "RESOLUTION"
 align = 2
 
 [node name="OptionButton" type="OptionButton" parent="."]
-margin_left = 140.0
-margin_right = 278.0
+margin_left = 254.0
+margin_right = 504.0
 margin_bottom = 31.0
+size_flags_horizontal = 3
 text = "1280x720"
+align = 1
 items = [ "1280x720", null, false, 1, null, "1920x1080", null, false, 2, null ]
 selected = 0
 

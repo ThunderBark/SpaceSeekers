@@ -3,8 +3,6 @@ extends Node
 onready var settings_file = "user://settings"
 onready var settings_handle = File.new()
 
-var last_settings: Dictionary
-
 
 func update_settings(settings: Dictionary) -> void:
 	OS.window_fullscreen = settings.fullscreen
@@ -16,7 +14,8 @@ func update_settings(settings: Dictionary) -> void:
 
 	TranslationServer.set_locale(settings.language)
 
-	last_settings = settings
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), settings.music_vol)
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), settings.sfx_vol)
 
 	settings_handle.open(settings_file, File.WRITE)
 	settings_handle.store_var(settings, true)
@@ -34,10 +33,10 @@ func get_settings() -> Dictionary:
 			fullscreen = false,
 			vsync = false,
 			control_tips = true,
-			language = "en"
+			language = "en",
+			music_vol = 0.0,
+			sfx_vol = 0.0
 		}
-
-	last_settings = settings
 
 	update_settings(settings)
 	return settings
