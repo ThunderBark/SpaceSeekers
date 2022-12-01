@@ -65,3 +65,10 @@ func enemy_buy_extractor():
 func _player_changed_mode(new_mode):
 	player_mode = new_mode
 	self.emit_signal("player_selection_state_changed", player_mode)
+
+
+func _input(event):
+	if event.is_action_pressed("number_1"):
+		_player_changed_mode(PLAYER_FIRING_BULLETS)
+	if event.is_action_pressed("number_2"):
+		_player_changed_mode(PlayerState.PLAYER_BUILDING)

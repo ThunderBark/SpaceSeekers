@@ -208,7 +208,8 @@ func _think():
 		# Fire bullets at player		
 		for weapon in weapons.get_children():
 			if weapon is Minigun:
-				weapon.fire_bullet()
+				pass
+				# weapon.fire_bullet()
 	else:
 		# Look front
 		craft.point_to_look = craft.translation + const_dir

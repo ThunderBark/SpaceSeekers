@@ -32,7 +32,7 @@ func _ready():
 	PlayerState.enemy_score = initial_funds
 
 	$MapMaster.connect("sector_load_pct", self, "update_loading_progress")
-	$GUI.connect("player_changed_mode", self, "player_changed_mode")
+	PlayerState.connect("player_selection_state_changed", PlayerState, "player_changed_mode")
 	$GUI.world_end_time_changed(timeout)
 
 	$LoadingScreen/Control/PlanetAnimatedSprite.playing = true

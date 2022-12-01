@@ -6,25 +6,13 @@ onready var build_mode_button: TextureButton = $ModeSetButtons/Build
 onready var hp_bar: TextureProgress = $HPBarContainer/HPBar
 onready var score_label : Label = $PanelContainer2/ScoreContainer/Score
 
-signal player_changed_mode(new_mode)
-
-
 func _ready():
-	if connect("player_changed_mode", PlayerState, "_player_changed_mode") != OK:
+	if PlayerState.connect("player_selection_state_changed", self, "_mode_selected") != OK:
 		get_tree().quit(1)
 	if PlayerState.connect("player_hp_changed_sig", self, "_player_hp_changed") != OK:
 		get_tree().quit(2)
 	if PlayerState.connect("player_score_changed_sig", self, "_player_score_changed") != OK:
 		get_tree().quit(3)
-
-
-func _input(event):
-	if event.is_action_pressed("number_1"):
-		self.emit_signal("player_selection_state_changed", PlayerState.PLAYER_FIRING_BULLETS)
-		_mode_selected(PlayerState.PLAYER_FIRING_BULLETS)
-	if event.is_action_pressed("number_2"):
-		self.emit_signal("player_selection_state_changed", PlayerState.PLAYER_BUILDING)
-		_mode_selected(PlayerState.PLAYER_BUILDING)
 
 
 func _player_hp_changed(new_hp):
@@ -47,10 +35,8 @@ func _mode_selected(mode: int):
 	build_mode_button.pressed = false
 	match mode:
 		PlayerState.PLAYER_FIRING_BULLETS:
-			emit_signal("player_changed_mode", mode)
 			air_mode_button.pressed = true
 		PlayerState.PLAYER_BUILDING:
-			emit_signal("player_changed_mode", mode)
 			build_mode_button.pressed = true
 
 
