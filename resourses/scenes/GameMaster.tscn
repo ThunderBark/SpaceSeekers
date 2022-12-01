@@ -961,12 +961,6 @@ wind_border_width = 64
 terrain_size = 128
 sector_size = 32
 
-[node name="TerrainGridMap" parent="MapMaster" index="0"]
-noise_period = 22.0
-
-[node name="ObjectGenerator" parent="MapMaster/TerrainGridMap" index="0"]
-cluster_chance = 1000
-
 [node name="GUI" type="ReferenceRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
