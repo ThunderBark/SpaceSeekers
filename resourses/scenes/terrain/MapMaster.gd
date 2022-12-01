@@ -121,7 +121,7 @@ func _process(delta):
 
 
 func delete_inacessible_crystals():
-	for body in $TerrainGridMap/ObjectGenerator.get_children():
+	for body in object_generator.get_children():
 		if (
 			(body is Crystal) and 
 			(

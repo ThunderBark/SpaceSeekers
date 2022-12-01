@@ -2,9 +2,9 @@ extends ReferenceRect
 
 onready var air_mode_button: TextureButton = $ModeSetButtons/Air
 onready var build_mode_button: TextureButton = $ModeSetButtons/Build
-
 onready var hp_bar: TextureProgress = $HPBarContainer/HPBar
-onready var score_label : Label = $PanelContainer2/ScoreContainer/Score
+onready var score_label: Label = $PanelContainer2/ScoreContainer/Score
+onready var timeout_label: Label = $PanelContainer/Timeout
 
 func _ready():
 	if PlayerState.connect("player_selection_state_changed", self, "_mode_selected") != OK:
@@ -24,10 +24,10 @@ func _player_score_changed(new_score):
 
 
 func world_end_time_changed(new_time: int):
-	$PanelContainer/Timeout.text = String(int(new_time / 60)) + ":"
+	timeout_label.text = String(int(new_time / 60)) + ":"
 	if int(new_time % 60) < 10:
-		$PanelContainer/Timeout.text += "0"
-	$PanelContainer/Timeout.text += String(int(new_time % 60))
+		timeout_label.text += "0"
+	timeout_label.text += String(int(new_time % 60))
 
 
 func _mode_selected(mode: int):

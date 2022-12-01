@@ -208,8 +208,7 @@ func _think():
 		# Fire bullets at player		
 		for weapon in weapons.get_children():
 			if weapon is Minigun:
-				pass
-				# weapon.fire_bullet()
+				weapon.fire_bullet()
 	else:
 		# Look front
 		craft.point_to_look = craft.translation + const_dir
@@ -218,29 +217,25 @@ func _think():
 func try_find_rotation(point: Vector3) -> int:
 	for i in 4:
 		var angle: float = i * PI / 2 + PI / 4
-		if (
-			grid.get_cell_item(
+		if (grid.get_cell_item(
 				int(round(point.x + sign(sin(angle)) * 0.5 + 0.5)),
 				int(round(point.y * 2)),
 				int(round(point.z + sign(cos(angle)) * 0.5 + 0.5))
 			) == 0
 		):
-			if (
-				grid.get_cell_item(
+			if (grid.get_cell_item(
 					int(round(point.x + sign(sin(angle)) * 0.5 - 0.5)),
 					int(round(point.y * 2)),
 					int(round(point.z + sign(cos(angle)) * 0.5 - 0.5))
 				) == 0
 			):
-				if (
-					grid.get_cell_item(
+				if (grid.get_cell_item(
 						int(round(point.x + sign(sin(angle)) * 0.5 - 0.5)),
 						int(round(point.y * 2)),
 						int(round(point.z + sign(cos(angle)) * 0.5 + 0.5))
 					) == 0
 				):
-					if (
-						grid.get_cell_item(
+					if (grid.get_cell_item(
 							int(round(point.x + sign(sin(angle)) * 0.5 + 0.5)),
 							int(round(point.y * 2)),
 							int(round(point.z + sign(cos(angle)) * 0.5 - 0.5))

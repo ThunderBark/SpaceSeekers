@@ -6,12 +6,15 @@ export (PackedScene) var enemy_controller: PackedScene
 export (int) var initial_funds: int = 400
 export (int) var spawn_offset: int = 10
 
-var is_loading: bool = true
-var last_progress: int = 0
-var timeout: int = 180
-var last_timeout_tick: int = 0
-
+onready var map_master: Spatial = $MapMaster
 onready var world_size: int = $MapMaster.terrain_size
+onready var planet_animation: AnimatedSprite = $LoadingScreen/Control/PlanetAnimatedSprite
+
+onready var gui: Control = $GUI
+onready var controls_build_tooltip: Control = $GUI/ControlsTooltip/BuildTooltip
+onready var controls_fire_tooltip: Control = $GUI/ControlsTooltip/FireTooltip
+onready var controls_tooltip: Control = $GUI/ControlsTooltip
+
 onready var enemy_spawn_pos: Vector3 = Vector3(
 	world_size / 2.0 - spawn_offset,
 	3.0,
@@ -23,6 +26,12 @@ onready var player_spawn_pos: Vector3 = Vector3(
 	-enemy_spawn_pos.z
 )
 
+var is_loading: bool = true
+var last_progress: int = 0
+var timeout: int = 180
+var last_timeout_tick: int = 0
+
+
 func _ready():
 	get_tree().paused = true
 
@@ -31,11 +40,11 @@ func _ready():
 	PlayerState.player_score = initial_funds
 	PlayerState.enemy_score = initial_funds
 
-	$MapMaster.connect("sector_load_pct", self, "update_loading_progress")
+	map_master.connect("sector_load_pct", self, "update_loading_progress")
 	PlayerState.connect("player_selection_state_changed", PlayerState, "player_changed_mode")
-	$GUI.world_end_time_changed(timeout)
+	gui.world_end_time_changed(timeout)
 
-	$LoadingScreen/Control/PlanetAnimatedSprite.playing = true
+	planet_animation.playing = true
 
 
 func _input(event):
@@ -52,12 +61,7 @@ func _input(event):
 		respawn_enemy()
 
 		var settings := Settings.get_settings()
-		if settings.control_tips == true:
-			$GUI/ControlsTooltip.visible = true
-			$GUI/ControlsTooltip/FireTooltip.visible = true
-			$GUI/ControlsTooltip/BuildTooltip.visible = false
-		else:
-			$GUI/ControlsTooltip.visible = false
+		set_control_tooltip_state(settings.control_tips)
 
 		PlayerState.player_score_changed(PlayerState.player_score)
 
@@ -66,14 +70,15 @@ func _process(delta):
 	if ((Time.get_ticks_msec() - last_timeout_tick >= 1000)
 		and !is_loading and !get_tree().paused):
 		timeout -= 1
-		$GUI.world_end_time_changed(timeout)
+		gui.world_end_time_changed(timeout)
 		last_timeout_tick = Time.get_ticks_msec()
 		if (timeout == 0):
 			for body in get_children():
 				if (body is PlayerCraftController) or (body is EnemyCraftController):
 					body.queue_free()
+
 			# Spawn clouds
-			$MapMaster.spawn_storm_at_spawn()
+			map_master.spawn_storm_at_spawn()
 			$Wind.stop()
 			$StrongWind.play()
 			if PlayerState.player_score < PlayerState.enemy_score:
@@ -92,21 +97,22 @@ func update_loading_progress(progress: int):
 
 func player_changed_mode(new_mode: int):
 	var settings := Settings.get_settings()
-	if settings.control_tips == true:
-		$GUI/ControlsTooltip.visible = true
-		if new_mode == PlayerState.PLAYER_FIRING_BULLETS:
-			$GUI/ControlsTooltip/FireTooltip.visible = true
-			$GUI/ControlsTooltip/BuildTooltip.visible = false
-		else:
-			$GUI/ControlsTooltip/FireTooltip.visible = false
-			$GUI/ControlsTooltip/BuildTooltip.visible = true
-	else:
-		$GUI/ControlsTooltip.visible = false
+	set_control_tooltip_state(settings.control_tips)
+
+
+func set_control_tooltip_state(is_visible: bool):
+	controls_tooltip.visible = is_visible
+	controls_fire_tooltip.visible = false
+	controls_build_tooltip.visible = false
+	if PlayerState.player_mode == PlayerState.PLAYER_FIRING_BULLETS:
+		controls_fire_tooltip.visible = true
+	if PlayerState.player_mode == PlayerState.PLAYER_BUILDING:
+		controls_build_tooltip.visible = true
 
 
 func player_lost():
 	PlayerState.player_mode = PlayerState.PLAYER_DEAD
-	$GUI.visible = false
+	gui.visible = false
 	$PauseMenu/GameOverContainer/VBoxContainer/HBoxContainer/Score.text = (
 		String(PlayerState.player_score)
 	)
@@ -114,13 +120,13 @@ func player_lost():
 		String(PlayerState.enemy_score)
 	)
 	$PauseMenu/GameOverContainer.visible = true
-	$PauseMenu/GameOverContainer/VBoxContainer/LostLabel.visible = true
-	$PauseMenu/GameOverContainer/VBoxContainer/WinLabel.visible = false
+	$PauseMenu/GameOverContainer/VBoxContainer/GameOverLabel.text = "YOU_LOSE"
+	$PauseMenu/GameOverContainer/VBoxContainer/GameOverLabel.visible = true
 	$PauseMenu.show_end_menu()
 
 func player_won():
 	PlayerState.player_mode = PlayerState.PLAYER_DEAD
-	$GUI.visible = false
+	gui.visible = false
 	$PauseMenu/GameOverContainer/VBoxContainer/HBoxContainer/Score.text = (
 		String(PlayerState.player_score)
 	)
@@ -128,8 +134,8 @@ func player_won():
 		String(PlayerState.enemy_score)
 	)
 	$PauseMenu/GameOverContainer.visible = true
-	$PauseMenu/GameOverContainer/VBoxContainer/LostLabel.visible = false
-	$PauseMenu/GameOverContainer/VBoxContainer/WinLabel.visible = true
+	$PauseMenu/GameOverContainer/VBoxContainer/GameOverLabel.text = "YOU_WIN"
+	$PauseMenu/GameOverContainer/VBoxContainer/GameOverLabel.visible = true
 	$PauseMenu.show_end_menu()
 
 

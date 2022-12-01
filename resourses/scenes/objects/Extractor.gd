@@ -9,6 +9,8 @@ onready var tick: int = Time.get_ticks_msec()
 onready var hp_bar: TextureProgress = $ExtractorMesh/Healthbar3D/Viewport/HPBar
 onready var coin_animation: AnimationPlayer = $ExtractionAnim
 onready var animation: AnimationPlayer = $AnimationPlayer
+onready var hangar: MeshInstance = $ExtractorMesh/hangar_roundB
+onready var sattelite_dish: MeshInstance = $ExtractorMesh/satelliteDish
 
 var crystal: Crystal
 var health: int = max_health
@@ -16,7 +18,7 @@ var is_dead: bool = false
 
 
 func _ready():
-	$AnimationPlayer.play("Construction")
+	animation.play("Construction")
 
 
 func take_damage(damage_amount, shooter: Spatial):
@@ -24,8 +26,7 @@ func take_damage(damage_amount, shooter: Spatial):
 		return
 	if is_in_group("player") and shooter.is_in_group("player"):
 		return
-
-	print("Extractor took damage: " + String(damage_amount))
+	
 	health -= damage_amount
 
 	hp_bar.max_value = max_health
@@ -44,8 +45,8 @@ func take_damage(damage_amount, shooter: Spatial):
 
 
 func set_team(material: Material, group: String):
-	$ExtractorMesh/hangar_roundB.set_surface_material(0, material)
-	$ExtractorMesh/satelliteDish.set_surface_material(4, material)
+	hangar.set_surface_material(0, material)
+	sattelite_dish.set_surface_material(4, material)
 	add_to_group(group)
 	if group in "enemy":
 		hp_bar.texture_progress = enemy_health_bar_text

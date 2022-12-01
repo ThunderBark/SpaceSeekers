@@ -81,8 +81,12 @@ func _on_OptionButton_item_selected(index:int):
 
 func _on_MusicVolumeSlider_value_changed(value):
 	_settings.music_vol = value
+	if value == -30.0:
+		_settings.music_vol = -80.0
 
 
 func _on_EffectsVolumeSlider_value_changed(value):
 	_settings.sfx_vol = value
+	if value == -30.0:
+		_settings.sfx_vol = -80.0
 
