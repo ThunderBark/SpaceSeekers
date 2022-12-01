@@ -1,16 +1,20 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://resourses/scenes/terrain/TerrainGenerator.gd" type="Script" id=1]
 [ext_resource path="res://resourses/scenes/terrain/MapMaster.gd" type="Script" id=2]
 [ext_resource path="res://resourses/scenes/terrain/tiles/tiles_meshlib.tres" type="MeshLibrary" id=3]
 [ext_resource path="res://resourses/scenes/terrain/ObjectGenerator.gd" type="Script" id=4]
-[ext_resource path="res://resourses/scenes/objects/crystal_cluster1.tscn" type="PackedScene" id=5]
+[ext_resource path="res://resourses/scenes/objects/Crystal.tscn" type="PackedScene" id=5]
+[ext_resource path="res://resourses/scenes/terrain/BorderDamageArea.tscn" type="PackedScene" id=6]
+[ext_resource path="res://resourses/scenes/terrain/BorderWinds.tscn" type="PackedScene" id=7]
 
 [node name="MapMaster" type="Spatial"]
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
 }
+border_wind_scene = ExtResource( 7 )
+border_damage_area_scene = ExtResource( 6 )
 terrain_size = 512
 
 [node name="TerrainGridMap" type="GridMap" parent="."]

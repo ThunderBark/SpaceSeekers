@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/cooltext424111587553453.png-d5b976e055161ee26e57372ae3f46e26.s3tc.stex"
-path.etc2="res://.import/cooltext424111587553453.png-d5b976e055161ee26e57372ae3f46e26.etc2.stex"
+path.s3tc="res://.import/enemy_gain_+10.png-d15864f925475c10d9a98b7fae073bb0.s3tc.stex"
+path.etc2="res://.import/enemy_gain_+10.png-d15864f925475c10d9a98b7fae073bb0.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://resourses/cooltext424111587553453.png"
-dest_files=[ "res://.import/cooltext424111587553453.png-d5b976e055161ee26e57372ae3f46e26.s3tc.stex", "res://.import/cooltext424111587553453.png-d5b976e055161ee26e57372ae3f46e26.etc2.stex" ]
+source_file="res://resourses/enemy_gain_+10.png"
+dest_files=[ "res://.import/enemy_gain_+10.png-d15864f925475c10d9a98b7fae073bb0.s3tc.stex", "res://.import/enemy_gain_+10.png-d15864f925475c10d9a98b7fae073bb0.etc2.stex" ]
 
 [params]
 

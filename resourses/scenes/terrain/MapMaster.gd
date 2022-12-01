@@ -2,7 +2,6 @@ extends Spatial
 
 export(PackedScene) var border_wind_scene: PackedScene
 export(PackedScene) var border_damage_area_scene: PackedScene
-export(PackedScene) var plane_scene: PackedScene
 export(int) var border_wind_dimension: int
 
 onready var tile_grid_map := $TerrainGridMap
@@ -38,6 +37,7 @@ func _ready():
 					)
 					add_child(border_wind)
 	
+	# Spawn damage areas at borders
 	var border_damage_area : Area = border_damage_area_scene.instance()
 	border_damage_area.translation = Vector3(
 		(map_size - wind_border_width) / 2.0,
@@ -105,22 +105,28 @@ func spawn_storm_at_spawn():
 
 func _process(delta):
 	if cur_sector < sector_cnt:
+		# Generate sector
 		var i: int = (cur_sector / (terrain_size / sector_size + 2))
 		var j: int = (cur_sector % (terrain_size / sector_size + 2))
 		var x: int = ((-terrain_size / 2) + (-sector_size / 2) + (sector_size * i))
 		var z: int = ((-terrain_size / 2) + (-sector_size / 2) + (sector_size * j))
 		tile_grid_map.generate_sector(Vector2(x,z), sector_size)
-		# print("Generating sector at: ", Vector2(x,z))
 
 		cur_sector += 1
-		if cur_sector == sector_cnt:
-			for body in $TerrainGridMap/ObjectGenerator.get_children():
-				if (
-					(body is Crystal) and 
-					(
-						(abs(body.translation.x) > (terrain_size / 2) - 7)
-						or (abs(body.translation.z) > (terrain_size / 2) - 7)
-					)
-				):
-					body.queue_free()
 		emit_signal("sector_load_pct", int((100 * cur_sector) / sector_cnt))
+
+		# Final sector generated
+		if cur_sector == sector_cnt:
+			delete_inacessible_crystals()
+
+
+func delete_inacessible_crystals():
+	for body in $TerrainGridMap/ObjectGenerator.get_children():
+		if (
+			(body is Crystal) and 
+			(
+				(abs(body.translation.x) > (terrain_size / 2) - 7)
+				or (abs(body.translation.z) > (terrain_size / 2) - 7)
+			)
+		):
+			body.queue_free()

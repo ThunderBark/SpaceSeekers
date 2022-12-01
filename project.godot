@@ -29,6 +29,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://resourses/scenes/objects/Extractor.gd"
 }, {
+"base": "Position3D",
+"class": "Minigun",
+"language": "GDScript",
+"path": "res://resourses/weapons/Minigun.gd"
+}, {
+"base": "Position3D",
+"class": "MissileLauncher",
+"language": "GDScript",
+"path": "res://resourses/weapons/MissileLauncher.gd"
+}, {
 "base": "Spatial",
 "class": "PlayerCraftController",
 "language": "GDScript",
@@ -39,6 +49,8 @@ _global_script_class_icons={
 "Crystal": "",
 "EnemyCraftController": "",
 "Extractor": "",
+"Minigun": "",
+"MissileLauncher": "",
 "PlayerCraftController": ""
 }
 

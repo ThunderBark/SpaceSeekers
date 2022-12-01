@@ -1,4 +1,4 @@
-[gd_scene load_steps=258 format=2]
+[gd_scene load_steps=255 format=2]
 
 [ext_resource path="res://resourses/scenes/GameMaster.gd" type="Script" id=1]
 [ext_resource path="res://resourses/scenes/terrain/MapMaster.tscn" type="PackedScene" id=2]
@@ -13,12 +13,10 @@
 [ext_resource path="res://assets/kenney-ui/Font/kenvector_future.ttf" type="DynamicFontData" id=11]
 [ext_resource path="res://assets/planet.png" type="Texture" id=12]
 [ext_resource path="res://assets/stars.png" type="Texture" id=13]
-[ext_resource path="res://resourses/scenes/terrain/BorderWinds.tscn" type="PackedScene" id=14]
 [ext_resource path="res://assets/kenney-ui-space/PNG/square_shadow.png" type="Texture" id=15]
 [ext_resource path="res://assets/kenney-ui/PNG/red_button03.png" type="Texture" id=16]
 [ext_resource path="res://assets/kenney-ui/PNG/grey_button12.png" type="Texture" id=17]
 [ext_resource path="res://assets/icons8-ammo-96.png" type="Texture" id=18]
-[ext_resource path="res://resourses/scenes/terrain/BorderDamageArea.tscn" type="PackedScene" id=19]
 [ext_resource path="res://assets/icons8-hammer-96.png" type="Texture" id=20]
 [ext_resource path="res://resourses/default_ui.theme" type="Theme" id=21]
 [ext_resource path="res://assets/icons8-nebula-96(1).png" type="Texture" id=22]
@@ -28,7 +26,6 @@
 [ext_resource path="res://assets/audio/wind.wav" type="AudioStream" id=26]
 [ext_resource path="res://assets/audio/strong_wind.wav" type="AudioStream" id=27]
 [ext_resource path="res://assets/fonts/nasalization-rg.otf" type="DynamicFontData" id=28]
-[ext_resource path="res://resourses/scenes/terrain/tiles/tile.tscn" type="PackedScene" id=29]
 
 [sub_resource type="DynamicFont" id=241]
 size = 55
@@ -959,9 +956,6 @@ shadow_enabled = true
 
 [node name="MapMaster" parent="." instance=ExtResource( 2 )]
 pause_mode = 2
-border_wind_scene = ExtResource( 14 )
-border_damage_area_scene = ExtResource( 19 )
-plane_scene = ExtResource( 29 )
 border_wind_dimension = 4
 wind_border_width = 64
 terrain_size = 128

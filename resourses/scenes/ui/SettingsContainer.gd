@@ -7,6 +7,7 @@ onready var fullscreen_toggle: CheckBox = $TabContainer/DISPLAY/VBoxContainer/UI
 onready var control_tips_toggle: CheckBox = $TabContainer/COMMON/VBoxContainer/UIControlTipCheckbox/CheckBox
 onready var music_vol_slider: Slider = $TabContainer/AUDIO/VBoxContainer/HBoxContainer2/MusicVolumeSlider
 onready var sfx_vol_slider: Slider = $TabContainer/AUDIO/VBoxContainer/HBoxContainer/EffectsVolumeSlider
+onready var language_selector: OptionButton = $TabContainer/COMMON/VBoxContainer/UILanguageSelector/OptionButton
 
 
 # Emitted when the user presses the "apply" button.
@@ -34,9 +35,9 @@ func _ready():
 	music_vol_slider.value = _settings.music_vol
 	sfx_vol_slider.value = _settings.sfx_vol
 	if _settings.language in "en":
-		$TabContainer/COMMON/VBoxContainer/UILanguageSelector/OptionButton.select(0)
+		language_selector.select(0)
 	elif _settings.language in "ru":
-		$TabContainer/COMMON/VBoxContainer/UILanguageSelector/OptionButton.select(1)
+		language_selector.select(1)
 	for i in resolution_option_btn.get_item_count():
 		if ((String(_settings.resolution.x) in resolution_option_btn.get_item_text(i)) and
 			(String(_settings.resolution.y) in resolution_option_btn.get_item_text(i))):

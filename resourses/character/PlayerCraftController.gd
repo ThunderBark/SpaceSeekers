@@ -12,6 +12,8 @@ onready var craft: KinematicBody = get_child(0)
 onready var camera: Camera = craft.get_node("Camera")
 onready var camera_init_position: Vector3 = camera.translation
 
+onready var weapons := $SpeederA/Hull/Weapons
+
 var rng = RandomNumberGenerator.new()
 var velocity: Vector3 = Vector3.ZERO
 var is_building: bool = false
@@ -24,10 +26,12 @@ var is_dead: bool = false
 
 
 func _ready():
+	for weapon in weapons.get_children():
+		weapon.craft = craft
+
 	PlayerState.player_hp_changed(player_hp)
 	craft.connect("took_damage", self, "craft_took_damage")
-
-	craft.add_to_group("player1")
+	craft.add_to_group("player")
 
 	blueprint.visible = false
 	add_child(blueprint)
@@ -48,6 +52,10 @@ func _physics_process(delta):
 	if Input.is_action_pressed("move_down"):
 		dir.z += 1.0
 		dir.x -= 1.0
+	if Input.is_action_pressed("primary_fire_action"):
+		try_fire_bullet()
+	if Input.is_action_pressed("secondary_fire_action"):
+		try_fire_missile()
 
 	if craft is CraftController:
 		craft.dir = dir.normalized()
@@ -78,6 +86,26 @@ func _physics_process(delta):
 		),
 		1.5 * delta
 	)
+
+
+func try_fire_bullet() -> void:
+	if PlayerState.player_mode == PlayerState.PLAYER_FIRING_BULLETS:
+		for weapon in weapons.get_children():
+			if weapon is Minigun:
+				weapon.fire_bullet()
+
+
+func try_fire_missile() -> void:
+	if PlayerState.player_mode == PlayerState.PLAYER_FIRING_BULLETS:
+		var mouse_position = get_viewport().get_mouse_position()
+		var ray_origin = camera.project_ray_origin(mouse_position)
+		var ray_end = ray_origin + camera.project_ray_normal(mouse_position) * 2000
+		var space_state = get_world().direct_space_state
+		var intersection = space_state.intersect_ray(ray_origin, ray_end, [self], (1 << 0))
+		if not intersection.empty():
+			for weapon in weapons.get_children():
+				if weapon is MissileLauncher:
+					weapon.fire_missile(intersection.position)
 
 
 func building_mode():
@@ -128,7 +156,7 @@ func show_blueprint(intersection: Dictionary) -> void:
 				var extr: Spatial = extractor1.instance()
 				extr.translation = coll.translation
 				extr.rotation = blueprint.rotation
-				extr.add_to_group("player1")
+				extr.add_to_group("player")
 				extr.crystal = coll
 				get_parent().add_child(extr)
 				coll.is_vacant = false

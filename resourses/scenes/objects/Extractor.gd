@@ -6,6 +6,9 @@ export(int) var max_health: int = 1000
 export(int) var score_per_second: int = 10
 
 onready var tick: int = Time.get_ticks_msec()
+onready var hp_bar: TextureProgress = $ExtractorMesh/Healthbar3D/Viewport/HPBar
+onready var coin_animation: AnimationPlayer = $ExtractionAnim
+onready var animation: AnimationPlayer = $AnimationPlayer
 
 var crystal: Crystal
 var health: int = max_health
@@ -19,24 +22,24 @@ func _ready():
 func take_damage(damage_amount, shooter: Spatial):
 	if is_in_group("enemy") and shooter.is_in_group("enemy"):
 		return
-	if is_in_group("player1") and shooter.is_in_group("player1"):
+	if is_in_group("player") and shooter.is_in_group("player"):
 		return
 
 	print("Extractor took damage: " + String(damage_amount))
 	health -= damage_amount
 
-	$ExtractorMesh/Healthbar3D/Viewport/HPBar.max_value = max_health
-	$ExtractorMesh/Healthbar3D/Viewport/HPBar.value = health
-	$ExtractorMesh/Healthbar3D.visible = true
+	hp_bar.max_value = max_health
+	hp_bar.value = health
+	hp_bar.visible = true
 
 	if health <= 0 and !is_dead:
 		is_dead = true
 		if is_in_group("enemy"):
 			PlayerState.player_score_increase_by_amount(50)
-		elif is_in_group("player1"):
+		elif is_in_group("player"):
 			PlayerState.enemy_score_increase_by_amount(50)
-		$AnimationPlayer.play("Explosions")
-		$ExtractorMesh/Healthbar3D.visible = false
+		animation.play("Explosions")
+		hp_bar.visible = false
 		crystal.is_vacant = true
 
 
@@ -45,16 +48,17 @@ func set_team(material: Material, group: String):
 	$ExtractorMesh/satelliteDish.set_surface_material(4, material)
 	add_to_group(group)
 	if group in "enemy":
-		$ExtractorMesh/Healthbar3D/Viewport/HPBar.texture_progress = enemy_health_bar_text
+		hp_bar.texture_progress = enemy_health_bar_text
 
 
 func _process(delta):
+	# Add score to corresponding player
 	var cur_tick: int = Time.get_ticks_msec()
 	if (cur_tick - tick) >= 1000 and not is_dead:
 		tick = cur_tick
-		if is_in_group("player1"):
+		if is_in_group("player"):
 			PlayerState.player_score_increase_by_amount(score_per_second)
-			$ExtractionAnim.play("PlayerCoin")
+			coin_animation.play("PlayerCoin")
 		elif is_in_group("enemy"):
 			PlayerState.enemy_score_increase_by_amount(score_per_second)
-			$ExtractionAnim.play("EnemyCoin")
+			coin_animation.play("EnemyCoin")

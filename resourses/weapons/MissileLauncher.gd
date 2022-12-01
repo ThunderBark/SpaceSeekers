@@ -1,33 +1,23 @@
+class_name MissileLauncher
 extends Position3D
 
 
-export (PackedScene) var missile
-export (float) var rate_of_fire = 5.0
-export (float) var accuracy = 15.0
-var cooldown : float = 0
+export (PackedScene) var missile: PackedScene
+export (float) var rate_of_fire: float = 5.0
+export (float) var accuracy: float = 15.0
 
-onready var craft: Spatial = get_parent().get_parent().get_parent()
 onready var world_root: Node = get_tree().get_root().get_child(0)
 onready var rng: RandomNumberGenerator = RandomNumberGenerator.new()
+
+var cooldown : float = 0
+var craft: KinematicBody
+
 
 func _ready():
 	rng.randomize()
 
+
 func _physics_process(delta: float) -> void:
-	if (
-		Input.is_action_pressed("secondary_fire_action")
-		and (PlayerState.player_mode == PlayerState.PLAYER_FIRING_BULLETS)
-		and craft.is_in_group("player1")
-	):
-		var mouse_position = get_viewport().get_mouse_position()
-		var camera: Camera = get_viewport().get_camera()
-		var ray_origin = camera.project_ray_origin(mouse_position)
-		var ray_end = ray_origin + camera.project_ray_normal(mouse_position) * 2000
-		var space_state = get_world().direct_space_state
-		var intersection = space_state.intersect_ray(ray_origin, ray_end, [self], (1 << 0))
-		if not intersection.empty():
-			fire_missile(intersection.position)
-	
 	if cooldown >= 0:
 		cooldown -= delta
 

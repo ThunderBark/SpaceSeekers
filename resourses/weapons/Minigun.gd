@@ -1,26 +1,16 @@
+class_name Minigun
 extends Position3D
 
-export(PackedScene) var bullet
-export(float) var rate_of_fire = 5.0
-var cooldown: float = 0
+export(PackedScene) var bullet: PackedScene
+export(float) var rate_of_fire: float = 5.0
 
-onready var craft: KinematicBody = get_parent().get_parent().get_parent()
 onready var world_root: Node = get_tree().get_root().get_child(0)
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass
+var cooldown: float = 0
+var craft: KinematicBody
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if (
-		Input.is_action_pressed("primary_fire_action")
-		and (PlayerState.player_mode == PlayerState.PLAYER_FIRING_BULLETS)
-		and craft.is_in_group("player1")
-	):
-		fire_bullet()
-
 	if cooldown >= 0:
 		cooldown -= delta
 

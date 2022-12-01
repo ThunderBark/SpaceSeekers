@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=2]
 
-[ext_resource path="res://resourses/scenes/objects/crystal_cluster.mesh" type="ArrayMesh" id=1]
+[ext_resource path="res://resourses/scenes/objects/Crystal.mesh" type="ArrayMesh" id=1]
 [ext_resource path="res://resourses/main_menu_scene.anim" type="Animation" id=2]
 [ext_resource path="res://resourses/scenes/terrain/tiles/tiles_meshlib.tres" type="MeshLibrary" id=3]
 [ext_resource path="res://assets/audio/1st Contact - Eclipse.mp3" type="AudioStream" id=4]

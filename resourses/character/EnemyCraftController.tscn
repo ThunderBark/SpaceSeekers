@@ -2,7 +2,7 @@
 
 [ext_resource path="res://resourses/character/EnemyCraftController.gd" type="Script" id=1]
 [ext_resource path="res://resourses/character/SpeederA.tscn" type="PackedScene" id=3]
-[ext_resource path="res://resourses/scenes/objects/extractor1.tscn" type="PackedScene" id=4]
+[ext_resource path="res://resourses/scenes/objects/Extractor.tscn" type="PackedScene" id=4]
 [ext_resource path="res://resourses/materials/metalRedEnemy.material" type="Material" id=5]
 
 [sub_resource type="CylinderShape" id=15]
@@ -14,7 +14,7 @@ pause_mode = 1
 script = ExtResource( 1 )
 grid_path = NodePath("../MapMaster/TerrainGridMap")
 enemy_material = ExtResource( 5 )
-extractor1 = ExtResource( 4 )
+extractor = ExtResource( 4 )
 max_health = 100
 health = 100
 

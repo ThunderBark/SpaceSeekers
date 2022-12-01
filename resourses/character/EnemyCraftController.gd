@@ -3,19 +3,18 @@ extends Node
 
 export(NodePath) var grid_path: NodePath
 export(SpatialMaterial) var enemy_material: SpatialMaterial
-export(PackedScene) var extractor1: PackedScene
+export(PackedScene) var extractor: PackedScene
 export(Vector3) var player_start_pos: Vector3 = Vector3.ZERO
 export(int) var max_health: int = 30
 export(int) var health: int = 30
 export(float) var world_size: float = 64.0
 
-onready var extractor: Spatial
 onready var craft: CraftController = $SpeederA
 onready var attention_area: Area = craft.get_node("AttentionArea")
 onready var grid: GridMap = get_node(grid_path)
 onready var last_think_time: int = Time.get_ticks_msec()
 
-var rng = RandomNumberGenerator.new()
+var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var speed: float = 100.0
 
 var last_player_position: Vector3 = player_start_pos
@@ -34,19 +33,15 @@ enum {
 }
 var cur_behaviour = FLEE
 
-
-signal shoot_bullet()
-signal shoot_missle(pos)
+onready var weapons = $SpeederA/Hull/Weapons
 
 
 func _ready():
-	is_dead = false
-	connect("shoot_bullet", $SpeederA/Hull/Weapons/Minigun, "fire_bullet")
-	connect("shoot_bullet", $SpeederA/Hull/Weapons/Minigun2, "fire_bullet")
-	connect("shoot_missle", $SpeederA/Hull/Weapons/MissileLauncher, "fire_missile")
-	connect("shoot_missle", $SpeederA/Hull/Weapons/MissileLauncher2, "fire_missile")
-	craft.connect("took_damage", self, "craft_took_damage")
+	for weapon in weapons.get_children():
+		weapon.craft = craft
+	
 	craft.set_team(enemy_material, "enemy")
+	craft.connect("took_damage", self, "craft_took_damage")
 
 
 func craft_took_damage(amount):
@@ -79,19 +74,19 @@ func has_enough_score_to_build() -> bool:
 
 func is_player_nearby() -> CraftController:
 	var player_detected: CraftController = null
-	for body in $SpeederA/AttentionArea.get_overlapping_bodies():
-		if body.is_in_group("player1") and (body is CraftController):
+	for body in attention_area.get_overlapping_bodies():
+		if body.is_in_group("player") and (body is CraftController):
 			last_player_position = body.translation
 			player_detected = body
 	return player_detected
 
 func is_player_extractor_nearby() -> Extractor:
-	var extractor: Extractor = null
-	for body in $SpeederA/AttentionArea.get_overlapping_bodies():
-		if body.is_in_group("player1") and (body is Extractor):
+	var extr: Extractor = null
+	for body in attention_area.get_overlapping_bodies():
+		if body.is_in_group("player") and (body is Extractor):
 			last_extractor_position = body.translation
-			extractor = body
-	return extractor
+			extr = body
+	return extr
 
 
 func is_beneficial_to_place_extractor() -> bool:
@@ -106,7 +101,7 @@ func is_beneficial_to_place_extractor() -> bool:
 func prefered_crystal_pos(prefered_dir: Vector3) -> Crystal:
 	var crystal: Crystal = null
 
-	for body in $SpeederA/AttentionArea.get_overlapping_bodies():
+	for body in attention_area.get_overlapping_bodies():
 		if body is Crystal and body.is_vacant:
 			crystal = body
 
@@ -118,13 +113,13 @@ func place_extractor(crystal: Crystal):
 	if rotation_y == -1:
 		return
 
-	extractor = extractor1.instance()
-	extractor.translation = crystal.translation
-	extractor.rotate(Vector3.UP, rotation_y * PI/2)
-	extractor.crystal = crystal
-	get_parent().add_child(extractor)
+	var extr: Spatial = extractor.instance()
+	extr.translation = crystal.translation
+	extr.rotate(Vector3.UP, rotation_y * PI/2)
+	extr.crystal = crystal
+	get_parent().add_child(extr)
 	crystal.is_vacant = false
-	extractor.set_team(enemy_material, "enemy")
+	extr.set_team(enemy_material, "enemy")
 	PlayerState.enemy_buy_extractor()
 
 
@@ -166,26 +161,18 @@ func choose_direction_to_go() -> Vector3:
 
 	# Attraction to point of interest
 	var poi_attraction: float = 500.0
-	var poi_crystal: Crystal = prefered_crystal_pos(dir)
-	if is_beneficial_to_place_extractor() and (poi_crystal != null):
-		place_extractor(poi_crystal)
-		# dir += craft.translation.direction_to(poi_crystal.translation) * poi_attraction
 	if cur_behaviour == HUNT:
-		if craft.translation.distance_to(last_extractor_position) < 5:
-			last_extractor_position = Vector3.ZERO
-
+		# Hunting for player extractor
 		if last_extractor_position != Vector3.ZERO:
+			# We have extractor to check
 			dir += craft.translation.direction_to(last_extractor_position) * poi_attraction
 		else:
-			pass # Wandering around
+			# Wandering around
+			pass
+		# if craft.translation.distance_to(last_extractor_position) < 5:
+		# 	last_extractor_position = Vector3.ZERO
 	elif cur_behaviour == HIDE:
 		dir += craft.translation.direction_to(hiding_pos) * poi_attraction
-	# if cur_behaviour == HUNT:
-	# 	if (craft.translation.distance_to(last_extractor_position)
-	# 		< craft.translation.distance_to(player_start_pos)): 
-	# 		dir += craft.translation.direction_to(last_extractor_position) * poi_attraction
-	# 	else:
-	# 		dir += craft.translation.direction_to(player_start_pos) * poi_attraction
 
 	return dir.normalized()
 
@@ -197,20 +184,33 @@ func _think():
 		last_think_time = cur_msec
 	craft.dir = const_dir
 
+	# Trying to place extractor
+	var poi_crystal: Crystal = prefered_crystal_pos(Vector3.ZERO)
+	if is_beneficial_to_place_extractor() and (poi_crystal != null):
+		place_extractor(poi_crystal)
+
 	# Point to look
 	var extr: Extractor = is_player_extractor_nearby()
 	if extr != null:
+		# Look at extractor
 		craft.point_to_look = Vector3(extr.translation.x, 0, extr.translation.z)
-		emit_signal("shoot_missle", extr.translation)
+		# Fire missiles at extractor
+		for weapon in weapons.get_children():
+			if weapon is MissileLauncher:
+				weapon.fire_missile(extr.translation)
 	elif is_player_nearby() != null:
+		# Look at player
 		craft.point_to_look = (
 			last_player_position 
 			+ is_player_nearby().velocity 
 			* (craft.translation.distance_to(last_player_position) * 0.03)
 		)
-
-		# emit_signal("shoot_bullet")
+		# Fire bullets at player		
+		for weapon in weapons.get_children():
+			if weapon is Minigun:
+				weapon.fire_bullet()
 	else:
+		# Look front
 		craft.point_to_look = craft.translation + const_dir
 
 
@@ -222,32 +222,28 @@ func try_find_rotation(point: Vector3) -> int:
 				int(round(point.x + sign(sin(angle)) * 0.5 + 0.5)),
 				int(round(point.y * 2)),
 				int(round(point.z + sign(cos(angle)) * 0.5 + 0.5))
-			)
-			== 0
+			) == 0
 		):
 			if (
 				grid.get_cell_item(
 					int(round(point.x + sign(sin(angle)) * 0.5 - 0.5)),
 					int(round(point.y * 2)),
 					int(round(point.z + sign(cos(angle)) * 0.5 - 0.5))
-				)
-				== 0
+				) == 0
 			):
 				if (
 					grid.get_cell_item(
 						int(round(point.x + sign(sin(angle)) * 0.5 - 0.5)),
 						int(round(point.y * 2)),
 						int(round(point.z + sign(cos(angle)) * 0.5 + 0.5))
-					)
-					== 0
+					) == 0
 				):
 					if (
 						grid.get_cell_item(
 							int(round(point.x + sign(sin(angle)) * 0.5 + 0.5)),
 							int(round(point.y * 2)),
 							int(round(point.z + sign(cos(angle)) * 0.5 - 0.5))
-						)
-						== 0
+						) == 0
 					):
 						return i
 	return -1

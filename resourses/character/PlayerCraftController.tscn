@@ -2,8 +2,8 @@
 
 [ext_resource path="res://resourses/character/PlayerCraftController.gd" type="Script" id=2]
 [ext_resource path="res://resourses/character/SpeederA.tscn" type="PackedScene" id=3]
-[ext_resource path="res://resourses/scenes/blueprint.tscn" type="PackedScene" id=4]
-[ext_resource path="res://resourses/scenes/objects/extractor1.tscn" type="PackedScene" id=5]
+[ext_resource path="res://resourses/scenes/Blueprint.tscn" type="PackedScene" id=4]
+[ext_resource path="res://resourses/scenes/objects/Extractor.tscn" type="PackedScene" id=5]
 
 [node name="PlayerCraftController" type="Spatial"]
 pause_mode = 1

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://resourses/weapons/projectiles/Missile.gd" type="Script" id=1]
 [ext_resource path="res://assets/models/Kenney_space/weapons/foamBulletA.obj" type="ArrayMesh" id=2]
-[ext_resource path="res://resourses/weapons/projectiles/CommonBullet_spatialmaterial.tres" type="Material" id=3]
+[ext_resource path="res://resourses/materials/CommonBullet_spatialmaterial.tres" type="Material" id=3]
 [ext_resource path="res://assets/audio/noise.ogg" type="AudioStream" id=4]
 [ext_resource path="res://assets/audio/small_explosion.ogg" type="AudioStream" id=5]
 
