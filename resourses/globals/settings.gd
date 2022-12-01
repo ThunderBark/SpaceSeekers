@@ -3,6 +3,8 @@ extends Node
 onready var settings_file = "user://settings"
 onready var settings_handle = File.new()
 
+signal settings_changed(settings)
+
 
 func update_settings(settings: Dictionary) -> void:
 	OS.window_fullscreen = settings.fullscreen
@@ -16,6 +18,8 @@ func update_settings(settings: Dictionary) -> void:
 
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), settings.music_vol)
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), settings.sfx_vol)
+
+	emit_signal("settings_changed", settings)
 
 	settings_handle.open(settings_file, File.WRITE)
 	settings_handle.store_var(settings, true)

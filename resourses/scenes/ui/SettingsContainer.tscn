@@ -19,70 +19,7 @@ margin_right = 512.0
 margin_bottom = 360.0
 tab_align = 0
 
-[node name="AUDIO" type="Tabs" parent="TabContainer"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 43.0
-margin_right = -4.0
-margin_bottom = -4.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/AUDIO"]
-anchor_right = 1.0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/AUDIO/VBoxContainer"]
-margin_right = 504.0
-margin_bottom = 25.0
-alignment = 1
-
-[node name="Label" type="Label" parent="TabContainer/AUDIO/VBoxContainer/HBoxContainer"]
-margin_right = 250.0
-margin_bottom = 25.0
-size_flags_horizontal = 3
-text = "EFFECTS_VOL"
-align = 2
-
-[node name="EffectsVolumeSlider" type="HSlider" parent="TabContainer/AUDIO/VBoxContainer/HBoxContainer"]
-margin_left = 254.0
-margin_right = 504.0
-margin_bottom = 25.0
-size_flags_horizontal = 3
-size_flags_vertical = 5
-min_value = -30.0
-max_value = 20.0
-step = 0.1
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="TabContainer/AUDIO/VBoxContainer"]
-margin_top = 29.0
-margin_right = 504.0
-margin_bottom = 54.0
-alignment = 1
-
-[node name="Label" type="Label" parent="TabContainer/AUDIO/VBoxContainer/HBoxContainer2"]
-margin_right = 250.0
-margin_bottom = 25.0
-size_flags_horizontal = 3
-text = "MUSIC_VOL"
-align = 2
-
-[node name="MusicVolumeSlider" type="HSlider" parent="TabContainer/AUDIO/VBoxContainer/HBoxContainer2"]
-margin_left = 254.0
-margin_right = 504.0
-margin_bottom = 25.0
-size_flags_horizontal = 3
-size_flags_vertical = 5
-min_value = -30.0
-max_value = 20.0
-step = 0.1
-
-[node name="ApplyButton" type="Button" parent="TabContainer/AUDIO/VBoxContainer"]
-margin_top = 58.0
-margin_right = 504.0
-margin_bottom = 89.0
-text = "APPLY"
-
 [node name="COMMON" type="Tabs" parent="TabContainer"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -162,6 +99,69 @@ margin_right = 504.0
 margin_bottom = 140.0
 text = "APPLY"
 
+[node name="AUDIO" type="Tabs" parent="TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 43.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/AUDIO"]
+anchor_right = 1.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/AUDIO/VBoxContainer"]
+margin_right = 504.0
+margin_bottom = 25.0
+alignment = 1
+
+[node name="Label" type="Label" parent="TabContainer/AUDIO/VBoxContainer/HBoxContainer"]
+margin_right = 250.0
+margin_bottom = 25.0
+size_flags_horizontal = 3
+text = "EFFECTS_VOL"
+align = 2
+
+[node name="EffectsVolumeSlider" type="HSlider" parent="TabContainer/AUDIO/VBoxContainer/HBoxContainer"]
+margin_left = 254.0
+margin_right = 504.0
+margin_bottom = 25.0
+size_flags_horizontal = 3
+size_flags_vertical = 5
+min_value = -30.0
+max_value = 20.0
+step = 0.1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="TabContainer/AUDIO/VBoxContainer"]
+margin_top = 29.0
+margin_right = 504.0
+margin_bottom = 54.0
+alignment = 1
+
+[node name="Label" type="Label" parent="TabContainer/AUDIO/VBoxContainer/HBoxContainer2"]
+margin_right = 250.0
+margin_bottom = 25.0
+size_flags_horizontal = 3
+text = "MUSIC_VOL"
+align = 2
+
+[node name="MusicVolumeSlider" type="HSlider" parent="TabContainer/AUDIO/VBoxContainer/HBoxContainer2"]
+margin_left = 254.0
+margin_right = 504.0
+margin_bottom = 25.0
+size_flags_horizontal = 3
+size_flags_vertical = 5
+min_value = -30.0
+max_value = 20.0
+step = 0.1
+
+[node name="ApplyButton" type="Button" parent="TabContainer/AUDIO/VBoxContainer"]
+margin_top = 58.0
+margin_right = 504.0
+margin_bottom = 89.0
+text = "APPLY"
+
 [node name="CONTROLS" type="Tabs" parent="TabContainer"]
 visible = false
 anchor_right = 1.0
@@ -184,9 +184,6 @@ While in Firing Mode you can shoot bullets at enemy ship using LMB key, and shoo
 
 While in Building Mode you can see cube template with which you can build Space Extractors. Cube template is red when something obstruct construction or you don't have enough funds, and template is green when you can place the extractor. You can rotate template around with Q and E keys."
 
-[connection signal="value_changed" from="TabContainer/AUDIO/VBoxContainer/HBoxContainer/EffectsVolumeSlider" to="." method="_on_EffectsVolumeSlider_value_changed"]
-[connection signal="value_changed" from="TabContainer/AUDIO/VBoxContainer/HBoxContainer2/MusicVolumeSlider" to="." method="_on_MusicVolumeSlider_value_changed"]
-[connection signal="button_up" from="TabContainer/AUDIO/VBoxContainer/ApplyButton" to="." method="_on_ApplyButton_button_up"]
 [connection signal="item_selected" from="TabContainer/COMMON/VBoxContainer/UILanguageSelector/OptionButton" to="." method="_on_OptionButton_item_selected"]
 [connection signal="toggled" from="TabContainer/COMMON/VBoxContainer/UIControlTipCheckbox" to="." method="_on_UIControlTipCheckbox_toggled"]
 [connection signal="button_up" from="TabContainer/COMMON/VBoxContainer/ApplyButton" to="." method="_on_ApplyButton_button_up"]
@@ -194,3 +191,6 @@ While in Building Mode you can see cube template with which you can build Space 
 [connection signal="toggled" from="TabContainer/DISPLAY/VBoxContainer/UIFullscreenCheckbox" to="." method="_on_UIFullscreenCheckbox_toggled"]
 [connection signal="toggled" from="TabContainer/DISPLAY/VBoxContainer/UIVsyncCheckbox" to="." method="_on_UIVsyncCheckbox_toggled"]
 [connection signal="button_up" from="TabContainer/DISPLAY/VBoxContainer/ApplyButton" to="." method="_on_ApplyButton_button_up"]
+[connection signal="value_changed" from="TabContainer/AUDIO/VBoxContainer/HBoxContainer/EffectsVolumeSlider" to="." method="_on_EffectsVolumeSlider_value_changed"]
+[connection signal="value_changed" from="TabContainer/AUDIO/VBoxContainer/HBoxContainer2/MusicVolumeSlider" to="." method="_on_MusicVolumeSlider_value_changed"]
+[connection signal="button_up" from="TabContainer/AUDIO/VBoxContainer/ApplyButton" to="." method="_on_ApplyButton_button_up"]

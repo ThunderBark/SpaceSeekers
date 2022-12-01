@@ -61,7 +61,6 @@ func _input(event):
 		respawn_enemy()
 
 		var settings := Settings.get_settings()
-		set_control_tooltip_state(settings.control_tips)
 
 		PlayerState.player_score_changed(PlayerState.player_score)
 
@@ -93,21 +92,6 @@ func update_loading_progress(progress: int):
 	last_progress = progress
 	if (progress == 100):
 		$LoadingScreen/PressAnyKey.visible = true
-
-
-func player_changed_mode(new_mode: int):
-	var settings := Settings.get_settings()
-	set_control_tooltip_state(settings.control_tips)
-
-
-func set_control_tooltip_state(is_visible: bool):
-	controls_tooltip.visible = is_visible
-	controls_fire_tooltip.visible = false
-	controls_build_tooltip.visible = false
-	if PlayerState.player_mode == PlayerState.PLAYER_FIRING_BULLETS:
-		controls_fire_tooltip.visible = true
-	if PlayerState.player_mode == PlayerState.PLAYER_BUILDING:
-		controls_build_tooltip.visible = true
 
 
 func player_lost():
