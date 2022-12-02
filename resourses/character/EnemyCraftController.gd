@@ -8,6 +8,7 @@ export(Vector3) var player_start_pos: Vector3 = Vector3.ZERO
 export(int) var max_health: int = 30
 export(int) var health: int = 30
 export(float) var world_size: float = 64.0
+export(float) var accuracy: float = 5.0
 
 onready var craft: CraftController = $SpeederA
 onready var attention_area: Area = craft.get_node("AttentionArea")
@@ -25,6 +26,8 @@ var ref_think_period: int = 300
 var think_period: int = ref_think_period
 var const_dir: Vector3 = Vector3.ZERO
 var is_dead: bool = false
+
+var accuracy_point: Vector3 = Vector3.ZERO
 
 enum {
 	FLEE,
@@ -57,7 +60,7 @@ func craft_took_damage(amount):
 
 
 func _physics_process(delta):
-	_think()
+	_think(delta)
 
 
 func die():
@@ -196,7 +199,7 @@ func choose_direction_to_go() -> Vector3:
 	return dir.normalized()
 
 
-func _think():
+func _think(delta: float):
 	var cur_msec: int = Time.get_ticks_msec()
 	if cur_msec > (last_think_time + think_period):
 		const_dir = choose_direction_to_go()
@@ -218,17 +221,16 @@ func _think():
 			if weapon is MissileLauncher:
 				weapon.fire_missile(extr.translation)
 	elif is_player_nearby() != null:
-		
-		# Look at player
-		craft.point_to_look = (
-			last_player_position 
-			+ is_player_nearby().velocity 
-			* (craft.translation.distance_to(last_player_position) * 0.03)
+		accuracy_point = accuracy_point.linear_interpolate(
+			is_player_nearby().velocity * (craft.translation.distance_to(last_player_position) * 0.03),
+			delta * accuracy
 		)
+		# Look at player
+		craft.point_to_look = (last_player_position + accuracy_point)
 		# Fire bullets at player		
-		# for weapon in weapons.get_children():
-		# 	if weapon is Minigun:
-		# 		weapon.fire_bullet()
+		for weapon in weapons.get_children():
+			if weapon is Minigun:
+				weapon.fire_bullet()
 	else:
 		# Look front
 		craft.point_to_look = craft.translation + const_dir
