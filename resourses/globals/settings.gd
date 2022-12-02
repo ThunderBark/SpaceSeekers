@@ -3,6 +3,8 @@ extends Node
 onready var settings_file = "user://settings"
 onready var settings_handle = File.new()
 
+var world_size: int = 0
+
 signal settings_changed(settings)
 
 

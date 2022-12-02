@@ -10,6 +10,9 @@ var enemy_score: int = 200
 var extractor_cost: int = 200
 var respawn_cost: int = 200
 
+var enemy_last_player_pos: Vector3 = Vector3.ZERO
+var enemy_last_extractor_pos: Vector3 = Vector3.ZERO
+
 
 signal player_selection_state_changed(new_state)
 signal player_hp_changed_sig(new_hp)

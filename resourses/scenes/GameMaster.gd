@@ -47,6 +47,9 @@ func _ready():
 	$LoadingScreen.visible = true
 	planet_animation.playing = true
 
+	PlayerState.enemy_last_player_pos = player_spawn_pos
+	PlayerState.enemy_last_extractor_pos = player_spawn_pos
+
 
 func _input(event):
 	if !event.is_action_type():
@@ -131,8 +134,9 @@ func respawn_player():
 
 func respawn_enemy():
 	var enemy = enemy_controller.instance()
-	enemy.player_start_pos = player_spawn_pos
-	enemy.last_extractor_position = player_spawn_pos
+	enemy.player_start_pos = PlayerState.enemy_last_player_pos
+	enemy.last_extractor_position = PlayerState.enemy_last_extractor_pos
+	enemy.last_player_position = PlayerState.enemy_last_player_pos
 	add_child(enemy)
 	enemy.craft.translation = enemy_spawn_pos
 	enemy.world_size = world_size

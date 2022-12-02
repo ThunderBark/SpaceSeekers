@@ -19,6 +19,8 @@ signal sector_load_pct(load_pct)
 
 
 func _ready():
+	Settings.world_size = terrain_size
+
 	tile_grid_map.clear()
 	tile_grid_map.shake_noise()
 

@@ -19,6 +19,7 @@ var speed: float = 100.0
 
 var last_player_position: Vector3 = player_start_pos
 var last_extractor_position: Vector3 = player_start_pos
+var random_position: Vector3 = Vector3.ZERO
 var hiding_pos: Vector3
 var ref_think_period: int = 300
 var think_period: int = ref_think_period
@@ -60,6 +61,8 @@ func _physics_process(delta):
 
 
 func die():
+	PlayerState.enemy_last_extractor_pos = last_extractor_position
+	PlayerState.enemy_last_player_pos = last_player_position
 	set_physics_process(false)
 	craft.die()
 	PlayerState.enemy_died()
@@ -164,13 +167,29 @@ func choose_direction_to_go() -> Vector3:
 	if cur_behaviour == HUNT:
 		# Hunting for player extractor
 		if last_extractor_position != Vector3.ZERO:
+			random_position = Vector3.ZERO
 			# We have extractor to check
 			dir += craft.translation.direction_to(last_extractor_position) * poi_attraction
+		elif last_player_position != Vector3.ZERO:
+			random_position = Vector3.ZERO
+			# Moving towards player
+			dir += craft.translation.direction_to(last_player_position) * poi_attraction
 		else:
-			# Wandering around
-			pass
-		# if craft.translation.distance_to(last_extractor_position) < 5:
-		# 	last_extractor_position = Vector3.ZERO
+			# Moving at random position
+			if random_position == Vector3.ZERO:
+				random_position = Vector3(
+					randf() * Settings.world_size - (Settings.world_size / 2),
+					craft.translation.y,
+					randf() * Settings.world_size - (Settings.world_size / 2)
+				)
+			dir += craft.translation.direction_to(random_position) * poi_attraction
+		
+		if craft.translation.distance_to(last_extractor_position) < 5:
+			last_extractor_position = Vector3.ZERO
+		if craft.translation.distance_to(last_player_position) < 5:
+			last_player_position = Vector3.ZERO
+		if craft.translation.distance_to(random_position) < 5:
+			random_position = Vector3.ZERO
 	elif cur_behaviour == HIDE:
 		dir += craft.translation.direction_to(hiding_pos) * poi_attraction
 
@@ -199,6 +218,7 @@ func _think():
 			if weapon is MissileLauncher:
 				weapon.fire_missile(extr.translation)
 	elif is_player_nearby() != null:
+		
 		# Look at player
 		craft.point_to_look = (
 			last_player_position 
