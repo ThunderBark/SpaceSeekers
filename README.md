@@ -1,4 +1,4 @@
-![image](https://raw.githubusercontent.com/Woolfkiller/SpaceSeekers/master/resourses/cooltext423864377172742.png)
+![image](https://raw.githubusercontent.com/Woolfkiller/SpaceSeekers/master/resourses/logo_text.png)
 
 ---
 
