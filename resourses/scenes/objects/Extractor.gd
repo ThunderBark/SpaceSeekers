@@ -34,6 +34,7 @@ func take_damage(damage_amount, shooter: Spatial):
 	hp_bar.visible = true
 
 	if health <= 0 and !is_dead:
+		hp_bar.visible = false
 		is_dead = true
 		if is_in_group("enemy"):
 			PlayerState.player_score_increase_by_amount(50)

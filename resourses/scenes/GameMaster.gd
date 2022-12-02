@@ -44,6 +44,7 @@ func _ready():
 	PlayerState.connect("player_selection_state_changed", PlayerState, "player_changed_mode")
 	gui.world_end_time_changed(timeout)
 
+	$LoadingScreen.visible = true
 	planet_animation.playing = true
 
 
