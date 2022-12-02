@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://resourses/scenes/terrain/TerrainGenerator.gd" type="Script" id=1]
 [ext_resource path="res://resourses/scenes/terrain/MapMaster.gd" type="Script" id=2]
@@ -7,6 +7,10 @@
 [ext_resource path="res://resourses/scenes/objects/Crystal.tscn" type="PackedScene" id=5]
 [ext_resource path="res://resourses/scenes/terrain/BorderDamageArea.tscn" type="PackedScene" id=6]
 [ext_resource path="res://resourses/scenes/terrain/BorderWinds.tscn" type="PackedScene" id=7]
+[ext_resource path="res://resourses/scenes/objects/rocks_smallA.tscn" type="PackedScene" id=8]
+[ext_resource path="res://resourses/scenes/objects/rocks_smallB.tscn" type="PackedScene" id=9]
+[ext_resource path="res://resourses/scenes/objects/rock_largeA.tscn" type="PackedScene" id=10]
+[ext_resource path="res://resourses/scenes/objects/rock_largeB.tscn" type="PackedScene" id=11]
 
 [node name="MapMaster" type="Spatial"]
 script = ExtResource( 2 )
@@ -33,4 +37,4 @@ __meta__ = {
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0.5 )
 script = ExtResource( 4 )
 crystal_cluster = ExtResource( 5 )
-cluster_chance = 100
+dune_details = [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ]

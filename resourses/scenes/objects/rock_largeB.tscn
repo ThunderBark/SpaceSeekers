@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://assets/models/Kenney_space/rock_largeB.obj" type="ArrayMesh" id=1]
+
+[node name="rock_largeB" type="MeshInstance"]
+mesh = ExtResource( 1 )

@@ -206,9 +206,9 @@ func _think():
 			* (craft.translation.distance_to(last_player_position) * 0.03)
 		)
 		# Fire bullets at player		
-		for weapon in weapons.get_children():
-			if weapon is Minigun:
-				weapon.fire_bullet()
+		# for weapon in weapons.get_children():
+		# 	if weapon is Minigun:
+		# 		weapon.fire_bullet()
 	else:
 		# Look front
 		craft.point_to_look = craft.translation + const_dir
