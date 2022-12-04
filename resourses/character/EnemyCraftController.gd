@@ -14,6 +14,7 @@ onready var craft: CraftController = $SpeederA
 onready var attention_area: Area = craft.get_node("AttentionArea")
 onready var grid: GridMap = get_node(grid_path)
 onready var last_think_time: int = Time.get_ticks_msec()
+onready var weapons = $SpeederA/Hull/Weapons
 
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var speed: float = 100.0
@@ -36,8 +37,6 @@ enum {
 	HIDE
 }
 var cur_behaviour = FLEE
-
-onready var weapons = $SpeederA/Hull/Weapons
 
 
 func _ready():
@@ -84,6 +83,10 @@ func is_player_nearby() -> CraftController:
 		if body.is_in_group("player") and (body is CraftController):
 			last_player_position = body.translation
 			player_detected = body
+	for area in attention_area.get_overlapping_areas():
+		if (area is Missile) or (area is Bullet):
+			if area.shooter.is_in_group("player"):
+				last_player_position = area.shooter.translation
 	return player_detected
 
 func is_player_extractor_nearby() -> Extractor:
@@ -194,8 +197,11 @@ func choose_direction_to_go() -> Vector3:
 		if craft.translation.distance_to(random_position) < 5:
 			random_position = Vector3.ZERO
 	elif cur_behaviour == HIDE:
-		dir += craft.translation.direction_to(hiding_pos) * poi_attraction
-
+		if hiding_pos != Vector3.ZERO:
+			dir += craft.translation.direction_to(hiding_pos) * poi_attraction
+	
+		if craft.translation.distance_to(hiding_pos) < 5:
+			hiding_pos = Vector3.ZERO
 	return dir.normalized()
 
 

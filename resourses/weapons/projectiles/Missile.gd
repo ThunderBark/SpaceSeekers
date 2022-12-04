@@ -1,3 +1,4 @@
+class_name Missile
 extends Area
 
 
@@ -37,6 +38,7 @@ func _on_Rocket_body_entered(body):
 			if body is Extractor:
 				body.take_damage(damage, shooter)
 		is_already_blow_up = true
+		$CollisionShape.disabled = true
 		$Thrust.stop()
 		$Explosion.pitch_scale = 0.75 + randf() * 0.5
 		$Explosion.play()

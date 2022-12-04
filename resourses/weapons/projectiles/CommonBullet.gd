@@ -1,11 +1,12 @@
+class_name Bullet
 extends Area
 
 export (int) var damage: int = 2
 
 var speed = 50
-var shooter
-var lifetime : float = 3.0
-var particle_time : float = 0.1
+var shooter: Spatial
+var lifetime: float = 3.0
+var particle_time: float = 0.1
 
 func _ready():
 	$AudioStreamPlayer3D.pitch_scale = 0.75 + randf() * 0.5
@@ -22,6 +23,7 @@ func _on_Bullet_body_entered(body):
 		if body is CraftController:
 			body.take_damage(damage)
 
+		$CollisionShape.disabled = true
 		$MeshInstance.hide()
 		$Particles.emitting = true
 		yield(get_tree().create_timer(0.1), "timeout")

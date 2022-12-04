@@ -188,8 +188,7 @@ tracks/6/keys = {
 
 [node name="Missile" type="Area"]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
-collision_layer = 0
-monitorable = false
+collision_layer = 2
 script = ExtResource( 1 )
 speed = 30.0
 

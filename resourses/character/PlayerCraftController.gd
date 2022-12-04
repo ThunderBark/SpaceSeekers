@@ -122,17 +122,17 @@ func building_mode():
 
 func craft_took_damage(damage_amount):
 	var damage_time = Time.get_ticks_msec()
-	# if ((damage_time - last_damage_time) >= invul_msec) and not is_dead:
-	# 	last_damage_time = damage_time
+	if ((damage_time - last_damage_time) >= invul_msec) and not is_dead:
+		last_damage_time = damage_time
 
-	# 	player_hp -= damage_amount
-	# 	PlayerState.player_hp_changed(player_hp)
-	# 	if player_hp <= 0:
-	# 		blueprint.queue_free()
-	# 		is_dead = true
-	# 		set_physics_process(false)
-	# 		craft.die()
-	# 		PlayerState.player_died()
+		player_hp -= damage_amount
+		PlayerState.player_hp_changed(player_hp)
+		if player_hp <= 0:
+			blueprint.queue_free()
+			is_dead = true
+			set_physics_process(false)
+			craft.die()
+			PlayerState.player_died()
 
 
 func has_enough_score_to_build() -> bool:
