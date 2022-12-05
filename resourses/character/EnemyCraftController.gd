@@ -13,8 +13,9 @@ export(float) var accuracy: float = 5.0
 onready var craft: CraftController = $SpeederA
 onready var attention_area: Area = craft.get_node("AttentionArea")
 onready var grid: GridMap = get_node(grid_path)
-onready var last_think_time: int = Time.get_ticks_msec()
 onready var weapons = $SpeederA/Hull/Weapons
+
+onready var last_think_time: int = Time.get_ticks_msec()
 
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var speed: float = 100.0
@@ -28,6 +29,9 @@ var ref_think_period: int = 300
 var think_period: int = ref_think_period
 var const_dir: Vector3 = Vector3.ZERO
 var is_dead: bool = false
+
+const BUILD_DELAY: int = 60
+var cur_build_delay: int = BUILD_DELAY
 
 var accuracy_point: Vector3 = Vector3.ZERO
 
@@ -117,10 +121,14 @@ func prefered_crystal_pos(prefered_dir: Vector3) -> Crystal:
 	return crystal
 
 
-func place_extractor(crystal: Crystal):
+func place_extractor(crystal: Crystal) -> bool:
 	var rotation_y = try_find_rotation(crystal.global_translation)
 	if rotation_y == -1:
-		return
+		cur_build_delay = BUILD_DELAY
+		return false
+	
+	if (cur_build_delay > 0):
+		return false
 
 	var extr: Spatial = extractor.instance()
 	extr.translation = crystal.translation
@@ -130,6 +138,8 @@ func place_extractor(crystal: Crystal):
 	crystal.is_vacant = false
 	extr.set_team(enemy_material, "enemy")
 	PlayerState.enemy_buy_extractor()
+
+	return true
 
 
 func choose_direction_to_go() -> Vector3:
@@ -215,7 +225,11 @@ func _think(delta: float):
 	# Trying to place extractor
 	var poi_crystal: Crystal = prefered_crystal_pos(Vector3.ZERO)
 	if is_beneficial_to_place_extractor() and (poi_crystal != null):
-		place_extractor(poi_crystal)
+		craft.point_to_look = poi_crystal.translation
+		cur_build_delay -= delta
+		if (place_extractor(poi_crystal)):
+			cur_build_delay = BUILD_DELAY
+		return
 
 	# Point to look
 	var extr: Extractor = is_player_extractor_nearby()
