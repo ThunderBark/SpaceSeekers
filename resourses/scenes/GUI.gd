@@ -64,17 +64,9 @@ func set_control_tooltip_state():
 		controls_build_tooltip.visible = true
 
 
-func _on_Build_button_down():
-	_mode_selected(PlayerState.PLAYER_BUILDING)
-
-
-func _on_Air_button_down():
-	_mode_selected(PlayerState.PLAYER_FIRING_BULLETS)
-
-
 func _on_Build_button_up():
-	_mode_selected(PlayerState.PLAYER_BUILDING)
+	PlayerState._player_changed_mode(PlayerState.PLAYER_BUILDING)
 
 
 func _on_Air_button_up():
-	_mode_selected(PlayerState.PLAYER_FIRING_BULLETS)
+	PlayerState._player_changed_mode(PlayerState.PLAYER_FIRING_BULLETS)

@@ -87,6 +87,7 @@ func is_player_nearby() -> CraftController:
 		if (area is Missile) or (area is Bullet):
 			if area.shooter.is_in_group("player"):
 				last_player_position = area.shooter.translation
+				cur_behaviour = FLEE
 	return player_detected
 
 func is_player_extractor_nearby() -> Extractor:

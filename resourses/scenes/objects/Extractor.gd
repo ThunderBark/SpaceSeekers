@@ -22,9 +22,9 @@ func _ready():
 
 
 func take_damage(damage_amount, shooter: Spatial):
-	if is_in_group("enemy") and shooter.is_in_group("enemy"):
+	if is_in_group("enemy") and shooter and shooter.is_in_group("enemy"):
 		return
-	if is_in_group("player") and shooter.is_in_group("player"):
+	if is_in_group("player") and shooter and shooter.is_in_group("player"):
 		return
 	
 	health -= damage_amount

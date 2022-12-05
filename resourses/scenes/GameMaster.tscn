@@ -1373,9 +1373,7 @@ stream = ExtResource( 27 )
 volume_db = -35.0
 bus = "SFX"
 
-[connection signal="button_down" from="GUI/ModeSetButtons/Air" to="GUI" method="_on_Air_button_down"]
 [connection signal="button_up" from="GUI/ModeSetButtons/Air" to="GUI" method="_on_Air_button_up"]
-[connection signal="button_down" from="GUI/ModeSetButtons/Build" to="GUI" method="_on_Build_button_down"]
 [connection signal="button_up" from="GUI/ModeSetButtons/Build" to="GUI" method="_on_Build_button_up"]
 [connection signal="button_up" from="PauseMenu/ButtonsContainer/VBoxContainer/RestartButton" to="PauseMenu" method="_on_RestartButton_button_up"]
 [connection signal="button_up" from="PauseMenu/ButtonsContainer/VBoxContainer/ReturnButton" to="PauseMenu" method="_on_ReturnButton_button_up"]
