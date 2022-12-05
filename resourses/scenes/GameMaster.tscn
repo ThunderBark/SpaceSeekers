@@ -1,4 +1,4 @@
-[gd_scene load_steps=255 format=2]
+[gd_scene load_steps=256 format=2]
 
 [ext_resource path="res://resourses/scenes/GameMaster.gd" type="Script" id=1]
 [ext_resource path="res://resourses/scenes/terrain/MapMaster.tscn" type="PackedScene" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://assets/kenney-ui/Font/kenvector_future.ttf" type="DynamicFontData" id=11]
 [ext_resource path="res://assets/planet.png" type="Texture" id=12]
 [ext_resource path="res://assets/stars.png" type="Texture" id=13]
+[ext_resource path="res://resourses/scenes/terrain/Wind.tscn" type="PackedScene" id=14]
 [ext_resource path="res://assets/kenney-ui-space/PNG/square_shadow.png" type="Texture" id=15]
 [ext_resource path="res://assets/kenney-ui/PNG/red_button03.png" type="Texture" id=16]
 [ext_resource path="res://assets/kenney-ui/PNG/grey_button12.png" type="Texture" id=17]
@@ -956,6 +957,7 @@ shadow_enabled = true
 
 [node name="MapMaster" parent="." instance=ExtResource( 2 )]
 pause_mode = 2
+wind_particles = ExtResource( 14 )
 border_wind_dimension = 4
 wind_border_width = 64
 terrain_size = 128

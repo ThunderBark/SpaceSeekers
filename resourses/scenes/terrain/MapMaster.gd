@@ -2,6 +2,7 @@ extends Spatial
 
 export(PackedScene) var border_wind_scene: PackedScene
 export(PackedScene) var border_damage_area_scene: PackedScene
+export(PackedScene) var wind_particles: PackedScene
 export(int) var border_wind_dimension: int
 
 onready var tile_grid_map := $TerrainGridMap
@@ -113,6 +114,11 @@ func _process(delta):
 		var x: int = ((-terrain_size / 2) + (-sector_size / 2) + (sector_size * i))
 		var z: int = ((-terrain_size / 2) + (-sector_size / 2) + (sector_size * j))
 		tile_grid_map.generate_sector(Vector2(x,z), sector_size)
+
+		# Generate wind particles
+		var winds: Particles = wind_particles.instance()
+		winds.translation = Vector3(x, 1.5, z)
+		add_child(winds)
 
 		cur_sector += 1
 		emit_signal("sector_load_pct", int((100 * cur_sector) / sector_cnt))

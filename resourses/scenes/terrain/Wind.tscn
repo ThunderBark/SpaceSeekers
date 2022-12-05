@@ -1,0 +1,79 @@
+[gd_scene load_steps=13 format=2]
+
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.247148, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.749049, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=2]
+curve = SubResource( 1 )
+
+[sub_resource type="Curve" id=3]
+min_value = -10.0
+max_value = 10.0
+_data = [ Vector2( 0, -10 ), 0.0, 0.0, 0, 0, Vector2( 1, 10 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=4]
+curve = SubResource( 3 )
+
+[sub_resource type="ParticlesMaterial" id=5]
+trail_divisor = 15
+emission_shape = 2
+emission_box_extents = Vector3( 16, 1, 16 )
+flag_align_y = true
+direction = Vector3( 0, 0, 1 )
+spread = 20.0
+flatness = 1.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 10.0
+tangential_accel_curve = SubResource( 4 )
+scale_curve = SubResource( 2 )
+
+[sub_resource type="SpatialMaterial" id=7]
+flags_transparent = true
+albedo_color = Color( 0.843137, 0.870588, 0.909804, 0.498039 )
+
+[sub_resource type="QuadMesh" id=6]
+material = SubResource( 7 )
+size = Vector2( 0.2, 2 )
+
+[sub_resource type="Curve" id=8]
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.110266, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.920152, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=9]
+curve = SubResource( 8 )
+
+[sub_resource type="ParticlesMaterial" id=10]
+emission_shape = 2
+emission_box_extents = Vector3( 16, 1, 16 )
+flag_rotate_y = true
+direction = Vector3( 0, 0, 1 )
+spread = 25.0
+flatness = 1.0
+gravity = Vector3( 0, 1, 0 )
+initial_velocity = 10.0
+damping = 5.0
+scale_curve = SubResource( 9 )
+
+[sub_resource type="SpatialMaterial" id=11]
+flags_transparent = true
+params_billboard_mode = 1
+albedo_color = Color( 0.698039, 0.372549, 0.262745, 0.658824 )
+
+[sub_resource type="QuadMesh" id=12]
+material = SubResource( 11 )
+size = Vector2( 0.15, 0.15 )
+
+[node name="Wind" type="Particles"]
+transform = Transform( 1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0 )
+cast_shadow = 0
+amount = 15
+lifetime = 1.5
+randomness = 1.0
+visibility_aabb = AABB( -16, -2, -16, 32, 2, 32 )
+process_material = SubResource( 5 )
+draw_pass_1 = SubResource( 6 )
+
+[node name="Particles" type="Particles" parent="."]
+amount = 30
+visibility_aabb = AABB( -16, -4, -16, 32, 4, 32 )
+process_material = SubResource( 10 )
+draw_pass_1 = SubResource( 12 )
