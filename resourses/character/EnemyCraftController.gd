@@ -5,8 +5,8 @@ export(NodePath) var grid_path: NodePath
 export(SpatialMaterial) var enemy_material: SpatialMaterial
 export(PackedScene) var extractor: PackedScene
 export(Vector3) var player_start_pos: Vector3 = Vector3.ZERO
-export(int) var max_health: int = 30
-export(int) var health: int = 30
+export(int) var max_health: int = 100
+export(int) var health: int = 100
 export(float) var world_size: float = 64.0
 export(float) var accuracy: float = 5.0
 
@@ -20,6 +20,7 @@ var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var speed: float = 100.0
 
 var last_player_position: Vector3 = player_start_pos
+var last_player_health: int = max_health
 var last_extractor_position: Vector3 = player_start_pos
 var random_position: Vector3 = Vector3.ZERO
 var hiding_pos: Vector3
@@ -65,6 +66,8 @@ func _physics_process(delta):
 func die():
 	PlayerState.enemy_last_extractor_pos = last_extractor_position
 	PlayerState.enemy_last_player_pos = last_player_position
+	PlayerState.enemy_last_player_health = last_player_health
+
 	set_physics_process(false)
 	craft.die()
 	PlayerState.enemy_died()
@@ -82,12 +85,8 @@ func is_player_nearby() -> CraftController:
 	for body in attention_area.get_overlapping_bodies():
 		if body.is_in_group("player") and (body is CraftController):
 			last_player_position = body.translation
+			last_player_health = body.get_parent().player_hp
 			player_detected = body
-	for area in attention_area.get_overlapping_areas():
-		if (area is Missile) or (area is Bullet):
-			if area.shooter.is_in_group("player"):
-				last_player_position = area.shooter.translation
-				cur_behaviour = FLEE
 	return player_detected
 
 func is_player_extractor_nearby() -> Extractor:
@@ -136,7 +135,7 @@ func place_extractor(crystal: Crystal):
 func choose_direction_to_go() -> Vector3:
 	var dir: Vector3 = Vector3.ZERO
 	
-	if health > max_health / 2:
+	if not ((last_player_health - health) > (max_health / 2)):
 		if is_player_nearby() != null:
 			cur_behaviour = ATTACK
 		else:
@@ -272,3 +271,11 @@ func try_find_rotation(point: Vector3) -> int:
 					):
 						return i
 	return -1
+
+
+func _on_AttentionArea_area_entered(area: Area):
+	if (area is Missile) or (area is Bullet):
+		if area.shooter.is_in_group("player"):
+			last_player_position = area.shooter.translation
+			last_player_health = area.shooter.get_parent().player_hp
+			cur_behaviour = FLEE

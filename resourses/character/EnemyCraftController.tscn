@@ -15,8 +15,6 @@ script = ExtResource( 1 )
 grid_path = NodePath("../MapMaster/TerrainGridMap")
 enemy_material = ExtResource( 5 )
 extractor = ExtResource( 4 )
-max_health = 100
-health = 100
 
 [node name="SpeederA" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -13.9678 )
@@ -28,3 +26,5 @@ monitorable = false
 
 [node name="CollisionShape" type="CollisionShape" parent="SpeederA/AttentionArea"]
 shape = SubResource( 15 )
+
+[connection signal="area_entered" from="SpeederA/AttentionArea" to="." method="_on_AttentionArea_area_entered"]

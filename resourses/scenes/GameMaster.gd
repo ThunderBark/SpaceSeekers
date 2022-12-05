@@ -137,6 +137,7 @@ func respawn_enemy():
 	enemy.player_start_pos = PlayerState.enemy_last_player_pos
 	enemy.last_extractor_position = PlayerState.enemy_last_extractor_pos
 	enemy.last_player_position = PlayerState.enemy_last_player_pos
+	enemy.last_player_health = PlayerState.enemy_last_player_health
 	add_child(enemy)
 	enemy.craft.translation = enemy_spawn_pos
 	enemy.world_size = world_size

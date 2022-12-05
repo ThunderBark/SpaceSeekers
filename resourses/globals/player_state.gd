@@ -11,6 +11,7 @@ var extractor_cost: int = 200
 var respawn_cost: int = 200
 
 var enemy_last_player_pos: Vector3 = Vector3.ZERO
+var enemy_last_player_health: int = 100
 var enemy_last_extractor_pos: Vector3 = Vector3.ZERO
 
 
