@@ -164,7 +164,7 @@ func show_blueprint(intersection: Dictionary) -> void:
 	else:
 		blueprint.red()
 	
-	if not Input.is_action_just_pressed("primary_fire_action"):
+	if not (Input.is_action_just_pressed("primary_fire_action") and blueprint.check_ground()):
 		return
 	
 	if has_enough_score_to_build():
