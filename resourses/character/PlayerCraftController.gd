@@ -24,6 +24,8 @@ var last_damage_time: int = Time.get_ticks_msec()
 
 var is_dead: bool = false
 
+signal not_enough_funds_sig()
+
 
 func _ready():
 	for weapon in weapons.get_children():
@@ -149,21 +151,30 @@ func show_blueprint(intersection: Dictionary) -> void:
 
 	var coll: Spatial = intersection.collider
 
-	if (coll is Crystal) and (coll.is_vacant == true):
-		blueprint.translation = coll.translation
-		if blueprint.check_ground() and has_enough_score_to_build():
-			if Input.is_action_just_pressed("primary_fire_action"):
-				var extr: Spatial = extractor1.instance()
-				extr.translation = coll.translation
-				extr.rotation = blueprint.rotation
-				extr.add_to_group("player")
-				extr.crystal = coll
-				get_parent().add_child(extr)
-				coll.is_vacant = false
-				PlayerState.player_buy_extractor()
-			blueprint.green()
-		else:
-			blueprint.red()
-	else:
+	
+
+	if not ((coll is Crystal) and (coll.is_vacant == true)):
 		blueprint.red()
 		blueprint.translation = intersection.position
+		return
+	
+	blueprint.translation = coll.translation
+	if blueprint.check_ground() and has_enough_score_to_build():
+		blueprint.green()
+	else:
+		blueprint.red()
+	
+	if not Input.is_action_just_pressed("primary_fire_action"):
+		return
+	
+	if has_enough_score_to_build():
+		var extr: Spatial = extractor1.instance()
+		extr.translation = coll.translation
+		extr.rotation = blueprint.rotation
+		extr.add_to_group("player")
+		extr.crystal = coll
+		get_parent().add_child(extr)
+		coll.is_vacant = false
+		PlayerState.player_buy_extractor()
+	else:
+		emit_signal("not_enough_funds_sig")

@@ -131,6 +131,7 @@ func respawn_player():
 	var player = player_controller.instance()
 	add_child(player)
 	player.craft.translation = player_spawn_pos
+	player.connect("not_enough_funds_sig", $GUI, "insufficient_funds")
 
 func respawn_enemy():
 	var enemy = enemy_controller.instance()

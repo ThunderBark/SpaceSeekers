@@ -64,6 +64,10 @@ func set_control_tooltip_state():
 		controls_build_tooltip.visible = true
 
 
+func insufficient_funds():
+	$AnimationPlayer.play("not_enough_funds")		
+
+
 func _on_Build_button_up():
 	PlayerState._player_changed_mode(PlayerState.PLAYER_BUILDING)
 
