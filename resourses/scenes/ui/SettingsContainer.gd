@@ -1,4 +1,4 @@
-extends Control
+extends Popup
 
 
 onready var resolution_option_btn: OptionButton = $TabContainer/DISPLAY/VBoxContainer/UIResolutionSelector/OptionButton
@@ -70,6 +70,7 @@ func _on_UIControlTipCheckbox_toggled(is_button_pressed: bool):
 func _on_ApplyButton_button_up():
 	# Send the last selected settings with the signal
 	emit_signal("apply_button_pressed", _settings)
+	popup()
 
 
 func _on_OptionButton_item_selected(index:int):

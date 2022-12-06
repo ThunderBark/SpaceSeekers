@@ -10,11 +10,15 @@ anchor_left = 0.3
 anchor_top = 0.2
 anchor_right = 0.7
 anchor_bottom = 0.7
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource( 4 )
 
 [node name="TabContainer" type="TabContainer" parent="."]
-margin_right = 512.0
-margin_bottom = 360.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 tab_align = 0
 
 [node name="COMMON" type="Tabs" parent="TabContainer"]
@@ -29,21 +33,21 @@ margin_bottom = -4.0
 anchor_right = 1.0
 
 [node name="UILanguageSelector" type="HBoxContainer" parent="TabContainer/COMMON/VBoxContainer"]
-margin_right = 504.0
+margin_right = 760.0
 margin_bottom = 31.0
 alignment = 1
 
 [node name="Label" type="Label" parent="TabContainer/COMMON/VBoxContainer/UILanguageSelector"]
 margin_top = 3.0
-margin_right = 250.0
+margin_right = 378.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 text = "LANGUAGE"
 align = 2
 
 [node name="OptionButton" type="OptionButton" parent="TabContainer/COMMON/VBoxContainer/UILanguageSelector"]
-margin_left = 254.0
-margin_right = 504.0
+margin_left = 382.0
+margin_right = 760.0
 margin_bottom = 31.0
 size_flags_horizontal = 3
 text = "English"
@@ -53,13 +57,14 @@ selected = 0
 
 [node name="UIControlTipCheckbox" parent="TabContainer/COMMON/VBoxContainer" instance=ExtResource( 1 )]
 margin_top = 35.0
+margin_right = 760.0
 margin_bottom = 68.0
 alignment = 1
 title = "CONTROL_TIPS"
 
 [node name="ApplyButton" type="Button" parent="TabContainer/COMMON/VBoxContainer"]
 margin_top = 72.0
-margin_right = 504.0
+margin_right = 760.0
 margin_bottom = 103.0
 text = "APPLY"
 
