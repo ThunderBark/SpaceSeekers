@@ -6,7 +6,7 @@ func _on_QuitButton_button_down():
 
 
 func _on_SettingsButton_button_down():
-	$SettingsContainer.visible = !$SettingsContainer.visible
+	$SettingsContainer.popup()
 
 
 func _on_PlayButton_button_down():

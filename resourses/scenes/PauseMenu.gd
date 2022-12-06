@@ -36,7 +36,7 @@ func _on_MainMenuButton_button_up():
 
 
 func _on_SettingsButton_button_up():
-	$SettingsContainer.visible = !$SettingsContainer.visible
+	$SettingsContainer.popup()
 
 
 func _on_QuitButton_button_up():

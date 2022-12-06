@@ -4,15 +4,13 @@
 [ext_resource path="res://resourses/scenes/ui/UIResolutionSelector.tscn" type="PackedScene" id=3]
 [ext_resource path="res://resourses/scenes/ui/SettingsContainer.gd" type="Script" id=4]
 
-[node name="SettingsContainer" type="MarginContainer"]
+[node name="SettingsContainer" type="Popup"]
+visible = true
 anchor_left = 0.3
 anchor_top = 0.2
 anchor_right = 0.7
 anchor_bottom = 0.7
 script = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": true
-}
 
 [node name="TabContainer" type="TabContainer" parent="."]
 margin_right = 512.0
