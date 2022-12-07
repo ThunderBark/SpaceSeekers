@@ -1,0 +1,6 @@
+[gd_resource type="ProceduralSky" format=2]
+
+[resource]
+ground_bottom_color = Color( 0.737255, 0.411765, 0.301961, 1 )
+sun_latitude = -10.0
+sun_energy = 0.0

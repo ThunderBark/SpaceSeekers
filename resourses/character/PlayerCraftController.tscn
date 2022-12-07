@@ -10,10 +10,11 @@ pause_mode = 1
 script = ExtResource( 2 )
 building_bp = ExtResource( 4 )
 extractor1 = ExtResource( 5 )
+camera_init_position = Vector3( -6, 14, 6 )
 
 [node name="SpeederA" parent="." instance=ExtResource( 3 )]
 
-[node name="Camera" type="Camera" parent="SpeederA"]
-transform = Transform( 0.707107, 0.612372, -0.353554, 0, 0.5, 0.866025, 0.707107, -0.612372, 0.353554, -6.02001, 10.9444, 6.02001 )
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 0.707107, 0.612372, -0.353554, 0, 0.5, 0.866025, 0.707107, -0.612372, 0.353554, -6, 14, 6 )
 current = true
 size = 15.0

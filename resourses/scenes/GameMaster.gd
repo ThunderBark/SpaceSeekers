@@ -28,7 +28,7 @@ onready var player_spawn_pos: Vector3 = Vector3(
 
 var is_loading: bool = true
 var last_progress: int = 0
-var timeout: int = 180
+var timeout: int = 182
 var last_timeout_tick: int = 0
 
 
@@ -132,6 +132,7 @@ func respawn_player():
 	add_child(player)
 	player.craft.translation = player_spawn_pos
 	player.connect("not_enough_funds_sig", $GUI, "insufficient_funds")
+	player.play_arrival_cutscene()
 
 func respawn_enemy():
 	var enemy = enemy_controller.instance()
@@ -142,4 +143,5 @@ func respawn_enemy():
 	add_child(enemy)
 	enemy.craft.translation = enemy_spawn_pos
 	enemy.world_size = world_size
+	enemy.play_arrival_cutscene()
 

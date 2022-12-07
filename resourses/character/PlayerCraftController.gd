@@ -5,12 +5,13 @@ export(PackedScene) var building_bp: PackedScene
 onready var blueprint: Spatial = building_bp.instance()
 export(PackedScene) var extractor1: PackedScene
 onready var extractor: Spatial = extractor1.instance()
+export(Vector3) var camera_init_position: Vector3
+
 
 export(int) var invul_msec: int = 10
 
 onready var craft: KinematicBody = get_child(0)
-onready var camera: Camera = craft.get_node("Camera")
-onready var camera_init_position: Vector3 = camera.translation
+onready var camera: Camera = get_node("Camera")
 
 onready var weapons := $SpeederA/Hull/Weapons
 
@@ -23,6 +24,7 @@ var player_hp: int = max_hp
 var last_damage_time: int = Time.get_ticks_msec()
 
 var is_dead: bool = false
+var is_arriving: bool = false
 
 signal not_enough_funds_sig()
 
@@ -39,7 +41,51 @@ func _ready():
 	add_child(blueprint)
 
 
+func play_arrival_cutscene():
+	var tween: Tween = Tween.new()
+	tween.interpolate_property(
+		craft,
+		"translation",
+		craft.translation - craft.translation.direction_to(Vector3.ZERO) * 40 + Vector3.UP * 10,
+		craft.translation,
+		2.0,
+		Tween.TRANS_QUAD,
+		Tween.EASE_OUT
+	)
+	add_child(tween)
+	tween.connect("tween_completed", self, "craft_arrived")
+	tween.start()
+	craft.hull.rotation.y = craft.transform.looking_at(Vector3.ZERO, Vector3.UP).basis.get_euler().y + PI	
+
+	is_arriving = true
+
+
+func craft_arrived(obj, key):
+	craft.point_to_look = Vector3.ZERO
+	is_arriving = false
+
 func _physics_process(delta):
+	## Camera offset
+	camera.translation = lerp(
+		camera.translation,
+		(
+			craft.translation +
+			camera_init_position + (
+				Vector3(
+					(get_viewport().get_mouse_position().x - get_viewport().size.x / 2) / get_viewport().size.x,
+					0,
+					(get_viewport().get_mouse_position().y - get_viewport().size.y / 2) / get_viewport().size.y
+				).rotated(
+					Vector3.UP, -PI / 4
+				) * 23
+			)
+		),
+		1.5 * delta
+	)
+
+	if is_arriving:
+		return
+
 	## Move craft
 	var dir: Vector3 = Vector3.ZERO
 	if Input.is_action_pressed("move_left"):
@@ -76,18 +122,6 @@ func _physics_process(delta):
 	else:
 		blueprint.visible = false
 
-	## Camera offset
-	camera.translation = lerp(
-		camera.translation,
-		(
-			camera_init_position + (
-				Vector3((get_viewport().get_mouse_position().x - get_viewport().size.x / 2) / get_viewport().size.x, 0, (get_viewport().get_mouse_position().y - get_viewport().size.y / 2) / get_viewport().size.y).rotated(
-					Vector3.UP, -PI / 4
-				) * 23
-			)
-		),
-		1.5 * delta
-	)
 
 
 func try_fire_bullet() -> void:
@@ -124,7 +158,9 @@ func building_mode():
 
 func craft_took_damage(damage_amount):
 	var damage_time = Time.get_ticks_msec()
-	if ((damage_time - last_damage_time) >= invul_msec) and not is_dead:
+	if (((damage_time - last_damage_time) >= invul_msec)
+		and not is_dead
+		and not is_arriving):
 		last_damage_time = damage_time
 
 		player_hp -= damage_amount

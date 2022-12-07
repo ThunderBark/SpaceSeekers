@@ -34,6 +34,7 @@ const BUILD_DELAY: int = 60
 var cur_build_delay: int = BUILD_DELAY
 
 var accuracy_point: Vector3 = Vector3.ZERO
+var is_arriving: bool = false
 
 enum {
 	FLEE,
@@ -44,6 +45,29 @@ enum {
 var cur_behaviour = FLEE
 
 
+func play_arrival_cutscene():
+	var tween: Tween = Tween.new()
+	tween.interpolate_property(
+		craft,
+		"translation",
+		craft.translation - craft.translation.direction_to(Vector3.ZERO) * 20,
+		craft.translation,
+		3.0,
+		Tween.TRANS_QUAD,
+		Tween.EASE_OUT
+	)
+	add_child(tween)
+	tween.connect("tween_completed", self, "craft_arrived")
+	tween.start()
+	craft.hull.rotation.y = craft.hull.transform.looking_at(Vector3.ZERO, Vector3.UP).basis.get_euler().y
+
+	is_arriving = true
+
+
+func craft_arrived(obj, key):
+	craft.point_to_look = Vector3.ZERO
+	is_arriving = false
+
 func _ready():
 	for weapon in weapons.get_children():
 		weapon.craft = craft
@@ -53,7 +77,7 @@ func _ready():
 
 
 func craft_took_damage(amount):
-	if is_dead:
+	if is_dead or is_arriving:
 		return
 	
 	health -= amount
