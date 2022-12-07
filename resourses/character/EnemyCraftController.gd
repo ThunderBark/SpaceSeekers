@@ -8,7 +8,7 @@ export(Vector3) var player_start_pos: Vector3 = Vector3.ZERO
 export(int) var max_health: int = 100
 export(int) var health: int = 100
 export(float) var world_size: float = 64.0
-export(float) var accuracy: float = 7.0
+export(float) var accuracy: float = 9.0
 
 onready var craft: CraftController = $SpeederA
 onready var attention_area: Area = craft.get_node("AttentionArea")
@@ -52,7 +52,7 @@ func play_arrival_cutscene():
 		"translation",
 		craft.translation - craft.translation.direction_to(Vector3.ZERO) * 20,
 		craft.translation,
-		3.0,
+		1.5,
 		Tween.TRANS_QUAD,
 		Tween.EASE_OUT
 	)

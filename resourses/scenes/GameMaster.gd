@@ -26,9 +26,10 @@ onready var player_spawn_pos: Vector3 = Vector3(
 	-enemy_spawn_pos.z
 )
 
+var respawn_delay: int = 3
 var is_loading: bool = true
 var last_progress: int = 0
-var timeout: int = 182
+var timeout: int = 183
 var last_timeout_tick: int = 0
 
 
@@ -60,13 +61,13 @@ func _input(event):
 		get_tree().paused = false
 		is_loading = false
 
-		# Spawn players
-		respawn_player()
-		respawn_enemy()
-
 		var settings := Settings.get_settings()
 
 		PlayerState.player_score_changed(PlayerState.player_score)
+
+		# Spawn players
+		respawn_player()
+		respawn_enemy()
 
 
 func _process(delta):
@@ -128,13 +129,17 @@ func player_won():
 
 
 func respawn_player():
+	gui.player_respawning(respawn_delay)
+	yield(get_tree().create_timer(respawn_delay), "timeout")
 	var player = player_controller.instance()
 	add_child(player)
 	player.craft.translation = player_spawn_pos
 	player.connect("not_enough_funds_sig", $GUI, "insufficient_funds")
 	player.play_arrival_cutscene()
+	get_tree().paused = false
 
 func respawn_enemy():
+	yield(get_tree().create_timer(3), "timeout")
 	var enemy = enemy_controller.instance()
 	enemy.player_start_pos = PlayerState.enemy_last_player_pos
 	enemy.last_extractor_position = PlayerState.enemy_last_extractor_pos

@@ -48,7 +48,7 @@ func play_arrival_cutscene():
 		"translation",
 		craft.translation - craft.translation.direction_to(Vector3.ZERO) * 40 + Vector3.UP * 10,
 		craft.translation,
-		2.0,
+		1.5,
 		Tween.TRANS_QUAD,
 		Tween.EASE_OUT
 	)

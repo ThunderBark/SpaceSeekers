@@ -11,6 +11,7 @@ onready var controls_fire_tooltip: Control = $ControlsTooltip/FireTooltip
 onready var controls_tooltip: Control = $ControlsTooltip
 
 var last_settings: Dictionary
+var player_respawn_time: int = 0
 
 func _ready():
 	if PlayerState.connect("player_selection_state_changed", self, "_mode_selected") != OK:
@@ -62,6 +63,16 @@ func set_control_tooltip_state():
 		controls_fire_tooltip.visible = true
 	if PlayerState.player_mode == PlayerState.PLAYER_BUILDING:
 		controls_build_tooltip.visible = true
+
+
+func player_respawning(time: int):
+	if time > 0:
+		$RespawnPanel.visible = true
+		$RespawnPanel/Label.text = String(time)
+		yield(get_tree().create_timer(1), "timeout")
+		player_respawning(time - 1)
+	else:
+		$RespawnPanel.visible = false
 
 
 func insufficient_funds():
