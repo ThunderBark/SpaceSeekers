@@ -1271,7 +1271,6 @@ custom_fonts/font = SubResource( 244 )
 text = "3"
 align = 1
 valign = 1
-percent_visible = -1.0
 
 [node name="BackupCamera" type="Camera" parent="."]
 pause_mode = 2

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://resourses/scenes/objects/Crystal.mesh" type="ArrayMesh" id=1]
 [ext_resource path="res://resourses/main_menu_scene.anim" type="Animation" id=2]
@@ -12,6 +12,10 @@
 [ext_resource path="res://assets/kenney-ui/PNG/red_button00.png" type="Texture" id=10]
 [ext_resource path="res://resourses/scenes/MainMenu.gd" type="Script" id=11]
 [ext_resource path="res://resourses/scenes/ui/SettingsContainer.tscn" type="PackedScene" id=12]
+[ext_resource path="res://resourses/scenes/objects/rocks_smallB.tscn" type="PackedScene" id=13]
+[ext_resource path="res://resourses/scenes/objects/rock_largeA.tscn" type="PackedScene" id=14]
+[ext_resource path="res://resourses/scenes/objects/rocks_smallA.tscn" type="PackedScene" id=15]
+[ext_resource path="res://resourses/scenes/objects/rock_largeB.tscn" type="PackedScene" id=16]
 
 [sub_resource type="ArrayMesh" id=2]
 surfaces/0 = {
@@ -230,7 +234,7 @@ valign = 1
 transform = Transform( 0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 0, 10, 0 )
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, -0.5, 0.5, -0.235042, 2.19232, 1.25125 )
+transform = Transform( 0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, -0.5, 0.5, -0.235042, 2.31475, 1.25125 )
 current = true
 
 [node name="Scene" type="Spatial" parent="."]
@@ -255,7 +259,7 @@ __meta__ = {
 }
 
 [node name="Hull" type="MeshInstance" parent="Scene"]
-transform = Transform( -0.266683, -0.306003, -0.913915, 0, 0.948258, -0.317501, 0.963784, -0.0846723, -0.252884, 2.19264, 0.778035, 0.558832 )
+transform = Transform( -0.266683, -0.277342, -0.923017, 0, 0.957702, -0.287763, 0.963784, -0.0767417, -0.255403, 2.19264, 0.712551, 0.558832 )
 mesh = SubResource( 2 )
 skeleton = NodePath("../..")
 
@@ -264,6 +268,34 @@ autoplay = "New Anim"
 reset_on_save = false
 "anims/New Anim" = ExtResource( 2 )
 anims/RESET = SubResource( 4 )
+
+[node name="rocks_smallA3" parent="Scene" instance=ExtResource( 15 )]
+transform = Transform( -0.281408, 0, 0.640944, 0, 0.7, 0, -0.640944, 0, -0.281408, -0.763466, 0.0883565, -1.46367 )
+skeleton = NodePath("../rocks_smallA")
+
+[node name="rocks_smallA" parent="Scene" instance=ExtResource( 15 )]
+transform = Transform( 0.546804, 0, 0.837261, 0, 1, 0, -0.837261, 0, 0.546804, 0.538536, 0.0441782, -3.04777 )
+skeleton = NodePath("../..")
+
+[node name="rocks_smallB" parent="Scene" instance=ExtResource( 13 )]
+transform = Transform( 0.448898, 0, -0.893583, 0, 1, 0, 0.893583, 0, 0.448898, 3.99533, 0.544203, -1.68112 )
+skeleton = NodePath("../..")
+
+[node name="rocks_smallA2" parent="Scene" instance=ExtResource( 15 )]
+transform = Transform( 0.260589, 0, -0.96545, 0, 1, 0, 0.96545, 0, 0.260589, 1.39854, 0.0435746, 0.988384 )
+skeleton = NodePath("../..")
+
+[node name="rocks_smallB2" parent="Scene" instance=ExtResource( 13 )]
+transform = Transform( 0.710529, 0, -0.703668, 0, 1, 0, 0.703668, 0, 0.710529, 7.79472, 1.04819, 1.00406 )
+skeleton = NodePath("../rock_largeA")
+
+[node name="rock_largeA" parent="Scene" instance=ExtResource( 14 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 3.29678, 0.544798, -5.40832 )
+skeleton = NodePath("../..")
+
+[node name="rock_largeB" parent="Scene" instance=ExtResource( 16 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.53599, 0.545671, 0.16348 )
+skeleton = NodePath("../..")
 
 [node name="Music" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 4 )

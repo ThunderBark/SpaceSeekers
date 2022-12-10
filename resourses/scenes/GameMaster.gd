@@ -26,7 +26,7 @@ onready var player_spawn_pos: Vector3 = Vector3(
 	-enemy_spawn_pos.z
 )
 
-var respawn_delay: int = 3
+var respawn_delay: int = 0
 var is_loading: bool = true
 var last_progress: int = 0
 var timeout: int = 183
@@ -137,6 +137,7 @@ func respawn_player():
 	player.connect("not_enough_funds_sig", $GUI, "insufficient_funds")
 	player.play_arrival_cutscene()
 	get_tree().paused = false
+	respawn_delay = 3
 
 func respawn_enemy():
 	yield(get_tree().create_timer(3), "timeout")
