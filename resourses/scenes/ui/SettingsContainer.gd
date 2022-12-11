@@ -36,7 +36,11 @@ func _ready():
 	sfx_vol_slider.value = _settings.sfx_vol
 	if _settings.language in "en":
 		language_selector.select(0)
+		$TabContainer/CONTROLS/ControlTextEn.visible = true
+		$TabContainer/CONTROLS/ControlTextRu.visible = false
 	elif _settings.language in "ru":
+		$TabContainer/CONTROLS/ControlTextEn.visible = false
+		$TabContainer/CONTROLS/ControlTextRu.visible = true
 		language_selector.select(1)
 	for i in resolution_option_btn.get_item_count():
 		if ((String(_settings.resolution.x) in resolution_option_btn.get_item_text(i)) and
@@ -76,8 +80,12 @@ func _on_ApplyButton_button_up():
 func _on_OptionButton_item_selected(index:int):
 	if index == 0:
 		_settings.language = "en"
+		$TabContainer/CONTROLS/ControlTextEn.visible = true
+		$TabContainer/CONTROLS/ControlTextRu.visible = false
 	elif index == 1:
 		_settings.language = "ru"
+		$TabContainer/CONTROLS/ControlTextEn.visible = false
+		$TabContainer/CONTROLS/ControlTextRu.visible = true
 
 
 func _on_MusicVolumeSlider_value_changed(value):
