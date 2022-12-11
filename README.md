@@ -25,9 +25,11 @@ While in *Building mode* you can see cube template with which you can build Spac
 
 ## Acknowledgements
 
-Development of this game would be impossible without [Kenney assets](https://www.kenney.nl).
+Most of the assets I used is not mine, so here is the authors:
 
-I will thank sites with free sounds when I add sounds to a game)))
+- All models and some of sounds I got from [Kenney assets](https://www.kenney.nl).
+- Main menu theme: (1st Contact - Eclipse)[https://freemusicarchive.org/music/1st-contact/single/eclipse/].
+- Some sound effects I used and modified were downloaded from (MixKit)[https://mixkit.co/]
 
 And I grateful to my friends for their support. Without them, this project would not have been possible.
 
