@@ -184,7 +184,7 @@ margin_bottom = 40.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/ButtonsContainer"]
 margin_right = 190.0
-margin_bottom = 143.0
+margin_bottom = 241.0
 
 [node name="PlayButton" type="TextureButton" parent="MainMenu/ButtonsContainer/VBoxContainer"]
 margin_right = 190.0
@@ -202,10 +202,44 @@ __meta__ = {
 "_editor_description_": "PLAY_1"
 }
 
-[node name="SettingsButton" type="TextureButton" parent="MainMenu/ButtonsContainer/VBoxContainer"]
+[node name="HostButton" type="TextureButton" parent="MainMenu/ButtonsContainer/VBoxContainer"]
 margin_top = 49.0
 margin_right = 190.0
 margin_bottom = 94.0
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 10 )
+
+[node name="Label" type="Label" parent="MainMenu/ButtonsContainer/VBoxContainer/HostButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Host"
+align = 1
+valign = 1
+__meta__ = {
+"_editor_description_": "PLAY_1"
+}
+
+[node name="JoinButton" type="TextureButton" parent="MainMenu/ButtonsContainer/VBoxContainer"]
+margin_top = 98.0
+margin_right = 190.0
+margin_bottom = 143.0
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 10 )
+
+[node name="Label" type="Label" parent="MainMenu/ButtonsContainer/VBoxContainer/JoinButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Join"
+align = 1
+valign = 1
+__meta__ = {
+"_editor_description_": "PLAY_1"
+}
+
+[node name="SettingsButton" type="TextureButton" parent="MainMenu/ButtonsContainer/VBoxContainer"]
+margin_top = 147.0
+margin_right = 190.0
+margin_bottom = 192.0
 texture_normal = ExtResource( 9 )
 texture_pressed = ExtResource( 10 )
 
@@ -217,9 +251,9 @@ align = 1
 valign = 1
 
 [node name="QuitButton" type="TextureButton" parent="MainMenu/ButtonsContainer/VBoxContainer"]
-margin_top = 98.0
+margin_top = 196.0
 margin_right = 190.0
-margin_bottom = 143.0
+margin_bottom = 241.0
 texture_normal = ExtResource( 9 )
 texture_pressed = ExtResource( 10 )
 
@@ -304,5 +338,7 @@ autoplay = true
 bus = "Music"
 
 [connection signal="button_down" from="MainMenu/ButtonsContainer/VBoxContainer/PlayButton" to="MainMenu" method="_on_PlayButton_button_down"]
+[connection signal="button_down" from="MainMenu/ButtonsContainer/VBoxContainer/HostButton" to="MainMenu" method="_on_HostButton_button_down"]
+[connection signal="button_down" from="MainMenu/ButtonsContainer/VBoxContainer/JoinButton" to="MainMenu" method="_on_JoinButton_button_down"]
 [connection signal="button_down" from="MainMenu/ButtonsContainer/VBoxContainer/SettingsButton" to="MainMenu" method="_on_SettingsButton_button_down"]
 [connection signal="button_down" from="MainMenu/ButtonsContainer/VBoxContainer/QuitButton" to="MainMenu" method="_on_QuitButton_button_down"]

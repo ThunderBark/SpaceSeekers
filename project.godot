@@ -73,6 +73,7 @@ config/description="A game about seeking space crystals and fighting for them on
 run/main_scene="res://resourses/scenes/MainMenu.tscn"
 config/icon="res://assets/icons8-desert-landscape-96.png"
 config/windows_native_icon="res://assets/icons8-desert-landscape-96.ico"
+config/quit_on_go_back=false
 
 [autoload]
 
@@ -81,7 +82,6 @@ PlayerState="*res://resourses/globals/player_state.gd"
 
 [debug]
 
-settings/stdout/print_fps=true
 gdscript/warnings/unused_argument=false
 gdscript/warnings/integer_division=false
 
@@ -102,13 +102,6 @@ enabled=PoolStringArray(  )
 
 singletons=[  ]
 singletons_disabled=[  ]
-
-[global]
-
-frame=false
-framebuffer=false
-local=false
-locale=false
 
 [gui]
 
