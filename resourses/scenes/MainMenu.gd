@@ -22,6 +22,7 @@ func _on_HostButton_button_down():
 	print(peer.create_server(3030, 2))
 	get_tree().network_peer = peer
 	print("Host ip: " + String(IP.get_local_addresses()))
+	get_tree().change_scene("res://resourses/scenes/multiplayer/MultiTest.tscn")
 
 
 func _on_JoinButton_button_down():
@@ -29,8 +30,9 @@ func _on_JoinButton_button_down():
 	print("Connecting to local IP")
 	print(peer.create_client("127.0.0.1", 3030))
 	get_tree().network_peer = peer
+	get_tree().change_scene("res://resourses/scenes/multiplayer/MultiTest.tscn")
 
 
 func _player_connected(id):
 	# Called on both clients and server when a peer connects. Send my info to it.
-	print("Player connected")
+	print("Player connected: " + String(id))
